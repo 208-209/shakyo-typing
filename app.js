@@ -8,6 +8,20 @@ var helmet = require('helmet');
 var session = require('express-session');
 var passport = require('passport');
 
+// モデルの読み込み
+var User = require('./models/user');
+var Game = require('./models/game');
+var Stage = require('./models/stage');
+var Post = require('./models/post');
+User.sync().then(() => {
+  Game.belongsTo(User, { foreignKey: 'createdBy' });
+  Game.sync();
+  Stage.belongsTo(User, { foreignKey: 'createdBy' });
+  Stage.sync();
+  Post.belongsTo(User, { foreignKey: 'createdBy' });
+  Post.sync();
+});
+
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var GOOGLE_CLIENT_ID = '690913787697-e7tilqb8e0gsk292tcrc6n0vs9h974f6.apps.googleusercontent.com';
 var GOOGLE_CLIENT_SECRET = 'XdeX7-u33vnrUBlMzMiulop7';
@@ -34,7 +48,12 @@ passport.use(new GoogleStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      return done(null, profile);
+      User.upsert({
+        userId: profile.id,
+        username: profile.displayName
+      }).then(() => {
+        done(null, profile);
+      });
     });
   }
 ));
@@ -46,7 +65,12 @@ passport.use(new TwitterStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      return done(null, profile);
+      User.upsert({
+        userId: profile.id,
+        username: profile.username
+      }).then(() => {
+        done(null, profile);
+      });
     });
   }
 ));
@@ -58,7 +82,12 @@ passport.use(new GitHubStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      return done(null, profile);
+      User.upsert({
+        userId: profile.id,
+        username: profile.username
+      }).then(() => {
+        done(null, profile);
+      });
     });
   }
 ));
