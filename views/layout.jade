@@ -4,4 +4,15 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div
+      if user
+        case user.provider
+          when "google"
+            a(href="/logout") #{user.displayName} をログアウト
+          when "twitter"
+            a(href="/logout") #{user.username} をログアウト
+          when "github"
+            a(href="/logout") #{user.username} をログアウト
+      else
+        a(href="/login") ログイン
     block content
