@@ -12,11 +12,11 @@ const Game = loader.database.define('games', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  tab: {
-    type: Sequelize.STRING,
+  tag: {
+    type: Sequelize.ARRAY(Sequelize.TEXT),
     allowNull: false
   },
-  private: {
+  privacy: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
@@ -29,7 +29,7 @@ const Game = loader.database.define('games', {
     timestamps: true,
     indexes: [
       {
-        fields: ['createdBy']
+        fields: ['createdBy', 'privacy']
       }
     ]
   });

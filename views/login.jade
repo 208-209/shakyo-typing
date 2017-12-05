@@ -1,14 +1,11 @@
 extends layout
 
 block content
-  p
-    a(href="/auth/google") Googleでログイン
-  p
-    a(href="/auth/twitter") Twitterでログイン
-  p
-    a(href="/auth/github") GitHubでログイン
   if user
     p 現在 id:#{user.id} でログイン中
     p 現在 username:#{user.username} でログイン中
     p 現在 displayName: #{user.displayName} でログイン中
-    a(href="/logout") ログアウト
+  else
+    a(href="/auth/google") Googleでログイン
+    a(href="/auth/twitter") Twitterでログイン
+    a(href="/auth/github") GitHubでログイン

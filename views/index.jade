@@ -1,4 +1,24 @@
 extends layout
 
 block content
-  
+
+  if user
+    a(href="/games/new") ゲームを作る
+    - var hasGame = myGames.length > 0
+    if hasGame
+      h3 あなたの作ったゲーム一覧
+      each myGame in myGames
+        div
+          a(href="/games/#{myGame.gameId}") #{myGame.gameName}
+          p gameId: #{myGame.gameId}
+          p tag: #{myGame.tag}
+          p privacy: #{myGame.privacy}
+          p createdAt: #{myGame.createdAt}
+          p updatedAt: #{myGame.updatedAt}
+          p createdBy: #{myGame.createdBy}
+//
+  else
+    h3 公開ゲーム一覧
+    each publicGame in publicGames
+      div
+        a(href="/games/#{publicGame.gameId}") #{publicGame.gameName}

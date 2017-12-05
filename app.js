@@ -95,6 +95,7 @@ passport.use(new GitHubStrategy({
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
+var games = require('./routes/games');
 
 var app = express();
 app.use(helmet());
@@ -118,6 +119,7 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/games', games);
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }),
