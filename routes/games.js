@@ -72,9 +72,11 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
       },
       order: '"stageId" ASC'
     }).then((stages) => {
+      const tags = game.tag.join('\n');
       res.render('edit', {
         user: req.user,
         game: game,
+        tags: tags,
         stages: stages
       });
     });
