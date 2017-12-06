@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
-const Post = require('../models/post');
+const Comment = require('../models/comment');
 
 router.get('/', (req, res, next) => {
   if (req.user) {

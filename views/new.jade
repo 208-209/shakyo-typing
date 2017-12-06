@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  form(method="post" action="/games")
+    div
+      label(for="gameName") ゲーム名
+      input(id="gameName" type="text" name="gameName")
+    div
+      label(for="tab") タブ(複数入力する場合は改行してください)
+      textarea(id="tab" name="tab" cols="30" rows="10")
+    div
+      label(for="public") 非公開
+      input(id="public" type="radio" name="privacy" value="0")
+      label(for="private") 公開
+      input(id="private" type="radio" name="privacy" value="1")
+      
+    div
+      button(type="submit") ゲームを作る

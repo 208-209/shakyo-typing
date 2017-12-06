@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  p gameName: #{game.gameName}
+  p userId: #{game.user.userId}
+  p username: #{game.user.username}
+  p gameId: #{game.gameId}
+  p tag: #{game.tag}
+  p privacy: #{game.privacy}
+  p createdAt: #{game.createdAt}
+  p updatedAt: #{game.updatedAt}
+
+  each stage in stages
+    p #{stage.stageTitle}
+    p(style="white-space:pre;") #{stage.stageContent}
+
+  

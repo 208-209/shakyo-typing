@@ -2,14 +2,14 @@
 const loader = require('./sequelize-loader');
 const Sequelize = loader.Sequelize;
 
-const Post = loader.database.define('posts', {
-  postId: {
+const Comment = loader.database.define('comments', {
+  commentId: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  postContent: {
+  comment: {
     type: Sequelize.TEXT,
     allowNull: false
   },
@@ -39,4 +39,4 @@ const Post = loader.database.define('posts', {
     ]
   });
 
-module.exports = Post;
+module.exports = Comment;

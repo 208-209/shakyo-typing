@@ -10,12 +10,14 @@ block content
       each myGame in myGames
         div
           a(href="/games/#{myGame.gameId}") #{myGame.gameName}
+          a(href="/games/#{myGame.gameId}/edit") 編集
           p gameId: #{myGame.gameId}
           p tag: #{myGame.tag}
           p privacy: #{myGame.privacy}
           p createdAt: #{myGame.createdAt}
           p updatedAt: #{myGame.updatedAt}
           p createdBy: #{myGame.createdBy}
+          
 //
   else
     h3 公開ゲーム一覧

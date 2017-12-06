@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h3 #{game.gameName}の編集
+
+  form(method="post" action="/games/#{game.gameId}?edit=1")
+    label(for="gameName") ゲームネーム
+    input(id="gameName" type="text" name="gameName" value="#{game.gameName}")
+    label(for="tag")
+    textarea(id="tag" name="tag" cols="30" rows="10" value="#{game.tag}")
+    label(for="public") 非公開
+    input(id="public" type="radio" name="privacy" value="0")
+    label(for="private") 公開
+    input(id="private" type="radio" name="privacy" value="1")
+    button(type="submit") Edit
+
+
+  form(method="post" action="/games/#{game.gameId}/stages")
+    label(for="stageTitle") ステージタイトル
+    input(id="stageTitle" type="text" name="stageTitle")
+    label(for="stageContent") ステージコンテンツ
+    textarea(id="stageContent" name="stageContent", cols="30", rows="10")
+    button(type="submit") ステージの追加
+
+  each stage in stages
+    p #{stage.stageTitle}
+    p(style="white-space:pre;") #{stage.stageContent}
