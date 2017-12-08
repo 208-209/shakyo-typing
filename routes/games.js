@@ -114,7 +114,9 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
       }
     });
   } else if (parseInt(req.query.delete) === 1) {
-
+    deleteGame(req.params.gameId, () => {
+      res.redirect('/');
+    });
   } else {
     const err = new Error('不正なリクエストです');
     err.status = 400;
@@ -124,6 +126,22 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
 
 function isMineGame(req, game) {
   return game && parseInt(game.createdBy) === parseInt(req.user.id);
+}
+
+function deleteGame (gameId, done, err) {
+  Stage.findAll({
+    where: {
+      gameId: gameId
+    }
+  }).then((stages) => {
+    const promises = stages.map((s) => { return s.destroy();});
+    return Promise.all(promises);
+  }).then(() => {
+    return Game.findById(gameId).then((g) => { return g.destroy();});
+  }).then(() => {
+    if (err) return done(err);
+    done();
+  });
 }
 
 module.exports = router;

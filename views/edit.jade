@@ -30,3 +30,10 @@ block content
   each stage in stages
     p #{stage.stageTitle}
     p(style="white-space:pre;") #{stage.stageContent}
+    form(method="post" action="/games/#{game.gameId}/stages?delete=1")
+      input(type="hidden" name="stageId" value="#{stage.stageId}")
+      button(type="submit") このステージを削除する
+
+  h3 危険な変更
+  form(method="post" action="/games/#{game.gameId}?delete=1")
+    button(type="submit") この予定を削除する

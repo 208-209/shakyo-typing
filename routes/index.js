@@ -9,6 +9,10 @@ const Comment = require('../models/comment');
 router.get('/', (req, res, next) => {
   if (req.user) {
     Game.findAll({
+      include: [{
+        model: User,
+        attributes: ['userId', 'username']
+      }],
       where: {
         createdBy: req.user.id
       },
