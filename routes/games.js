@@ -44,14 +44,20 @@ router.get('/:gameId', authenticationEnsurer, (req, res, next) => {
         },
         order: '"stageId" ASC'
       }).then((stages) => {
-        res.render('game', {
-          user: req.user,
-          game: game,
-          stages: stages
+        Comment.findAll({
+          where: {
+            gameId: req.params.gameId
+          },
+          order: '"createdAt" ASC'
+        }).then((comments) => {
+          res.render('game', {
+            game: game,
+            stages: stages,
+            comments: comments,
+            user: req.user
+          });
         });
       });
-
-
     } else {
       const err = new Error('指定されたゲームは見つかりません');
       err.status = 404;

@@ -1,17 +1,30 @@
 extends layout
 
 block content
-  p gameName: #{game.gameName}
-  p userId: #{game.user.userId}
-  p username: #{game.user.username}
-  p gameId: #{game.gameId}
-  p tag: #{game.tag}
-  p privacy: #{game.privacy}
-  p createdAt: #{game.createdAt}
-  p updatedAt: #{game.updatedAt}
+  div
+    p gameName: #{game.gameName}
+    p userId: #{game.user.userId}
+    p username: #{game.user.username}
+    p gameId: #{game.gameId}
+    p tag: #{game.tag}
+    p privacy: #{game.privacy}
+    p createdAt: #{game.createdAt}
+    p updatedAt: #{game.updatedAt}
+  div
+    each stage in stages
+      p #{stage.stageTitle}
+      p(style="white-space:pre;") #{stage.stageContent}
+  div
+    h2 投稿一覧
+    each comment in comments
+      span #{comment.commentId}
+       - var originalTrackingId = comment.trackingCookie ? comment.trackingCookie.split('_')[0] : ''
+      span ID: #{originalTrackingId}
+      span 投稿日時: #{comment.createdAt}
+      p(style="white-space:pre;") #{comment.comment}
+  div
+    h2 新規投稿
+    form(method="post" action="/games/#{game.gameId}/comments")
+      textarea(name="comment", cols="30", rows="10")
+      button(type="submit") 投稿
 
-  each stage in stages
-    p #{stage.stageTitle}
-    p(style="white-space:pre;") #{stage.stageContent}
-
-  
