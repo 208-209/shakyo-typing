@@ -1,21 +1,53 @@
 doctype html
-html
+html(lang="ja")
   head
-    title= title
+    meta(charset="UTF-8")
+    link(rel="stylesheet",
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7",
+      crossorigin="anonymous")
+    link(rel="stylesheet",
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css",
+      integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r",
+      crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
+    title code-typing
   body
-    header
-      if user
-        case user.provider
-          when "google"
-            a(href="/logout") #{user.displayName} をログアウト
-          when "twitter"
-            a(href="/logout") #{user.username} をログアウト
-          when "github"
-            a(href="/logout") #{user.username} をログアウト
-      else
-        a(href="/login") ログイン
-    main
+    nav(class="navbar navbar-default navbar-fixed-top")
+      div(class="container")
+        div(class="navbar-header")
+          button(class="navbar-toggle" data-toggle="collapse" data-target="#mainNav")
+            span(class="sr-only") ナビゲーション
+            span(class="icon-bar")
+            span(class="icon-bar")
+            span(class="icon-bar")
+          a(href="/" class="navbar-brand") code-typing
+        div(class="collapse navbar-collapse" id="mainNav")
+          ul(class="nav navbar-nav")
+            li
+              a(href="/") abcd
+            li
+              a(href="/") efgh
+            li
+              a(href="/") ijkl
+          ul(class="nav navbar-nav navbar-right")
+            li
+              if user
+                case user.provider
+                  when "google"
+                    a(href="/logout") #{user.displayName}
+                  when "twitter"
+                    a(href="/logout") #{user.username}
+                  when "github"
+                    a(href="/logout") #{user.username}
+              else
+                a(href="/login") ログイン
+    main(class="container")
       block content
     footer
+
+    script(src="https://code.jquery.com/jquery-2.2.0.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js",
+      integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS",
+      crossorigin="anonymous")
     script(src="/javascripts/bundle.js")

@@ -8,11 +8,6 @@ block content
     div
       label(for="tag") タブ(複数入力する場合は改行してください)
       textarea(id="tag" name="tag" cols="30" rows="10")
-    div
-      label(for="public") 非公開
-      input(id="public" type="radio" name="privacy" value="0")
-      label(for="private") 公開
-      input(id="private" type="radio" name="privacy" value="1")
-    div
-      button(type="submit" name="privacy" value="0") 非公開で保存
-      button(type="submit" name="privacy" value="1") 公開で保存
+    div(class="btn-group pull-right")
+      button(class="btn btn-warning" type="submit" name="privacy" value="0") 非公開で保存
+      button(class="btn btn-info" type="submit" name="privacy" value="1") 公開で保存
