@@ -17,9 +17,34 @@ router.get('/', (req, res, next) => {
       },
       order: '"updatedAt" DESC'
     }).then((myGames) => {
-      res.render('index', {
-        user: req.user,
-        myGames:myGames
+      Stage.findAll({
+        include: [{
+          model: Game,
+          attributes: ['gameId', 'gameName']
+        }],
+        where: {
+          createdBy: req.user.id
+        },
+        order: '"stageId" DESC'
+      }).then((myStages) => {
+        const gameMap = new Map();
+        myGames.forEach((g) => {
+          const stageArray = new Array();
+          myStages.forEach((s) => {
+            if (g.gameId === s.gameId) {
+              stageArray.push([s.stageTitle, s.stageContent]);
+            }
+          });
+          console.log(stageArray);
+          gameMap.set(g.gameId, stageArray)
+          console.log(gameMap);
+        });
+        res.render('index', {
+          user: req.user,
+          myGames:myGames,
+          myStages: myStages,
+          gameMap:gameMap
+        });
       });
     });
   } else {

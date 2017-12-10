@@ -6,10 +6,8 @@ block content
       a(href="/") Home
     li(class="breadcrumb-item active") Login
   if user
-    p 現在 id:#{user.id} でログイン中
-    p 現在 username:#{user.username} でログイン中
-    p 現在 displayName: #{user.displayName} でログイン中
+    button(type="button" class="btn btn-primary btn-lg btn-block") #{user.username} でログイン中
   else
-    a(href="/auth/google") Googleでログイン
-    a(href="/auth/twitter") Twitterでログイン
-    a(href="/auth/github") GitHubでログイン
+    a(href="/auth/google" type="button" class="btn btn-primary btn-lg btn-block") Googleでログイン
+    a(href="/auth/twitter" type="button" class="btn btn-primary btn-lg btn-block") Twitterでログイン
+    a(href="/auth/github" type="button" class="btn btn-primary btn-lg btn-block") GitHubでログイン
