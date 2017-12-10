@@ -1,30 +1,26 @@
 extends layout
 
 block content
-  div
-    p gameName: #{game.gameName}
-    p userId: #{game.user.userId}
-    p username: #{game.user.username}
-    p gameId: #{game.gameId}
-    p tag: #{game.tag}
-    p privacy: #{game.privacy}
-    p createdAt: #{game.createdAt}
-    p updatedAt: #{game.updatedAt}
-  div
-    each stage in stages
-      p #{stage.stageTitle}
-      p(style="white-space:pre;") #{stage.stageContent}
-  div
-    h2 投稿一覧
-    each comment in comments
-      span #{comment.commentId}
-       - var originalTrackingId = comment.trackingCookie ? comment.trackingCookie.split('_')[0] : ''
-      span ID: #{originalTrackingId}
-      span 投稿日時: #{comment.createdAt}
-      p(style="white-space:pre;") #{comment.comment}
-  div
-    h2 新規投稿
-    form(method="post" action="/games/#{game.gameId}/comments")
-      textarea(name="comment", cols="30", rows="10")
-      button(type="submit") 投稿
+  ol(class="breadcrumb")
+    li(class="breadcrumb-item")
+      a(href="/") Home
+    li(class="breadcrumb-item active") #{game.gameName}
 
+  div(class="jumbotron")
+    - var isMine = parseInt(user.id) === parseInt(game.user.userId)
+    if isMine
+      form(method="post" action="/games/#{game.gameId}?delete=1")
+        button(class="btn btn-danger pull-right" type="submit") 削除
+        a(href="/games/#{game.gameId}/edit" class="btn btn-warning pull-right") 編集
+    h2 #{game.gameName}
+    h3 @#{game.user.username} 
+      small #{game.updatedAt} 更新
+    
+
+  each stage in stages
+    div(class="panel panel-default")
+      div(class="panel-heading")
+        h4(class="panel-title") #{stage.stageTitle}
+      div(class="panel-body")
+        p(class="panel-text") #{stage.stageContent}
+      div(class="row")

@@ -1,39 +1,51 @@
 extends layout
 
 block content
-  h3 #{game.gameName}の編集
+  ol(class="breadcrumb")
+      li(class="breadcrumb-item")
+        a(href="/") Home
+      li(class="breadcrumb-item active") #{game.gameName}
+    div(class="row")
 
-  form(method="post" action="/games/#{game.gameId}?edit=1")
-    div
-      label(for="gameName") ゲームネーム
-      input(id="gameName" type="text" name="gameName" value="#{game.gameName}")
-    div
-      label(for="tag") タグ (複数入力する場合は改行してください)
-      textarea(id="tag" name="tag" cols="30" rows="10") #{tags}
-    div
-      label(for="public") 非公開
-      input(id="public" type="radio" name="privacy" value="0")
-      label(for="private") 公開
-      input(id="private" type="radio" name="privacy" value="1")
-    div
-      button(type="submit" name="privacy" value="0") 非公開で保存
-      button(type="submit" name="privacy" value="1") 公開で保存
+    
 
 
-  form(method="post" action="/games/#{game.gameId}/stages")
-    label(for="stageTitle") ステージタイトル
-    input(id="stageTitle" type="text" name="stageTitle")
-    label(for="stageContent") ステージコンテンツ
-    textarea(id="stageContent" name="stageContent", cols="30", rows="10")
-    button(type="submit") ステージの追加
+
+  form(method="post" action="/games/#{game.gameId}/stages?edit=1")
+    div(class="form-group")
+      label(for="stageTitle") ステージタイトル
+      input(id="stageTitle" class="form-control" type="text" name="stageTitle")
+    div(class="form-group")
+      label(for="stageContent") ステージコンテンツ
+      textarea(id="stageContent" class="form-control" name="stageContent")
+    div(class="form-group pull-right")
+      button(class="form-control btn btn-info" type="submit") ステージの追加
+    div(class="row")
 
   each stage in stages
-    p #{stage.stageTitle}
-    p(style="white-space:pre;") #{stage.stageContent}
-    form(method="post" action="/games/#{game.gameId}/stages?delete=1")
-      input(type="hidden" name="stageId" value="#{stage.stageId}")
-      button(type="submit") このステージを削除する
+    div(class="panel panel-default")
+      div(class="panel-heading")
+        h4(class="panel-title") #{stage.stageTitle}
+      div(class="panel-body")
+        p(class="panel-text") #{stage.stageContent}
+      div(class="panel-footer")
+        form(method="post" action="/games/#{game.gameId}/stages?delete=1")
+          input(type="hidden" name="stageId" value="#{stage.stageId}")
+          button(class="btn btn-danger" type="submit") Delete
 
-  h3 危険な変更
-  form(method="post" action="/games/#{game.gameId}?delete=1")
-    button(type="submit") この予定を削除する
+  form(method="post" action="/games/#{game.gameId}?edit=1")
+    div(class="form-group")
+      label(for="gameName") ゲームネーム
+      input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
+    div(class="form-group")
+      label(for="tag") タグ
+      textarea(id="tag" class="form-control" name="tag") #{tags}
+      p(class="help-block") ※複数入力する場合は改行してください
+
+    div(class="form-group")
+      label(for="privacy") プライバシー
+      select(id="privacy" class="form-control" name="privacy" data-value="#{game.privacy}")
+        option(value="0") 非公開
+        option(value="1") 公開
+    div(class="form-group btn-group pull-right")
+      button(class="btn" type="submit") 保存

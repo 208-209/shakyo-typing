@@ -1,4 +1,9 @@
 body {
   padding-top: 70px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.panel {
+  white-space: pre-wrap;
+}
+.modal-body {
+  height: 750px
 }

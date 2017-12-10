@@ -12,14 +12,11 @@ var passport = require('passport');
 var User = require('./models/user');
 var Game = require('./models/game');
 var Stage = require('./models/stage');
-var Comment = require('./models/comment');
 User.sync().then(() => {
   Game.belongsTo(User, { foreignKey: 'createdBy' });
   Game.sync();
   Stage.belongsTo(User, { foreignKey: 'createdBy' });
   Stage.sync();
-  Comment.belongsTo(User, { foreignKey: 'createdBy' });
-  Comment.sync();
 });
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -97,7 +94,6 @@ var login = require('./routes/login');
 var logout = require('./routes/logout');
 var games = require('./routes/games');
 var stages = require('./routes/stages');
-var comments = require('./routes/comments');
 
 var app = express();
 app.use(helmet());
@@ -123,7 +119,6 @@ app.use('/login', login);
 app.use('/logout', logout);
 app.use('/games', games);
 app.use('/games', stages);
-app.use('/games', comments);
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }),

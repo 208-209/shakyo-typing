@@ -33,6 +33,9 @@ html(lang="ja")
           ul(class="nav navbar-nav navbar-right")
             li
               if user
+              a(href="/games/new") ゲームを作る
+            li
+              if user
                 case user.provider
                   when "google"
                     a(href="/logout") #{user.displayName}
@@ -42,7 +45,7 @@ html(lang="ja")
                     a(href="/logout") #{user.username}
               else
                 a(href="/login") ログイン
-    main(class="container")
+    div(class="container")
       block content
     footer
 
