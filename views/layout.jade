@@ -25,9 +25,9 @@ html(lang="ja")
             li
               a(href="/") ijkl
           ul(class="nav navbar-nav navbar-right")
-            li
-              if user
-              a(href="/games/new") ゲームを作る
+            if user
+              div(class="nav navbar-nav")
+                a(href="/games/new" type="button" class="btn btn-default navbar-btn") ゲームを作る
             li(class="dropdown")
               if user
                 case user.provider

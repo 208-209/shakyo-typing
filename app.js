@@ -15,7 +15,7 @@ var Stage = require('./models/stage');
 User.sync().then(() => {
   Game.belongsTo(User, { foreignKey: 'createdBy' });
   Game.sync();
-  Stage.belongsTo(Game, { foreignKey: 'gameId' });
+  Stage.belongsTo(User, { foreignKey: 'createdBy' });
   Stage.sync();
 });
 
