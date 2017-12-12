@@ -18,8 +18,8 @@ block content
 
   div(class="tab-content")
     div(class="tab-pane fade in active" id="public")
-      - var hasMyGames = publicGames.length > 0
-      if hasMyGames
+      - var hasPublicGames = publicGames.length > 0
+      if hasPublicGames
         each publicGame in publicGames
           div(class="panel panel-default")
             div(class="panel-body")
@@ -40,11 +40,11 @@ block content
                   button(class="close" data-dismiss="modal")
                     span(aria-hidden="true") &times;
                 div(class="modal-body")
-                  div(id="title") たいとる
+                  div(id="modalTitle") たいとる
 
-                  div(id="content") こんてんつ
+                  div(id="modalContent") こんてんつ
 
-                  div(id="keyboard") きーぼーど
+                  div(id="modalKeyboard") きーぼーど
 
                 div(class="modal-footer")
                   button(class="btn btn-default" data-dismiss="modal") Close
@@ -74,11 +74,11 @@ block content
                     button(class="close" data-dismiss="modal")
                       span(aria-hidden="true") &times;
                   div(class="modal-body")
-                    div(id="title") たいとる
+                    div(id="modalTitle") たいとる
 
-                    div(id="content") こんてんつ
+                    div(id="modalContent") こんてんつ
 
-                    div(id="keyboard") きーぼーど
+                    div(id="modalKeyboard") きーぼーど
 
                   div(class="modal-footer")
                     button(class="btn btn-default" data-dismiss="modal") Close
