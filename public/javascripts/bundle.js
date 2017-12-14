@@ -10424,6 +10424,10 @@ $('#playGame').each((i, e) => {
       }
     });
 
+    $('#replayBtn').click(() => {
+      init();
+    });
+
 
     function setStage() {
       $('#modalStart').hide();
@@ -10496,7 +10500,7 @@ $('#playGame').each((i, e) => {
       const score = (WPM * Math.pow(accuracy, 3)).toFixed(2);
       const level = determine(score);
       const result = `スコア: ${score}<br>レベル: ${level}<br>入力時間: ${elapsedTime}<br>入力文字: ${correct}<br>ミス入力: ${miss}<br>WPM: ${WPM}<br>正解率: ${accuracy * 100}%`;
-      modalContent.html(result);
+      $('#result').html(result);
     }
 
     function determine(score) {
