@@ -77,6 +77,7 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
           tags: tags,
           stages: stages
         });
+        console.log(game.privacy);
       });
     } else {
       const err = new Error('指定されたゲームがない、または、編集する権限がありません');

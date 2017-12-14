@@ -17,7 +17,7 @@ const Game = loader.database.define('games', {
     allowNull: false
   },
   privacy: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   },
   createdBy: {

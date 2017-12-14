@@ -90,6 +90,7 @@ passport.use(new GitHubStrategy({
 ));
 
 var routes = require('./routes/index');
+var users = require('./routes/users');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var games = require('./routes/games');
@@ -117,6 +118,7 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/users', users);
 app.use('/games', games);
 app.use('/games', stages);
 

@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  ol(class="breadcrumb")
+    li(class="breadcrumb-item active")
+      a(href="/") Home
+      
+  ul(class="nav nav-tabs")
+    if user
+      li
+        a(href="/") Home
+      li(class="active")
+        a(href="/users/#{user.id}") #{user.username}
+  
+  if user
+    - var hasGames = games.length > 0
+    if hasGames
+      each game in games
+        div(class="panel panel-default")
+          div(class="panel-body")
+            h3 #{game.gameName}
+            h4 #{game.privacy}
+            h4
+              each tag in game.tag
+                span(class="label label-info") #{tag}
+            - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+            a(id="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
+            a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
+        div(class="modal fade" id="#{game.gameId}")
+          div(class="modal-dialog modal-lg")
+            div(class="modal-content")
+              div(id="modalStart")
+                div(class="modal-body")
+                    h1 すたーと
+                  div(class="modal-footer")
+                    button(class="btn btn-default" data-dismiss="modal") Close
+
+              div(id="modalPlaying")
+                div(class="modal-body")
+                  div(id="modalTitle") たいとる
+
+                  div(id="modalContent") こんてんつ
+
+                  div(id="modalKeyboard") きーぼーど
+                div(class="modal-footer")
+                  button(class="btn btn-default" data-dismiss="modal") Close
+
+              div(id="modalResult")
+                div(class="modal-body")
+                  h1 りざると
+                div(class="modal-footer")
+                  button(class="btn btn-default" data-dismiss="modal") Close
+                  button(class="btn btn-default" data-dismiss="modal") Close
+                  button(class="btn btn-default" data-dismiss="modal") Close

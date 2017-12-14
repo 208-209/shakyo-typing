@@ -3,6 +3,13 @@ const $ = require('jquery');
 const global = Function('return this;')();
 global.jQuery = $;
 const bootstrap = require('bootstrap');
+/*
+$(window).on('load', () => {
+  const privacy = $('#privacy').data('privacy');
+  $('#privacy').val(privacy);
+  console.log(privacy);
+});
+*/
 
 $('[data-toggle="tooltip"]').tooltip();
 
@@ -68,6 +75,9 @@ $('#playGame').each((i, e) => {
 
 
     function setStage() {
+      $('#modalStart').hide();
+      $('#modalPlaying').show();
+      $('#modalResult').hide();
       currentTitle = stages[stageNumber][0];
       currentContent = stages[stageNumber][1];
       modalTitle.html(currentTitle);
@@ -99,6 +109,9 @@ $('#playGame').each((i, e) => {
     }
 
     function init() {
+      $('#modalStart').show();
+      $('#modalPlaying').hide();
+      $('#modalResult').hide();
       currentContent = 'スペースキーで開始';
       stageNumber = 0;
       currentNumber = 0;
@@ -123,6 +136,9 @@ $('#playGame').each((i, e) => {
 
     // スコア、レベル、入力時間、入力文字、ミス入力、WPM、正解率、苦手キー
     function result() {
+      $('#modalStart').hide();
+      $('#modalPlaying').hide();
+      $('#modalResult').show();
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const elapsedTime = (currentTime / 1000).toFixed(2)
       const WPM = ((correct + miss) / elapsedTime * 60).toFixed(2);
@@ -152,4 +168,7 @@ $('#playGame').each((i, e) => {
 
     init();
   });
+
+
+  
 });

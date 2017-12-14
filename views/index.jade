@@ -5,82 +5,41 @@ block content
     li(class="breadcrumb-item active")
       a(href="/") Home
       
-  div(class="container")
-    ul(class="nav nav-tabs")
-      if user
-        li(class="active")
-          a(href="#public" data-toggle="tab") public
-        li
-          a(href="#yourself" data-toggle="tab") yourself
-      else
-        li(class="active")
-          a(href="#public" data-toggle="tab") public
+  ul(class="nav nav-tabs")
+    if user
+      li(class="active")
+        a(href="/") Home
+      li
+        a(href="/users/#{user.id}") #{user.username}
+    else
+      li(class="active")
+        a(href="/") Home
+  
+  - var hasGames = games.length > 0
+  if hasGames
+    each game in games
+      div(class="row")
+      div(class="panel panel-default")
+        div(class="panel-body")
+          h3 #{game.gameName}
+          h4 #{game.privacy}
+          h4
+            each tag in game.tag
+              span(class="label label-info") #{tag}
+          - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+          a(id="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
+          a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
+      div(class="modal fade" id="#{game.gameId}")
+        div(class="modal-dialog modal-lg")
+          div(class="modal-content")
+            div(class="modal-body")
+              div(id="modalTitle") たいとる
 
-  div(class="tab-content")
-    div(class="tab-pane fade in active" id="public")
-      - var hasPublicGames = publicGames.length > 0
-      if hasPublicGames
-        each publicGame in publicGames
-          div(class="panel panel-default")
-            div(class="panel-body")
-              h3 #{publicGame.gameName}
-              h4 #{publicGame.privacy}
-              h4
-                each tag in publicGame.tag
-                  span(class="label label-info") #{tag}
-              - var stages = JSON.stringify(Array.from(publicGameMap.get(publicGame.gameId)))
-              a(id="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{publicGame.gameId}") start
-              a(class="btn btn-default" href="/games/#{publicGame.gameId}") 詳しく見る
+              div(id="modalContent") こんてんつ
 
-          div(class="modal fade" id="#{publicGame.gameId}")
-            div(class="modal-dialog modal-lg")
-              div(class="modal-content")
-                div(class="modal-header")
-                  h3(class="modal-title") #{publicGame.gameName}
-                  button(class="close" data-dismiss="modal")
-                    span(aria-hidden="true") &times;
-                div(class="modal-body")
-                  div(id="modalTitle") たいとる
+              div(id="modalKeyboard") きーぼーど
 
-                  div(id="modalContent") こんてんつ
-
-                  div(id="modalKeyboard") きーぼーど
-
-                div(class="modal-footer")
-                  button(class="btn btn-default" data-dismiss="modal") Close
-                  button(class="btn btn-default" data-dismiss="modal") Close
-                  button(class="btn btn-default" data-dismiss="modal") Close
-    div(class="tab-pane fade" id="yourself")
-      if user
-        - var hasMyGames = myGames.length > 0
-        if hasMyGames
-          each myGame in myGames
-            div(class="panel panel-default")
-              div(class="panel-body")
-                h3 #{myGame.gameName}
-                h4 #{myGame.privacy}
-                h4
-                  each tag in myGame.tag
-                    span(class="label label-info") #{tag}
-                - var stages = JSON.stringify(Array.from(myGameMap.get(myGame.gameId)))
-                a(id="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{myGame.gameId}") start
-                a(class="btn btn-default" href="/games/#{myGame.gameId}") 詳しく見る
-
-            div(class="modal" id="#{myGame.gameId}")
-              div(class="modal-dialog modal-lg")
-                div(class="modal-content")
-                  div(class="modal-header")
-                    h3(class="modal-title") #{myGame.gameName}
-                    button(class="close" data-dismiss="modal")
-                      span(aria-hidden="true") &times;
-                  div(class="modal-body")
-                    div(id="modalTitle") たいとる
-
-                    div(id="modalContent") こんてんつ
-
-                    div(id="modalKeyboard") きーぼーど
-
-                  div(class="modal-footer")
-                    button(class="btn btn-default" data-dismiss="modal") Close
-                    button(class="btn btn-default" data-dismiss="modal") Close
-                    button(class="btn btn-default" data-dismiss="modal") Close
+            div(class="modal-footer")
+              button(class="btn btn-default" data-dismiss="modal") Close
+              button(class="btn btn-default" data-dismiss="modal") Close
+              button(class="btn btn-default" data-dismiss="modal") Close
