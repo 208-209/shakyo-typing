@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
   Game.findAll({
     include: [{
       model: User,
-      attributes: ['userId', 'username']
+      attributes: ['userId', 'username', 'nickname']
     }],
     where: {
       privacy: 'public'

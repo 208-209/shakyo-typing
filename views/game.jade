@@ -1,21 +1,22 @@
 extends layout
 
 block content
+  //- パンくずリスト
   ol(class="breadcrumb")
     li(class="breadcrumb-item")
       a(href="/") Home
     li(class="breadcrumb-item active") #{game.gameName}
 
   div(class="jumbotron")
-    - var isMine = parseInt(user.id) === parseInt(game.user.userId)
-    if isMine
-      form(method="post" action="/games/#{game.gameId}?delete=1")
-        button(class="btn btn-danger pull-right" type="submit") 削除
-        a(href="/games/#{game.gameId}/edit" class="btn btn-warning pull-right") 編集
+    if user
+      - var isMine = parseInt(user.id) === parseInt(game.createdBy)
+      if isMine
+        form(method="post" action="/games/#{game.gameId}?delete=1")
+          button(class="btn btn-danger pull-right" type="submit") 削除
+          a(href="/games/#{game.gameId}/edit" class="btn btn-warning pull-right") 編集
     h2 #{game.gameName}
     h3 @#{game.user.username} 
       small #{game.updatedAt} 更新
-    
 
   each stage in stages
     div(class="panel panel-default")

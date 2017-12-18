@@ -25,7 +25,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/:gameId', authenticationEnsurer, (req, res, next) => {
+router.get('/:gameId', (req, res, next) => {
   Game.findOne({
     include: [{
       model: User,
@@ -36,7 +36,7 @@ router.get('/:gameId', authenticationEnsurer, (req, res, next) => {
     }
   }).then((game) => {
     // (プライバシーが公開 && ゲームがある) || (プライバシーが非公開 && 作成者と閲覧者が同一 && ゲームがある)
-    if (game) {
+    if (game.privacy === 'public' && game || game.privacy === 'public' && parseInt(req.user.id) === parseInt(game.createdBy) && game) {
       Stage.findAll({
         where: {
           gameId: game.gameId

@@ -1,20 +1,21 @@
 extends layout
 
 block content
+  //- パンくずリスト
   ol(class="breadcrumb")
     li(class="breadcrumb-item active")
       a(href="/") Home
-      
+  //- タブ
   ul(class="nav nav-tabs")
     if user
       li(class="active")
         a(href="/") Home
       li
-        a(href="/users/#{user.id}") #{user.username}
+        a(href="/users/#{user.id}/gemes") #{user.username}
     else
       li(class="active")
         a(href="/") Home
-  
+  //- パネル
   - var hasGames = games.length > 0
   if hasGames
     each game in games
@@ -29,15 +30,17 @@ block content
           - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
           a(id="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
           a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
+      //- modal
       div(class="modal fade" id="#{game.gameId}")
         div(class="modal-dialog modal-lg")
           div(class="modal-content")
+            //- start
             div(id="modalStart")
               div(class="modal-body")
                   h1 すたーと
                 div(class="modal-footer")
                   button(class="btn btn-default" data-dismiss="modal") Close
-
+            //- playing
             div(id="modalPlaying")
               div(class="modal-body")
                 div(id="modalTitle") たいとる
@@ -47,7 +50,7 @@ block content
                 div(id="modalKeyboard") きーぼーど
               div(class="modal-footer")
                 button(class="btn btn-default" data-dismiss="modal") Close
-
+            //- result
             div(id="modalResult")
               div(class="modal-body")
                 div(id="result")

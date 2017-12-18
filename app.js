@@ -14,9 +14,11 @@ var Game = require('./models/game');
 var Stage = require('./models/stage');
 User.sync().then(() => {
   Game.belongsTo(User, { foreignKey: 'createdBy' });
-  Game.sync();
   Stage.belongsTo(User, { foreignKey: 'createdBy' });
-  Stage.sync();
+  Game.sync().then(() => {
+    Stage.belongsTo(Game, { foreignKey: 'gameId' });
+    Stage.sync();
+  });
 });
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;

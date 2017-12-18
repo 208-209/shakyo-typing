@@ -6,12 +6,12 @@ const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 
-router.get('/:userId', authenticationEnsurer, (req, res, next) => {
+router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
   if (req.user) {
     Game.findAll({
       include: [{
         model: User,
-        attributes: ['userId', 'username']
+        attributes: ['userId', 'username', 'nickname']
       }],
       where: {
         createdBy: req.user.id
