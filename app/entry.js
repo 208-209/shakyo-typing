@@ -16,7 +16,6 @@ $('[data-toggle="tooltip"]').tooltip();
 $('#playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
-    const stages = playGame.data('stages');
     const modalBody = $('#modal-body');
     const modalTitle = $('#modalTitle');
     const modalContent = $('#modalContent');
@@ -24,6 +23,9 @@ $('#playGame').each((i, e) => {
     const correctInfo = $('#correct');
     const missInfo = $('#miss');
     const timerInfo = $('#timer');
+    const dataStages = playGame.data('stages');
+    const missStages = new Map();
+    let stages = dataStages;
 
     const validLetter = ['a', 'A', 'i', 'I', 'u', 'U', 'e', 'E', 'o', 'O'];
     let stageNumber; // stages code letter
@@ -57,11 +59,13 @@ $('#playGame').each((i, e) => {
       } else {
         miss++;
         missInfo.html(miss);
+        missStages.set(currentTitle, currentContent);
       }
-      console.log(stages);
-      console.log(currentTitle);
-      console.log(currentContent);
-      console.log(String.fromCharCode(e.which) + ':' + e.which);
+      console.log(missStages);
+      // console.log(stages);
+      // console.log(currentTitle);
+      // console.log(currentContent);
+      // console.log(String.fromCharCode(e.which) + ':' + e.which);
     });
 
     $(window).keypress((e) => {
@@ -74,9 +78,16 @@ $('#playGame').each((i, e) => {
     });
 
     $('#replayBtn').click(() => {
+      stages = dataStages;
+      shuffle(stages);
       init();
     });
 
+    $('#missBtn').click(() => {
+      stages = Array.from(missStages);
+      shuffle(stages);
+      init();
+    });
 
     function setStage() {
       $('#modalStart').hide();
@@ -121,11 +132,11 @@ $('#playGame').each((i, e) => {
       currentNumber = 0;
       correct = 0;
       miss = 0;
+      missStages.clear();
       modalContent.html(currentContent);
       correctInfo.html(correct);
       missInfo.html(miss);
       isStarted = false;
-      shuffle(stages);
     }
 
     function shuffle(array) {
@@ -143,6 +154,7 @@ $('#playGame').each((i, e) => {
       $('#modalStart').hide();
       $('#modalPlaying').hide();
       $('#modalResult').show();
+      missStages.size ? $('#missBtn').show() : $('#missBtn').hide();
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const elapsedTime = (currentTime / 1000).toFixed(2)
       const WPM = ((correct + miss) / elapsedTime * 60).toFixed(2);
