@@ -79,13 +79,11 @@ $('#playGame').each((i, e) => {
 
     $('#replayBtn').click(() => {
       stages = dataStages;
-      shuffle(stages);
       init();
     });
 
     $('#missBtn').click(() => {
       stages = Array.from(missStages);
-      shuffle(stages);
       init();
     });
 
@@ -136,6 +134,7 @@ $('#playGame').each((i, e) => {
       modalContent.html(currentContent);
       correctInfo.html(correct);
       missInfo.html(miss);
+      shuffle(stages);
       isStarted = false;
     }
 
@@ -181,10 +180,6 @@ $('#playGame').each((i, e) => {
         return 'D';
       }
     }
-
     init();
   });
-
-
-  
 });

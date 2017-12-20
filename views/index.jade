@@ -47,7 +47,9 @@ block content
 
                 pre(id="modalContent" class="pre-scrollable") こんてんつ
 
-                div(id="modalKeyboard") きーぼーど
+                div(id="modalKeyboard")
+                  include includes/keyboard.jade
+
               div(class="modal-footer")
                 button(class="btn btn-default" data-dismiss="modal") Close
             //- result
@@ -56,6 +58,6 @@ block content
                 div(id="result")
               div(class="modal-footer")
                 button(id="twitterBtn" class="btn btn-default") ツイート
-                button(id="missOnlyBtn" class="btn btn-default") ミスだけ
+                button(id="missBtn" class="btn btn-default") ミスだけ
                 button(id="replayBtn" class="btn btn-default") もう一回
                 button(class="btn btn-default" data-dismiss="modal") 閉じる
