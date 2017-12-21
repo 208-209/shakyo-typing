@@ -1,11 +1,17 @@
 body {
   padding-top: 70px;
 }
-.panel {
+.panel #modalContent {
   white-space: pre-wrap;
 }
+
 .modal-body {
-  height: 500px
+  height: 600px;
+}
+
+#modalContent {
+  overflow-y: scroll;
+  height: 300px;
 }
 
 #modalPlaying {
@@ -16,12 +22,50 @@ body {
   display: none;
 }
 
-table {
-  border: solid;
+.keyboard {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.keyboard div {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
   text-align: center;
-  vertical-align: middle;
-  border-collapse: separate;
+  border: 1px solid #f9f9f9;
+  border-radius: 5px;
+  margin: 0 4px 4px 0;
 }
-tr td {
-  border: solid;
+
+.keyboard .tab, .keyboard .enter-top {
+  width: 74px;
 }
+
+.keyboard .capsLock {
+  width: 100px;
+}
+
+.keyboard .left-shift {
+  width: 126px;
+}
+
+.keyboard .right-shift {
+  width: 74px;
+}
+
+.keyboard .blank {
+  width: 60px;
+}
+
+.keyboard .space {
+  width: 200px;
+}
+
+.letter {
+  color: white;
+  font: bold;
+  background-color: orange;
+  border: 1px solid orange;
+}
+

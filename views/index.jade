@@ -32,32 +32,4 @@ block content
           a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
       //- modal
       div(class="modal fade" id="#{game.gameId}")
-        div(class="modal-dialog modal-lg")
-          div(class="modal-content")
-            //- start
-            div(id="modalStart")
-              div(class="modal-body")
-                  h1 すたーと
-                div(class="modal-footer")
-                  button(class="btn btn-default" data-dismiss="modal") Close
-            //- playing
-            div(id="modalPlaying")
-              div(class="modal-body")
-                div(id="modalTitle") たいとる
-
-                pre(id="modalContent" class="pre-scrollable") こんてんつ
-
-                div(id="modalKeyboard")
-                  include includes/keyboard.jade
-
-              div(class="modal-footer")
-                button(class="btn btn-default" data-dismiss="modal") Close
-            //- result
-            div(id="modalResult")
-              div(class="modal-body")
-                div(id="result")
-              div(class="modal-footer")
-                button(id="twitterBtn" class="btn btn-default") ツイート
-                button(id="missBtn" class="btn btn-default") ミスだけ
-                button(id="replayBtn" class="btn btn-default") もう一回
-                button(class="btn btn-default" data-dismiss="modal") 閉じる
+        include includes/modal.jade
