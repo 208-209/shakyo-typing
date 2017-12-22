@@ -10399,14 +10399,14 @@ $('#playGame').each((i, e) => {
       }
       if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
         currentNumber++;
-        isLetter();
         nextStage();
+        isLetter();
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
         correctInfo.html(correct);
-        isLetter();
         nextStage();
+        isLetter();
       } else {
         miss++;
         missInfo.html(miss);
@@ -10457,15 +10457,13 @@ $('#playGame').each((i, e) => {
       }, 10);
     }
 
-    function isTarget() {
-
-    }
-
     function isLetter() {
+      const currentKeyCode = currentContent[currentNumber].charCodeAt();
       $('.key').removeClass('letter');
-      $('.' + currentContent[currentNumber]).addClass('letter');
+      $('.key_' + currentKeyCode).addClass('letter');
       modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span style="color: red">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
       console.log(currentContent[currentNumber]);
+      console.log(currentKeyCode);
     }
 
     function nextStage() {
