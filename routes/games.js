@@ -41,7 +41,7 @@ router.get('/:gameId', (req, res, next) => {
         where: {
           gameId: game.gameId
         },
-        order: '"stageId" ASC'
+        order: '"stageId" DESC'
       }).then((stages) => {
         res.render('game', {
           game: game,
@@ -68,7 +68,7 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
         where: {
           gameId: game.gameId
         },
-        order: '"stageId" ASC'
+        order: '"stageId" DESC'
       }).then((stages) => {
         const tags = game.tag.join('\n');
         res.render('edit', {
