@@ -18,7 +18,7 @@ router.post('/:gameId/stages', authenticationEnsurer, (req, res, next) => {
           stageTitle: req.body.stageTitle,
           stageContent: req.body.stageContent,
           gameId: game.gameId,
-          createdBy: req.user.id
+          userId: req.user.id
         }).then(() => {
           res.redirect('/games/' + game.gameId + '/edit');
         });

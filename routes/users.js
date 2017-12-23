@@ -20,7 +20,7 @@ router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
     }).then((games) => {
       Stage.findAll({
         where: {
-          createdBy: req.user.id
+          userId: req.user.id
         },
         order: '"stageId" DESC'
       }).then((stages) => {

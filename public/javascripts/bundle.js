@@ -10458,7 +10458,7 @@ $('#playGame').each((i, e) => {
     }
 
     function isLetter() {
-      const currentKeyCode = currentContent[currentNumber].charCodeAt();
+      const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
       $('.key').removeClass('letter');
       $('.key_' + currentKeyCode).addClass('letter');
       modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span style="color: red">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);

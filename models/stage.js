@@ -21,7 +21,7 @@ const Stage = loader.database.define('stages', {
     type: Sequelize.UUID,
     allowNull: false
   },
-  createdBy: {
+  userId: {
     type: Sequelize.STRING,
     allowNull: false
   }
