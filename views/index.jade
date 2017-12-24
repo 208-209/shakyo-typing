@@ -25,10 +25,10 @@ block content
           h3 #{game.gameName}
           h4 #{game.privacy}
           h4
-            each tag in game.tag
+            each tag in game.tags
               span(class="label label-info") #{tag}
           - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-          a(id="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
+          a(class="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
           a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
       //- modal
       div(class="modal fade" id="#{game.gameId}")

@@ -2,7 +2,7 @@
 div(class="modal-dialog modal-lg")
   div(class="modal-content")
     //- start
-    div(id="modalStart")
+    div(class="modalStart")
       div(class="modal-header")
         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
           span(aria-hidden="true") &times;
@@ -12,23 +12,23 @@ div(class="modal-dialog modal-lg")
         div(class="modal-footer")
           button(class="btn btn-default" data-dismiss="modal") Close
     //- playing
-    div(id="modalPlaying")
+    div(class="modalPlaying")
       div(class="modal-header")
         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
           span(aria-hidden="true") &times;
         h4(class="modal-title text-center")
       div(class="modal-body")
         div
-          span(id="correct")
-          span(id="miss")
-          span(id="timer")
+          span(class="correct")
+          span(class="miss")
+          span(class="timer")
 
 
-        div(id="modalTitle")
+        div(class="modalTitle")
 
-        div(id="modalContent")
+        div(class="modalContent")
 
-        div(id="modalKeyboard" class="keyboard")
+        div(class="modalKeyboard keyboard")
           div(class="key")
           div(class="key key_49 key_33") 1
           div(class="key key_50 key_34") 2
@@ -99,15 +99,15 @@ div(class="modal-dialog modal-lg")
       div(class="modal-footer")
         button(class="btn btn-default" data-dismiss="modal") Close
     //- result
-    div(id="modalResult")
+    div(class="modalResult")
       div(class="modal-header")
         button(type="button" class="close" data-dismiss="modal" aria-label="Close")
           span(aria-hidden="true") &times;
         h4(class="modal-title text-center") #{game.gameName}
       div(class="modal-body")
-        div(id="result")
+        div(class="result")
       div(class="modal-footer")
-        button(id="twitterBtn" class="btn btn-default") ツイート
-        button(id="missBtn" class="btn btn-default") ミスだけ
-        button(id="replayBtn" class="btn btn-default") もう一回
+        button(class="twitterBtn btn btn-default") ツイート
+        button(class="missBtn btn btn-default") ミスだけ
+        button(class="replayBtn btn btn-default") もう一回
         button(class="btn btn-default" data-dismiss="modal") 閉じる

@@ -10364,16 +10364,16 @@ $(window).on('load', () => {
 
 $('[data-toggle="tooltip"]').tooltip();
 
-$('#playGame').each((i, e) => {
+$('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
-    const modalBody = $('#modal-body');
-    const modalTitle = $('#modalTitle');
-    const modalContent = $('#modalContent');
-    const modalKeyboard = $('#modalKeyboard');
-    const correctInfo = $('#correct');
-    const missInfo = $('#miss');
-    const timerInfo = $('#timer');
+    const modalBody = $('.modal-body');
+    const modalTitle = $('.modalTitle');
+    const modalContent = $('.modalContent');
+    const modalKeyboard = $('.modalKeyboard');
+    const correctInfo = $('.correct');
+    const missInfo = $('.miss');
+    const timerInfo = $('.timer');
     const dataStages = playGame.data('stages');
     const missStages = new Map();
     let stages = dataStages;
@@ -10428,20 +10428,20 @@ $('#playGame').each((i, e) => {
       }
     });
 
-    $('#replayBtn').click(() => {
+    $('.replayBtn').click(() => {
       stages = dataStages;
       init();
     });
 
-    $('#missBtn').click(() => {
+    $('.missBtn').click(() => {
       stages = Array.from(missStages);
       init();
     });
 
     function setStage() {
-      $('#modalStart').hide();
-      $('#modalPlaying').show();
-      $('#modalResult').hide();
+      $('.modalStart').hide();
+      $('.modalPlaying').show();
+      $('.modalResult').hide();
       currentTitle = stages[stageNumber][0];
       currentContent = stages[stageNumber][1];
       modalTitle.html(currentTitle);
@@ -10478,9 +10478,9 @@ $('#playGame').each((i, e) => {
     }
 
     function init() {
-      $('#modalStart').show();
-      $('#modalPlaying').hide();
-      $('#modalResult').hide();
+      $('.modalStart').show();
+      $('.modalPlaying').hide();
+      $('.modalResult').hide();
       currentContent = 'スペースキーで開始';
       stageNumber = 0;
       currentNumber = 0;
@@ -10506,17 +10506,17 @@ $('#playGame').each((i, e) => {
 
     // スコア、レベル、入力時間、入力文字、ミス入力、WPM、正解率、苦手キー
     function result() {
-      $('#modalStart').hide();
-      $('#modalPlaying').hide();
-      $('#modalResult').show();
-      missStages.size ? $('#missBtn').show() : $('#missBtn').hide();
+      $('.modalStart').hide();
+      $('.modalPlaying').hide();
+      $('.modalResult').show();
+      missStages.size ? $('.missBtn').show() : $('.missBtn').hide();
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const elapsedTime = (currentTime / 1000).toFixed(2)
       const WPM = ((correct + miss) / elapsedTime * 60).toFixed(2);
       const score = (WPM * Math.pow(accuracy, 3)).toFixed(2);
       const level = determine(score);
       const result = `スコア: ${score}<br>レベル: ${level}<br>入力時間: ${elapsedTime}<br>入力文字: ${correct}<br>ミス入力: ${miss}<br>WPM: ${WPM}<br>正解率: ${accuracy * 100}%`;
-      $('#result').html(result);
+      $('.result').html(result);
     }
 
     function determine(score) {

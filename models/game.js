@@ -12,7 +12,7 @@ const Game = loader.database.define('games', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  tag: {
+  tags: {
     type: Sequelize.ARRAY(Sequelize.TEXT),
     allowNull: false
   },

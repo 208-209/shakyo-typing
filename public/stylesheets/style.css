@@ -1,7 +1,7 @@
 body {
   padding-top: 70px;
 }
-.panel #modalContent {
+.panel .modalContent {
   
   white-space: pre-wrap;
 }
@@ -11,16 +11,16 @@ body {
   height: 500px;
 }
 
-#modalContent {
+.modalContent {
   overflow-y: scroll;
   height: 200px;
 }
 
-#modalPlaying {
+.modalPlaying {
   display: none;
 }
 
-#modalResult {
+.modalResult {
   display: none;
 }
 
