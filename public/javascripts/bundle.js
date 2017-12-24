@@ -10377,6 +10377,8 @@ $('.playGame').each((i, e) => {
     const dataStages = playGame.data('stages');
     const missStages = new Map();
     let stages = dataStages;
+    console.log(dataStages);
+    console.log(dataStages[0].stageTitle);
 
     const validLetter = ['a', 'A', 'i', 'I', 'u', 'U', 'e', 'E', 'o', 'O'];
     let stageNumber; // stages code letter
@@ -10442,8 +10444,8 @@ $('.playGame').each((i, e) => {
       $('.modalStart').hide();
       $('.modalPlaying').show();
       $('.modalResult').hide();
-      currentTitle = stages[stageNumber][0];
-      currentContent = stages[stageNumber][1];
+      currentTitle = stages[stageNumber]['stageTitle'];
+      currentContent = stages[stageNumber]['stageContent'];
       modalTitle.html(currentTitle);
       modalContent.html(currentContent);
       currentNumber = 0;

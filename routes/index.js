@@ -5,6 +5,29 @@ const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 
+router.get('', (req, res, next) => {
+  Game.findAll({
+    include: [{
+      model: Stage,
+      attributes: ['stageTitle', 'stageContent']
+    }],
+    where: {
+      privacy: 'public'
+    },
+    order: '"updatedAt" DESC'
+  }).then((games) => {
+    const gameMap = new Map();
+    games.forEach((g) => {
+      gameMap.set(g.gameId, g.stages);
+    });
+    res.render('index', {
+      user: req.user,
+      games: games,
+      gameMap: gameMap
+    });
+  });
+});
+/*
 router.get('/', (req, res, next) => {
   Game.findAll({
     include: [{
@@ -37,5 +60,5 @@ router.get('/', (req, res, next) => {
     });
   });
 });
-
+*/
 module.exports = router;

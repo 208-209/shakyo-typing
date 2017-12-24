@@ -10,6 +10,36 @@ router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
   if (req.user) {
     Game.findAll({
       include: [{
+        model: Stage,
+        attributes: ['stageTitle', 'stageContent']
+      }],
+      where: {
+        createdBy: req.user.id
+      },
+      order: '"updatedAt" DESC'
+    }).then((games) => {
+      const gameMap = new Map();
+      games.forEach((g) => {
+        gameMap.set(g.gameId, g.stages);
+      });
+      res.render('index', {
+        user: req.user,
+        games: games,
+        gameMap: gameMap
+      });
+    });
+  } else {
+    const err = new Error('指定されたゲームがない、または、権限がありません');
+    err.status = 404;
+    next(err);
+  }
+});
+
+/*
+router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
+  if (req.user) {
+    Game.findAll({
+      include: [{
         model: User,
         attributes: ['userId', 'username', 'nickname']
       }],
@@ -48,5 +78,6 @@ router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
     next(err);
   }
 });
+*/
 
 module.exports = router;
