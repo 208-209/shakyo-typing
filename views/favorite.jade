@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  //- パンくずリスト
+  ol(class="breadcrumb")
+    li(class="breadcrumb-item active")
+      a(href="/") Home
+  if user
+    //- タブ
+    ul(class="nav nav-tabs")
+        li
+          a(href="/") Home
+        li
+          a(href="/users/#{user.id}") user
+        li(class="active")
+          a(href="/users/#{user.id}/favorites") favorites
+    //- パネル
+    - var hasGames = favoriteGames.length > 0
+    if hasGames
+      each favoriteGame in favoriteGames
+        div(class="panel panel-default")
+          div(class="panel-body")
+            - var favorite = favoriteMap.get(favoriteGame.gameId) || 0
+            span(class="glyphicon glyphicon-heart favorite-toggle-button"
+                  data-game-id="#{favoriteGame.gameId}"
+                  data-user-id="#{user.userId}"
+                  data-favorite="#{favorite}")
+            h3 #{favoriteGame.game.gameName}
+            h4 #{favoriteGame.game.privacy}
+            h4
+              each tag in favoriteGame.game.tags
+                span(class="label label-info") #{tag}
+            - var stages = JSON.stringify(Array.from(gameMap.get(favoriteGame.gameId)))
+            a(class="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
+            a(class="btn btn-default" href="/games/#{favoriteGame.gameId}") 詳しく見る
+        div(class="modal fade" id="#{favoriteGame.gameId}")
+          include includes/modal.jade

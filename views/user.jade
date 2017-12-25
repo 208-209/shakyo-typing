@@ -5,15 +5,16 @@ block content
   ol(class="breadcrumb")
     li(class="breadcrumb-item active")
       a(href="/") Home
-      
-  ul(class="nav nav-tabs")
-    if user
+  //- タブ
+  if user
+    ul(class="nav nav-tabs")
       li
         a(href="/") Home
       li(class="active")
-        a(href="/users/#{user.id}") #{user.username}
-  
-  if user
+        a(href="/users/#{user.id}") user
+      li
+        a(href="/users/#{user.id}/favorites") favorites
+    //- パネル
     - var hasGames = games.length > 0
     if hasGames
       each game in games

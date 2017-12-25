@@ -2,7 +2,7 @@
 const loader = require('./sequelize-loader');
 const Sequelize = loader.Sequelize;
 
-const Favorite = loader.database.define('favorite', {
+const Favorite = loader.database.define('favorites', {
   gameId: {
     type: Sequelize.UUID,
     primaryKey: true,

@@ -13,6 +13,21 @@ $(window).on('load', () => {
 
 $('[data-toggle="tooltip"]').tooltip();
 
+$('.favorite-toggle-button').each((i, e) => {
+  const button = $(e);
+  button.click(() => {
+    const userId = button.data('user-id');
+    const gameId = button.data('game-id');
+    const favorite = parseInt(button.data('favorite'));
+    const nextFavorite = (favorite + 1) % 2;
+    $.post(`/users/${userId}/games/${gameId}/favorites`,
+      { favorite: nextFavorite },
+      (data) => {
+        button.data('favorite', data.favorite);
+      });
+  });
+});
+
 $('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {

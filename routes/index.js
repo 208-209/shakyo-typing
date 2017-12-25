@@ -4,8 +4,9 @@ const router = express.Router();
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
+const Favorite = require('../models/favorite');
 
-router.get('', (req, res, next) => {
+router.get('/', (req, res, next) => {
   Game.findAll({
     include: [{
       model: Stage,

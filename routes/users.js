@@ -5,8 +5,9 @@ const authenticationEnsurer = require('./authentication-ensurer');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
+const Favorite = require('../models/favorite');
 
-router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
+router.get('/:userId', authenticationEnsurer, (req, res, next) => {
   if (req.user) {
     Game.findAll({
       include: [{
@@ -22,7 +23,7 @@ router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
       games.forEach((g) => {
         gameMap.set(g.gameId, g.stages);
       });
-      res.render('index', {
+      res.render('user', {
         user: req.user,
         games: games,
         gameMap: gameMap
