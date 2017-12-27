@@ -20,7 +20,7 @@ const Favorite = loader.database.define('favorites', {
   }
 }, {
     freezeTableName: true,
-    timestamps: true
+    timestamps: false
   });
 
 module.exports = Favorite;

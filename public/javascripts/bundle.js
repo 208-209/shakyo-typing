@@ -10372,7 +10372,7 @@ $('.favorite-toggle-button').each((i, e) => {
     const favorite = parseInt(button.data('favorite'));
     const nextFavorite = (favorite + 1) % 2;
 
-    $.post(`/users/${userId}/${gameId}`,
+    $.post(`/users/${userId}/games/${gameId}`,
       { favorite: nextFavorite },
       (data) => {
         button.data('favorite', data.favorite);

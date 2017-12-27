@@ -36,7 +36,7 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
   }
 });
 
-router.post('/:userId/:gemeId', authenticationEnsurer, (req, res, next) => {
+router.post('/:userId/games/:gemeId', authenticationEnsurer, (req, res, next) => {
   const gameId = req.params.gemeId;
   const userId = req.params.userId;
   let favorite = req.body.favorite;

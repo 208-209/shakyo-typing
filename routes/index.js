@@ -14,29 +14,32 @@ router.get('/', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       },{
         model: Favorite,
-        attributes: ['userId', 'favorite']
+        attributes: ['gameId', 'favorite', 'favorite']
       }],
-      where: {
-        privacy: 'public'
-      },
+      where: { privacy: 'public' },
       order: '"updatedAt" DESC'
     }).then((games) => {
       const gameMap = new Map();
-      const favoriteMap = new Map();
       games.forEach((g) => {
         gameMap.set(g.gameId, g.stages);
-        const favorite = g.favorite.favorite || 0;
-        favoriteMap.set(g.gameId, favorite);
       });
-      console.log(games.favorite);
-      res.render('index', {
-        user: req.user,
-        games: games,
-        gameMap: gameMap,
-        favoriteMap:favoriteMap
+      Favorite.findAll({
+        where: { userId: req.user.id }
+      }).then((favorites) => {
+        const favoriteMap = new Map();
+        favorites.forEach((f) => {
+          const favorite = f.favorite || 0;
+          favoriteMap.set(f.gameId, favorite);
+        });
+        console.log(favoriteMap);
+        res.render('index', {
+          user: req.user,
+          games: games,
+          gameMap: gameMap,
+          favoriteMap: favoriteMap
+        });
       });
     });
-
   } else {
     Game.findAll({
       include: [{

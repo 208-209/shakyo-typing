@@ -14,15 +14,15 @@ block content
         a(href="/users/#{user.id}") user
       li
         a(href="/users/#{user.id}/favorites") favorites
+    .row
   //- パネル
   - var hasGames = games.length > 0
   if hasGames
     each game in games
-      div(class="row")
       div(class="panel panel-default")
         div(class="panel-body")
           if user
-            - var favorite = favoriteMap.get(game.gameId)
+            - var favorite = favoriteMap.get(game.gameId) || 0
             if favorite === 1
               span(class="favorite-toggle-button glyphicon glyphicon-heart" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
             else
