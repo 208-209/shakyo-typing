@@ -36,6 +36,23 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
   }
 });
 
+router.post('/:userId/:gemeId', authenticationEnsurer, (req, res, next) => {
+  const gameId = req.params.gemeId;
+  const userId = req.params.userId;
+  let favorite = req.body.favorite;
+  favorite = favorite ? parseInt(favorite) : 0;
+
+  Favorite.upsert({
+    gameId: gameId,
+    userId: userId,
+    favorite: favorite
+  }).then(() => {
+    res.json({ status: 'OK', favorite: favorite });
+    console.log(favorite);
+  });
+});
+
+
 /*
 router.get('/:userId/gemes', authenticationEnsurer, (req, res, next) => {
   if (req.user) {

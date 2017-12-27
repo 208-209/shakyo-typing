@@ -122,21 +122,6 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
   }
 });
 
-router.post('/:gemeId/users/:userId/favorites', authenticationEnsurer, (req, res, next) => {
-  const gameId = req.params.gemeId;
-  const userId = req.params.userId;
-  const favorite = parseInt(req.body.favorite);
-
-  Favorite.upsert({
-    gameId: gameId,
-    userId: userId,
-    favorite: favorite
-  }).then(() => {
-    res.json({ status: 'OK', favorite: favorite });
-  });
-});
-
-
 function isMineGame(req, game) {
   return game && parseInt(game.createdBy) === parseInt(req.user.id);
 }

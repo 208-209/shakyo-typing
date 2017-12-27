@@ -10371,10 +10371,14 @@ $('.favorite-toggle-button').each((i, e) => {
     const gameId = button.data('game-id');
     const favorite = parseInt(button.data('favorite'));
     const nextFavorite = (favorite + 1) % 2;
-    $.post(`/users/${userId}/games/${gameId}/favorites`,
+
+    $.post(`/users/${userId}/${gameId}`,
       { favorite: nextFavorite },
       (data) => {
         button.data('favorite', data.favorite);
+        const buttonStyles = ['glyphicon-heart-empty', 'glyphicon-heart'];
+        button.removeClass('glyphicon-heart-empty', 'glyphicon-heart');
+        button.addClass(buttonStyles[data.favorite]);
       });
   });
 });

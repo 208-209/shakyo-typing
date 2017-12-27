@@ -21,6 +21,12 @@ block content
       div(class="row")
       div(class="panel panel-default")
         div(class="panel-body")
+          if user
+            - var favorite = favoriteMap.get(game.gameId)
+            if favorite === 1
+              span(class="favorite-toggle-button glyphicon glyphicon-heart" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+            else
+              span(class="favorite-toggle-button glyphicon glyphicon-heart-empty" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
           h3 #{game.gameName}
           h4 #{game.privacy}
           h4

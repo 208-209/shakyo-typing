@@ -1,8 +1,10 @@
 body {
   padding-top: 70px;
 }
+.glyphicon:hover {
+  cursor: pointer;
+}
 .panel .modalContent {
-  
   white-space: pre-wrap;
 }
 
