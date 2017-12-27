@@ -28,8 +28,7 @@ router.get('/', (req, res, next) => {
       }).then((favorites) => {
         const favoriteMap = new Map();
         favorites.forEach((f) => {
-          const favorite = f.favorite || 0;
-          favoriteMap.set(f.gameId, favorite);
+          favoriteMap.set(f.gameId, f.favorite);
         });
         console.log(favoriteMap);
         res.render('index', {

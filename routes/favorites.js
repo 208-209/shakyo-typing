@@ -7,40 +7,39 @@ const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
 
-router.get('/:userId/favorites', authenticationEnsurer, (req, res, next) => {
+router.get('/:userId/favorites', (req, res, next) => {
   if (req.user) {
-    Favorite.findAll({
+    Game.findAll({
       include: [{
-        model: Game,
-        attributes: ['gameName', 'tags', 'privacy', 'createdBy']
+        model: Stage,
+        attributes: ['stageTitle', 'stageContent']
+      }, {
+        model: Favorite,
+        attributes: ['gameId', 'favorite', 'favorite'],
+        where: {
+          userId: req.user.id,
+          favorite: 1
+        }
       }],
-      where: {
-        userId: req.user.id,
-        favorite: 1
-      },
       order: '"updatedAt" DESC'
-    }).then((favoriteGames) => {
-      const favoriteMap = new Map();
-      favoriteGames.forEach((f) => {
-        favoriteMap.set(f.gameId, f.favorite);
+    }).then((games) => {
+      const gameMap = new Map();
+      games.forEach((g) => {
+        gameMap.set(g.gameId, g.stages);
       });
-      Stage.findAll().then((stages) => {
-        const gameMap = new Map();
-        favoriteGames.forEach((f) => {
-          const stageArray = new Array();
-          stages.forEach((s) => {
-            if (f.gameId === s.gameId) {
-              stageArray.push({stageTitle:s.stageTitle, stageContent:s.stageContent});
-            }
-          });
-          gameMap.set(g.gameId, stageArray);
-          console.log(gameMap);
+      Favorite.findAll({
+        where: { userId: req.user.id }
+      }).then((favorites) => {
+        const favoriteMap = new Map();
+        favorites.forEach((f) => {
+          favoriteMap.set(f.gameId, f.favorite);
         });
-        res.render('favorite', {
+        console.log(games);
+        res.render('index', {
           user: req.user,
-          favoriteGames: favoriteGames,
+          games: games,
           gameMap: gameMap,
-          favoriteMap:favoriteMap
+          favoriteMap: favoriteMap
         });
       });
     });
@@ -50,6 +49,8 @@ router.get('/:userId/favorites', authenticationEnsurer, (req, res, next) => {
     next(err);
   }
 });
+
+
 /*
 router.get('/users/:userId/favorites', authenticationEnsurer, (req, res, next) => {
   if (req.user) {

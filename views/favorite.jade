@@ -5,33 +5,33 @@ block content
   ol(class="breadcrumb")
     li(class="breadcrumb-item active")
       a(href="/") Home
+  //- タブ
   if user
-    //- タブ
     ul(class="nav nav-tabs")
-        li
-          a(href="/") Home
-        li
-          a(href="/users/#{user.id}") user
-        li(class="active")
-          a(href="/users/#{user.id}/favorites") favorites
+      li
+        a(href="/") Home
+      li
+        a(href="/users/#{user.id}") user
+      li(class="active")
+        a(href="/users/#{user.id}/favorites") favorites
     //- パネル
-    - var hasGames = favoriteGames.length > 0
+    - var hasGames = games.length > 0
     if hasGames
-      each favoriteGame in favoriteGames
+      each game in games
         div(class="panel panel-default")
           div(class="panel-body")
-            - var favorite = favoriteMap.get(favoriteGame.gameId) || 0
-            span(class="glyphicon glyphicon-heart favorite-toggle-button"
-                  data-game-id="#{favoriteGame.gameId}"
-                  data-user-id="#{user.userId}"
-                  data-favorite="#{favorite}")
-            h3 #{favoriteGame.game.gameName}
-            h4 #{favoriteGame.game.privacy}
+            - var favorite = favoriteMap.get(game.gameId) || 0
+            if favorite === 1
+              span(class="favorite-toggle-button glyphicon glyphicon-heart" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+            else
+              span(class="favorite-toggle-button glyphicon glyphicon-heart-empty" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+            h3 #{game.gameName}
+            h4 #{game.privacy}
             h4
-              each tag in favoriteGame.game.tags
+              each tag in game.tags
                 span(class="label label-info") #{tag}
-            - var stages = JSON.stringify(Array.from(gameMap.get(favoriteGame.gameId)))
+            - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
             a(class="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
-            a(class="btn btn-default" href="/games/#{favoriteGame.gameId}") 詳しく見る
-        div(class="modal fade" id="#{favoriteGame.gameId}")
+            a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
+        div(class="modal fade" id="#{game.gameId}")
           include includes/modal.jade
