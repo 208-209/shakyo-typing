@@ -10503,6 +10503,8 @@ $('.playGame').each((i, e) => {
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
       modalTitle.html(currentTitle);
       modalContent.html(currentContent);
+      correctInfo.html(correct);
+      missInfo.html(miss);
       currentNumber = 0;
       isLetter();
     }
@@ -10536,13 +10538,11 @@ $('.playGame').each((i, e) => {
       correct = 0;
       miss = 0;
       countDownStartTime = 0;
+      startTime = 0;
       missStages.clear();
-      $('.start').html('スペースキーで開始');
-      modalContent.html(currentContent);
-      correctInfo.html(correct);
-      missInfo.html(miss);
-      shuffle(stages);
       isStarted = false;
+      $('.start').html('スペースキーで開始');
+      shuffle(stages);
     }
 
     function shuffle(array) {

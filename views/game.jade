@@ -25,3 +25,15 @@ block content
       div(class="panel-body")
         p(class="panel-text") #{stage.stageContent}
       div(class="row")
+  
+  hr
+  div
+
+  if user
+    div
+      h3 コメントの投稿
+      form(method="post" action="/gemes/#{game.gameId}/comments")
+        div(class="form-group")
+          textarea(name="comment" class="form-control" rows="4")
+        div(class="form-group")
+          button(type="submit" class="btn btn-info pull-right") 投稿
