@@ -13,9 +13,20 @@ body {
   height: 500px;
 }
 
-.modalContent {
-  overflow-y: scroll;
+.start{
   height: 200px;
+  line-height: 200px;
+  text-align: center;
+}
+
+.playing{
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.result{
+  height: 200px;
+  text-align: center;
 }
 
 .modalPlaying {

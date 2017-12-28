@@ -41,14 +41,14 @@ block content
       p(class="help-block") ※複数入力する場合は改行してください
     div(class="form-group")
       label(for="privacy") プライバシー
-      - var privacy = game.privacy
-      if privacy === "secret"
-        select(id="privacy" class="form-control" name="privacy")
-          option(value="secret" selected) 非公開
-          option(value="public") 公開
-      else if privacy === "public"
+      - var isPublic = game.privacy === "public"
+      if isPublic
         select(id="privacy" class="form-control" name="privacy")
           option(value="secret") 非公開
           option(value="public" selected) 公開
+      else
+        select(id="privacy" class="form-control" name="privacy")
+          option(value="secret" selected) 非公開
+          option(value="public") 公開
     div(class="form-group btn-group pull-right")
       button(class="btn" type="submit") 保存

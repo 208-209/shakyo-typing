@@ -10354,13 +10354,6 @@ const $ = __webpack_require__(1);
 const global = Function('return this;')();
 global.jQuery = $;
 const bootstrap = __webpack_require__(0);
-/*
-$(window).on('load', () => {
-  const privacy = $('#privacy').data('privacy');
-  $('#privacy').val(privacy);
-  console.log(privacy);
-});
-*/
 
 $('[data-toggle="tooltip"]').tooltip();
 
@@ -10397,9 +10390,16 @@ $('.playGame').each((i, e) => {
     const missStages = new Map();
     let stages = dataStages;
     console.log(dataStages);
-    console.log(dataStages[0].stageTitle);
 
-    const validLetter = ['a', 'A', 'i', 'I', 'u', 'U', 'e', 'E', 'o', 'O'];
+    const validLetter = [
+      '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '^', '\\',
+      '!', '"', '#', '$', '%', '&', "'", '(', ')', '=', '~', '|',
+      'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '@', '[',
+      'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '`', '{',
+      'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':', ']',
+      'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '+', '*', '}',
+      'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\',
+      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_'];
     let stageNumber; // stages code letter
     let currentTitle;
     let currentContent;
@@ -10440,12 +10440,14 @@ $('.playGame').each((i, e) => {
       console.log(String.fromCharCode(e.which) + ':' + e.which);
     });
 
+    const countDownTime = 3 * 1000;
+    let countDownStartTime;
+    let countDownTimerId;
+
     $(window).keypress((e) => {
       if (e.which === 32 && isStarted === false) {
-        startTime = Date.now();
-        isStarted = true;
-        setStage();
-        countUp();
+        countDownStartTime = Date.now();
+        startCountDown();
       }
     });
 
@@ -10459,16 +10461,22 @@ $('.playGame').each((i, e) => {
       init();
     });
 
-    function setStage() {
-      $('.modalStart').hide();
-      $('.modalPlaying').show();
-      $('.modalResult').hide();
-      currentTitle = stages[stageNumber]['stageTitle'];
-      currentContent = stages[stageNumber]['stageContent'];
-      modalTitle.html(currentTitle);
-      modalContent.html(currentContent);
-      currentNumber = 0;
-      isLetter();
+    function startCountDown() {
+      countDownTimerId = setTimeout(() => {
+        let timeLeft = countDownTime - (Date.now() - countDownStartTime);
+        if (timeLeft < 0) {
+          clearTimeout(countDownTimerId);
+          timeLeft = 0;
+          countDownStartTime = 0;
+          startTime = Date.now();
+          isStarted = true;
+          setStage();
+          countUp();
+          return;
+        }
+        updateTimer(timeLeft);
+        startCountDown();
+      }, 10);
     }
 
     function countUp() {
@@ -10476,6 +10484,27 @@ $('.playGame').each((i, e) => {
         currentTime = Date.now() - startTime;
         countUp();
       }, 10);
+    }
+
+    function updateTimer(time) {
+      let t = new Date(time);
+      let s = t.getSeconds();
+      let ms = t.getMilliseconds();
+      ms = ('00' + ms).slice(-3);
+      let timerString = s + '.' + ms;
+      $('.start').html(timerString)
+    }
+
+    function setStage() {
+      $('.modalStart').hide();
+      $('.modalPlaying').show();
+      $('.modalResult').hide();
+      currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
+      currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
+      modalTitle.html(currentTitle);
+      modalContent.html(currentContent);
+      currentNumber = 0;
+      isLetter();
     }
 
     function isLetter() {
@@ -10502,12 +10531,13 @@ $('.playGame').each((i, e) => {
       $('.modalStart').show();
       $('.modalPlaying').hide();
       $('.modalResult').hide();
-      currentContent = 'スペースキーで開始';
       stageNumber = 0;
       currentNumber = 0;
       correct = 0;
       miss = 0;
+      countDownStartTime = 0;
       missStages.clear();
+      $('.start').html('スペースキーで開始');
       modalContent.html(currentContent);
       correctInfo.html(correct);
       missInfo.html(miss);

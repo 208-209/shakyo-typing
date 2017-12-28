@@ -1,4 +1,4 @@
-//- includes/keyboard.jade
+//- includes/modal.jade
 div(class="modal-dialog modal-lg")
   div(class="modal-content")
     //- start
@@ -8,9 +8,12 @@ div(class="modal-dialog modal-lg")
           span(aria-hidden="true") &times;
         h4(class="modal-title text-center") #{game.gameName}
       div(class="modal-body")
-          h1 すたーと
-        div(class="modal-footer")
-          button(class="btn btn-default" data-dismiss="modal") Close
+        div(class="start")
+        div(class="modalKeyboard keyboard")
+          include keyboard.jade
+
+      div(class="modal-footer")
+        button(class="btn btn-default" data-dismiss="modal") Close
     //- playing
     div(class="modalPlaying")
       div(class="modal-header")
@@ -18,83 +21,16 @@ div(class="modal-dialog modal-lg")
           span(aria-hidden="true") &times;
         h4(class="modal-title text-center")
       div(class="modal-body")
-        div
+        div(class="playing")
           span(class="correct")
           span(class="miss")
           span(class="timer")
 
+          div(class="modalTitle")
 
-        div(class="modalTitle")
-
-        div(class="modalContent")
-
+          div(class="modalContent")
         div(class="modalKeyboard keyboard")
-          div(class="key")
-          div(class="key key_49 key_33") 1
-          div(class="key key_50 key_34") 2
-          div(class="key key_51 key_35") 3
-          div(class="key key_52 key_36") 4
-          div(class="key key_53 key_37") 5
-          div(class="key key_54 key_38") 6
-          div(class="key key_55 key_39") 7
-          div(class="key key_56 key_40") 8
-          div(class="key key_57 key_41") 9
-          div(class="key key_48") 0
-          div(class="key key_45 key_61") -
-          div(class="key key_94 key_126") ^
-          div(class="key key_92 key_124") ¥
-          div(class="key")
-          div(class="key tab")
-          div(class="key key_113 key_81") q
-          div(class="key key_119 key_87") w
-          div(class="key key_101 key_69") e
-          div(class="key key_114 key_82") r
-          div(class="key key_116 key_84") t
-          div(class="key key_121 key_89") y
-          div(class="key key_117 key_85") u
-          div(class="key key_105 key_73") i
-          div(class="key key_111 key_79") o
-          div(class="key key_112 key_80") p
-          div(class="key key_64 key_96") @
-          div(class="key key_91 key_123") [
-          div(class="enter-top")
-          div(class="capsLock")
-          div(class="key key_97 key_") a
-          div(class="key key_115 key_") s
-          div(class="key key_100 key_") d
-          div(class="key key_102 key_") f
-          div(class="key key_103 key_") g
-          div(class="key key_104 key_") h
-          div(class="key key_106 key_") j
-          div(class="key key_107 key_") k
-          div(class="key key_108 key_") l
-          div(class="key key_59 key_") ;
-          div(class="key key_58 key_") :
-          div(class="key key_93 key_") ]
-          div(class="key")
-          div(class="key leftShift") Shift
-          div(class="key key_122 key_90") z
-          div(class="key key_120 key_88") x
-          div(class="key key_99 key_67") c
-          div(class="key key_118 key_86") v
-          div(class="key key_98 key_66") b
-          div(class="key key_110 key_78") n
-          div(class="key key_109 key_77") m
-          div(class="key key_44 key_60") ,
-          div(class="key key_46 key_62") .
-          div(class="key key_47 key_63") /
-          div(class="key key_92 key_95") \
-          div(class="key rightShift") Shift
-          div(class="key blank")
-          div(class="key blank")
-          div(class="key blank")
-          div(class="key blank")
-          div(class="key key_space")
-          div(class="key blank")
-          div(class="key blank")
-          div(class="key blank")
-          div(class="key blank")
-          div(class="key blank")
+          include keyboard.jade
 
       div(class="modal-footer")
         button(class="btn btn-default" data-dismiss="modal") Close
