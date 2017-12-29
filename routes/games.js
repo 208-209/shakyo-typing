@@ -6,6 +6,7 @@ const uuid = require('node-uuid');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
+const Comment = require('../models/comment');
 
 router.get('/new', authenticationEnsurer, (req, res, next) => {
   res.render('new', { user: req.user });
@@ -29,7 +30,7 @@ router.get('/:gameId', (req, res, next) => {
   Game.findOne({
     include: [{
       model: User,
-      attributes: ['userId', 'username']
+      attributes: ['userId', 'username', 'nickname']
     }],
     where: {
       gameId: req.params.gameId
@@ -43,10 +44,22 @@ router.get('/:gameId', (req, res, next) => {
         },
         order: '"stageId" DESC'
       }).then((stages) => {
-        res.render('game', {
-          game: game,
-          stages: stages,
-          user: req.user
+        Comment.findAll({
+          include: [{
+            model: User,
+            attributes: ['userId', 'username', 'nickname']
+          }],
+          where: {
+            gameId: req.params.gameId
+          },
+          order: '"commentId" ASC'
+        }).then((comments) => {
+          res.render('game', {
+            game: game,
+            stages: stages,
+            comments: comments,
+            user: req.user
+          });
         });
       });
     } else {

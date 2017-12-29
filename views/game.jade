@@ -28,12 +28,23 @@ block content
   
   hr
   div
+    h3 投稿一覧
+      each comment in comments
+        div(class="panel panel-default")
+          div(class="panel-heading")
+          div(class="panel-body")
+            p #{comment.commentId}
+            p #{comment.createdAt}
+            p #{comment.postedBy}
+            p #{comment.comment}
+          div(class="panel-footer")
+
 
   if user
     div
       h3 コメントの投稿
       form(method="post" action="/games/#{game.gameId}/comments")
         div(class="form-group")
-          textarea(name="comment" class="form-control" rows="4")
+          textarea(name="comment" class="form-control" rows="2")
         div(class="form-group")
           button(type="submit" class="btn btn-info pull-right") 投稿
