@@ -32,7 +32,7 @@ block content
   if user
     div
       h3 コメントの投稿
-      form(method="post" action="/gemes/#{game.gameId}/comments")
+      form(method="post" action="/games/#{game.gameId}/comments")
         div(class="form-group")
           textarea(name="comment" class="form-control" rows="4")
         div(class="form-group")

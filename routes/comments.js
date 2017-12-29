@@ -8,9 +8,11 @@ const Game = require('../models/game');
 const Stage = require('../models/stage');
 
 router.post('/:gameId/comments', authenticationEnsurer, (req, res, next) => {
+  const gameId = req.params.gameId;
   const comment = req.body.comment;
   console.log('投稿されました: ' + comment);
-
+  res.redirect('/games/' + gameId);
 });
+
 
 module.exports = router;
