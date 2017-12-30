@@ -4,7 +4,7 @@ html(lang="ja")
     meta(charset="UTF-8")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous")
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/style.css')
     title code-typing
   body
     nav(class="navbar navbar-default navbar-fixed-top")
@@ -18,16 +18,10 @@ html(lang="ja")
           a(href="/" class="navbar-brand") code-typing
         div(class="collapse navbar-collapse" id="mainNav")
           ul(class="nav navbar-nav")
-            li
-              a(href="/") abcd
-            li
-              a(href="/") efgh
-            li
-              a(href="/") ijkl
           ul(class="nav navbar-nav navbar-right")
             if user
               div(class="nav navbar-nav")
-                a(href="/games/new" type="button" class="btn btn-default navbar-btn") ゲームを作る
+                a(href="/games/new" type="button" class="btn btn-success navbar-btn") ゲームを作る
             li(class="dropdown")
               if user
                 case user.provider
@@ -36,11 +30,15 @@ html(lang="ja")
                       span(class="caret")
                     ul(class="dropdown-menu")
                       li
+                        a(href="/users/#{user.id}/profile") プロフィール
+                      li
                         a(href="/logout") ログアウト
                   when "twitter"
                     a(href="" class="dropdown-toggle" data-toggle="dropdown") #{user.username} 
                       span(class="caret")
                     ul(class="dropdown-menu")
+                      li
+                        a(href="/users/#{user.id}/profile") プロフィール
                       li
                         a(href="/logout") ログアウト
                   when "github"

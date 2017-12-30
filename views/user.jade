@@ -25,13 +25,12 @@ block content
               span(class="favorite-toggle-button glyphicon glyphicon-heart" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
             else
               span(class="favorite-toggle-button glyphicon glyphicon-heart-empty" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-            h3 #{game.gameName}
-            h4 #{game.privacy}
+            h2
+              a(href="/games/#{game.gameId}") #{game.gameName}
             h4
               each tag in game.tags
-                span(class="label label-info") #{tag}
+                span(class="label label-primary") #{tag}
             - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-            a(class="playGame" class="btn btn-default" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") start
-            a(class="btn btn-default" href="/games/#{game.gameId}") 詳しく見る
+            a(class="playGame" class="btn btn-default btn-block" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
         div(class="modal fade" id="#{game.gameId}")
           include includes/modal.jade

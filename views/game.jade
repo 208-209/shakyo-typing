@@ -8,6 +8,15 @@ block content
     li(class="breadcrumb-item active") #{game.gameName}
 
   div(class="jumbotron")
+    h3 @#{game.user.username}
+    small #{game.updatedAt} 更新
+    h4 #{game.privacy}
+    h2 #{game.gameName}
+    h4
+      each tag in game.tags
+        span(class="label label-primary") #{tag}
+
+
     if user
       - var isMine = (user.id === game.createdBy)
       if isMine
@@ -17,9 +26,6 @@ block content
         form(method="post" action="/games/#{game.gameId}?delete=1")
           button(class="btn btn-danger pull-right" type="submit") 削除
 
-    h2 #{game.gameName}
-    h3 @#{game.user.username} 
-      small #{game.updatedAt} 更新
 
   each stage in stages
     div(class="panel panel-default")

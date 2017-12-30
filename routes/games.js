@@ -30,7 +30,7 @@ router.get('/:gameId', (req, res, next) => {
   Game.findOne({
     include: [{
       model: User,
-      attributes: ['userId', 'username', 'nickname']
+      attributes: ['userId', 'username']
     }],
     where: {
       gameId: req.params.gameId
@@ -47,7 +47,7 @@ router.get('/:gameId', (req, res, next) => {
         Comment.findAll({
           include: [{
             model: User,
-            attributes: ['userId', 'username', 'nickname']
+            attributes: ['userId', 'username']
           }],
           where: {
             gameId: req.params.gameId
@@ -55,10 +55,10 @@ router.get('/:gameId', (req, res, next) => {
           order: '"commentId" ASC'
         }).then((comments) => {
           res.render('game', {
+            user: req.user,
             game: game,
             stages: stages,
-            comments: comments,
-            user: req.user
+            comments: comments
           });
         });
       });

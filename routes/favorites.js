@@ -15,7 +15,7 @@ router.get('/:userId/favorites', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Favorite,
-        attributes: ['gameId', 'favorite', 'favorite'],
+        attributes: ['favorite'],
         where: {
           userId: req.user.id,
           favorite: 1
@@ -35,7 +35,7 @@ router.get('/:userId/favorites', (req, res, next) => {
           favoriteMap.set(f.gameId, f.favorite);
         });
         console.log(games);
-        res.render('index', {
+        res.render('favorite', {
           user: req.user,
           games: games,
           gameMap: gameMap,

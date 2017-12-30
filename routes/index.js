@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       },{
         model: Favorite,
-        attributes: ['gameId', 'favorite', 'favorite']
+        attributes: ['favorite']
       }],
       where: { privacy: 'public' },
       order: '"updatedAt" DESC'

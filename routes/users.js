@@ -15,7 +15,7 @@ router.get('/:userId', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       },{
         model: Favorite,
-        attributes: ['gameId', 'favorite', 'favorite']
+        attributes: ['favorite']
       }],
       where: { createdBy: req.user.id },
       order: '"updatedAt" DESC'
@@ -32,7 +32,7 @@ router.get('/:userId', (req, res, next) => {
           favoriteMap.set(f.gameId, f.favorite);
         });
         console.log(favoriteMap);
-        res.render('index', {
+        res.render('user', {
           user: req.user,
           games: games,
           gameMap: gameMap,
