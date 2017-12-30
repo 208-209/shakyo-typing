@@ -13,10 +13,6 @@ const Comment = loader.database.define('comments', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  trackingCookie: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   gameId: {
     type: Sequelize.UUID,
     allowNull: false

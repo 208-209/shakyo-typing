@@ -17,7 +17,6 @@ router.post('/:gameId/comments', authenticationEnsurer, (req, res, next) => {
   } else {
     Comment.create({
       comment: req.body.comment,
-      trackingCookie: '0123',
       gameId: gameId,
       postedBy: req.user.id
     }).then(() => {
