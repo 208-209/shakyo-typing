@@ -36,8 +36,8 @@ router.get('/:gameId', (req, res, next) => {
       gameId: req.params.gameId
     }
   }).then((game) => {
-    // (プライバシーが公開 && ゲームがある) || (プライバシーが非公開 && 作成者と閲覧者が同一 && ゲームがある)
-    if (game.privacy === 'public' && game || game.privacy === 'secret' && parseInt(req.user.id) === parseInt(game.createdBy) && game) {
+    // プライバシーが公開 || プライバシーが非公開 && 作成者と閲覧者が同一
+    if (game && (game.privacy === 'public' || game.privacy === 'secret' && req.user.id === game.createdBy)) {
       Stage.findAll({
         where: {
           gameId: game.gameId
@@ -76,7 +76,7 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
       gameId: req.params.gameId
     }
   }).then((game) => {
-    if (isMineGame(req, game)) { // 作成者のみが編集フォームを開ける
+    if (game && req.user.id === game.createdBy) { // 作成者のみが編集フォームを開ける
       Stage.findAll({
         where: {
           gameId: game.gameId
@@ -101,13 +101,13 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
 });
 
 router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
-  if (parseInt(req.query.edit) === 1) {
+  if (parseInt(req.query.edit) === 1) { // 編集
     Game.findOne({
       where: {
         gameId: req.params.gameId
       }
     }).then((game) => {
-      if (isMineGame(req, game)) { // 作成者のみ
+      if (game && req.user.id === game.createdBy) { // 作成者のみ
         const tagArray = req.body.tags.trim().split('\n').map((t) => t.trim());
         game.update({
           gameId: game.gameId,
@@ -124,9 +124,17 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
         next(err);
       }
     });
-  } else if (parseInt(req.query.delete) === 1) {
-    deleteGame(req.params.gameId, () => {
-      res.redirect('/');
+  } else if (parseInt(req.query.delete) === 1) { // 削除
+    Game.findOne({
+      where: {
+        gameId: req.params.gameId
+      }
+    }).then((game) => {
+      if (game && (req.user.id === game.createdBy || req.user.id === '30428943' )) { // 作成者 と 管理人が削除
+        deleteGame(game.gameId, () => {
+          res.redirect('/');
+        });
+      }
     });
   } else {
     const err = new Error('不正なリクエストです');
@@ -134,10 +142,6 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
     next(err);
   }
 });
-
-function isMineGame(req, game) {
-  return game && parseInt(game.createdBy) === parseInt(req.user.id);
-}
 
 function deleteGame (gameId, done, err) {
   Stage.findAll({

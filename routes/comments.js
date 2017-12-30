@@ -9,7 +9,7 @@ router.post('/:gameId/comments', authenticationEnsurer, (req, res, next) => {
   const gameId = req.params.gameId;
   if (parseInt(req.query.delete) === 1) {
     Comment.findById(req.body.id).then((comment) => {
-      if (req.user.id === comment.postedBy) {
+      if (req.user.id === comment.postedBy || req.user.id === '30428943') { // 投稿者 または 管理人が削除
         comment.destroy();
       }
       res.redirect('/games/' + gameId);

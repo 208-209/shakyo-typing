@@ -11,9 +11,12 @@ block content
     if user
       - var isMine = (user.id === game.createdBy)
       if isMine
+        a(href="/games/#{game.gameId}/edit" class="btn btn-warning pull-right") 編集
+      - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
+      if isDeletable
         form(method="post" action="/games/#{game.gameId}?delete=1")
           button(class="btn btn-danger pull-right" type="submit") 削除
-          a(href="/games/#{game.gameId}/edit" class="btn btn-warning pull-right") 編集
+
     h2 #{game.gameName}
     h3 @#{game.user.username} 
       small #{game.updatedAt} 更新
@@ -25,22 +28,29 @@ block content
       div(class="panel-body")
         p(class="panel-text") #{stage.stageContent}
       div(class="row")
-  
   hr
-  div
+  - var hasComments = comments.length > 0
+  if hasComments
     h3 投稿一覧
     each comment in comments
       div(class="panel panel-default")
         div(class="panel-heading")
         div(class="panel-body")
-          p #{comment.commentId}
-          p #{comment.createdAt}
-          p #{comment.postedBy}
+        - var isPostedByAdmin = (comment.postedBy === '30428943')
+        if isPostedByAdmin
+          p #{comment.commentId} : 管理人 ★
           p #{comment.comment}
+          p #{comment.postedBy}
+          p #{comment.createdAt}
+        else
+          p #{comment.commentId}
+          p #{comment.comment}
+          p #{comment.postedBy}
+          p #{comment.createdAt}
         div(class="panel-footer")
           if user
-            - var isMine = (user.id === comment.postedBy)
-            if isMine
+            - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
+            if isDeletable
               form(method="post" action="/games/#{game.gameId}/comments?delete=1")
                 input(type="hidden" name="id" value="#{comment.commentId}")
                 button(type="submit") 削除
