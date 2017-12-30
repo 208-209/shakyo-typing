@@ -9,7 +9,7 @@ block content
 
   div(class="jumbotron")
     if user
-      - var isMine = parseInt(user.id) === parseInt(game.createdBy)
+      - var isMine = (user.id === game.createdBy)
       if isMine
         form(method="post" action="/games/#{game.gameId}?delete=1")
           button(class="btn btn-danger pull-right" type="submit") 削除
@@ -29,15 +29,21 @@ block content
   hr
   div
     h3 投稿一覧
-      each comment in comments
-        div(class="panel panel-default")
-          div(class="panel-heading")
-          div(class="panel-body")
-            p #{comment.commentId}
-            p #{comment.createdAt}
-            p #{comment.postedBy}
-            p #{comment.comment}
-          div(class="panel-footer")
+    each comment in comments
+      div(class="panel panel-default")
+        div(class="panel-heading")
+        div(class="panel-body")
+          p #{comment.commentId}
+          p #{comment.createdAt}
+          p #{comment.postedBy}
+          p #{comment.comment}
+        div(class="panel-footer")
+          if user
+            - var isMine = (user.id === comment.postedBy)
+            if isMine
+              form(method="post" action="/games/#{game.gameId}/comments?delete=1")
+                input(type="hidden" name="id" value="#{comment.commentId}")
+                button(type="submit") 削除
 
 
   if user
