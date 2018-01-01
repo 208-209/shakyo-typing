@@ -28,13 +28,19 @@ $('.favorite-toggle-button').each((i, e) => {
 $('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
-    const modalBody = $('.modal-body');
     const modalTitle = $('.modalTitle');
     const modalContent = $('.modalContent');
-    const modalKeyboard = $('.modalKeyboard');
+    const modalStart = $('.modalStart');
+    const modalPlaying = $('.modalPlaying');
+    const modalResult = $('.modalResult');
+    const startMessage = $('.startMessage');
     const correctInfo = $('.correct');
     const missInfo = $('.miss');
     const timerInfo = $('.timer');
+    const replayBtn = $('.replayBtn');
+    const missBtn = $('.missBtn');
+    const key = $('.key');
+    
     const dataStages = playGame.data('stages');
     const missStages = new Map();
     let stages = dataStages;
@@ -100,12 +106,12 @@ $('.playGame').each((i, e) => {
       }
     });
 
-    $('.replayBtn').click(() => {
+    replayBtn.click(() => {
       stages = dataStages;
       init();
     });
 
-    $('.missBtn').click(() => {
+    missBtn.click(() => {
       stages = Array.from(missStages);
       init();
     });
@@ -141,13 +147,13 @@ $('.playGame').each((i, e) => {
       let ms = t.getMilliseconds();
       ms = ('00' + ms).slice(-3);
       let timerString = s + '.' + ms;
-      $('.start').html(timerString)
+      startMessage.html(timerString)
     }
 
     function setStage() {
-      $('.modalStart').hide();
-      $('.modalPlaying').show();
-      $('.modalResult').hide();
+      modalStart.hide();
+      modalPlaying.show();
+      modalResult.hide();
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
       modalTitle.html(currentTitle);
@@ -160,7 +166,7 @@ $('.playGame').each((i, e) => {
 
     function isLetter() {
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
-      $('.key').removeClass('isKey');
+      key.removeClass('isKey');
       $('.key_' + currentKeyCode).addClass('isKey');
       modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span id="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
       $('#isLetter').css('color', 'orange');
@@ -180,9 +186,9 @@ $('.playGame').each((i, e) => {
     }
 
     function init() {
-      $('.modalStart').show();
-      $('.modalPlaying').hide();
-      $('.modalResult').hide();
+      modalStart.show();
+      modalPlaying.hide();
+      modalResult.hide();
       stageNumber = 0;
       currentNumber = 0;
       correct = 0;
@@ -191,7 +197,7 @@ $('.playGame').each((i, e) => {
       startTime = 0;
       missStages.clear();
       isStarted = false;
-      $('.start').html('スペースキーで開始');
+      startMessage.html('スペースキーで開始');
       shuffle(stages);
     }
 
@@ -207,10 +213,10 @@ $('.playGame').each((i, e) => {
 
     // スコア、レベル、入力時間、入力文字、ミス入力、WPM、正解率、苦手キー
     function result() {
-      $('.modalStart').hide();
-      $('.modalPlaying').hide();
-      $('.modalResult').show();
-      missStages.size ? $('.missBtn').show() : $('.missBtn').hide();
+      modalStart.hide();
+      modalPlaying.hide();
+      modalResult.show();
+      missStages.size ? missBtn.show() : missBtn.hide();
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const elapsedTime = (currentTime / 1000).toFixed(2)
       const WPM = ((correct + miss) / elapsedTime * 60).toFixed(2);
