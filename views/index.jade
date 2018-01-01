@@ -24,10 +24,10 @@ block content
             if user
               - var favorite = favoriteMap.get(game.gameId) || 0
               if favorite === 1
-                span(class="favorite-toggle-button glyphicon glyphicon-heart" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+                span(class="favorite-toggle-button glyphicon glyphicon-heart pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
               else
-                span(class="favorite-toggle-button glyphicon glyphicon-heart-empty" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-            h2
+                span(class="favorite-toggle-button glyphicon glyphicon-heart-empty pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+            h3
               a(href="/games/#{game.gameId}") #{game.gameName}
             h4
               each tag in game.tags

@@ -15,22 +15,23 @@ block content
       li
         a(href="/users/#{user.id}/favorites") favorites
     //- パネル
-    - var hasGames = games.length > 0
-    if hasGames
-      each game in games
-        div(class="panel panel-default")
-          div(class="panel-body")
-            - var favorite = favoriteMap.get(game.gameId) || 0
-            if favorite === 1
-              span(class="favorite-toggle-button glyphicon glyphicon-heart" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-            else
-              span(class="favorite-toggle-button glyphicon glyphicon-heart-empty" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-            h2
-              a(href="/games/#{game.gameId}") #{game.gameName}
-            h4
-              each tag in game.tags
-                span(class="label label-primary") #{tag}
-            - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-            a(class="playGame" class="btn btn-default btn-block" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
-        div(class="modal fade" id="#{game.gameId}")
-          include includes/modal.jade
+    div
+      - var hasGames = games.length > 0
+      if hasGames
+        each game in games
+          div(class="panel panel-default")
+            div(class="panel-body")
+              - var favorite = favoriteMap.get(game.gameId) || 0
+              if favorite === 1
+                span(class="favorite-toggle-button glyphicon glyphicon-heart pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+              else
+                span(class="favorite-toggle-button glyphicon glyphicon-heart-empty pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+              h3
+                a(href="/games/#{game.gameId}") #{game.gameName}
+              h4
+                each tag in game.tags
+                  span(class="label label-primary") #{tag}
+              - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+              a(class="playGame" class="btn btn-default btn-block" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
+          div(class="modal fade" id="#{game.gameId}")
+            include includes/modal.jade

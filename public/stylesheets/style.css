@@ -1,11 +1,32 @@
 body {
   padding-top: 70px;
 }
+.navbar-brand {
+  font-size: 24px;
+}
+
 .glyphicon:hover {
   cursor: pointer;
 }
+
 .panel .modalContent {
   white-space: pre-wrap;
+}
+
+.panel {
+  margin-top: 15px;
+
+}
+.label {
+  margin-right: 4px;
+}
+
+
+.glyphicon {
+  font-size: 20px;
+}
+.glyphicon-heart, .glyphicon-heart-empty {
+  color: palevioletred;
 }
 
 .modal-body {
@@ -78,7 +99,7 @@ body {
   width: 200px;
 }
 
-.letter {
+.isKey {
   color: white;
   font: bold;
   background-color: orange;
