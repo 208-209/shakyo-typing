@@ -10355,6 +10355,10 @@ const global = Function('return this;')();
 global.jQuery = $;
 const bootstrap = __webpack_require__(0);
 
+// 編集メニューでのプライバシーの自動選択
+const privacy = $('#editPrivacy').data('privacy');
+$('#editPrivacy').val(privacy);
+
 $('[data-toggle="tooltip"]').tooltip();
 
 $('.favorite-toggle-button').each((i, e) => {
@@ -10390,7 +10394,6 @@ $('.playGame').each((i, e) => {
     const timerInfo = $('.timer');
     const replayBtn = $('.replayBtn');
     const missBtn = $('.missBtn');
-    const key = $('.key');
     
     const dataStages = playGame.data('stages');
     const missStages = new Map();
@@ -10517,7 +10520,7 @@ $('.playGame').each((i, e) => {
 
     function isLetter() {
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
-      key.removeClass('isKey');
+      $('.isKey').removeClass('isKey');
       $('.key_' + currentKeyCode).addClass('isKey');
       modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span id="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
       $('#isLetter').css('color', 'orange');
