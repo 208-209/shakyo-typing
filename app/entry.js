@@ -8,6 +8,13 @@ const bootstrap = require('bootstrap');
 const privacy = $('#editPrivacy').data('privacy');
 $('#editPrivacy').val(privacy);
 
+$('.keyboardBtn').addClass('active');
+$('.keyboardBtn').click(() => {
+  $('.keyboardBtn').toggleClass('active');
+  $('.keyboardBtn').hasClass('active') ? $('.keyboard').show() : $('.keyboard').hide();
+});
+
+
 $('[data-toggle="tooltip"]').tooltip();
 
 $('.favorite-toggle-button').each((i, e) => {
