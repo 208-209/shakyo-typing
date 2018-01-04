@@ -20,6 +20,16 @@ body {
 .label {
   margin-right: 4px;
 }
+.playGame {
+  color: white;
+  background: #11b69d;
+  text-align: center;
+  opacity: 0.9;
+}
+.playGame:hover {
+  cursor: pointer;
+  opacity: 1;
+}
 
 
 .glyphicon {

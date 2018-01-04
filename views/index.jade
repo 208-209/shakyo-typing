@@ -32,8 +32,9 @@ block content
             h4
               each tag in game.tags
                 span(class="label label-primary") #{tag}
-            - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-            a(class="playGame" class="btn btn-default btn-block" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
+          - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+          div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
+
         //- modal
         div(class="modal fade" id="#{game.gameId}")
           include includes/modal.jade

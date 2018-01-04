@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
 const uuid = require('node-uuid');
+const moment = require('moment-timezone');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
@@ -36,6 +37,7 @@ router.get('/:gameId', (req, res, next) => {
       gameId: req.params.gameId
     }
   }).then((game) => {
+    game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
     // プライバシーが公開 || プライバシーが非公開 && 作成者と閲覧者が同一
     if (game && (game.privacy === 'public' || game.privacy === 'secret' && req.user.id === game.createdBy)) {
       Stage.findAll({
