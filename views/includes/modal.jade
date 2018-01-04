@@ -8,8 +8,9 @@ div(class="modal-dialog modal-lg")
           span(aria-hidden="true") &times;
         h4(class="modal-title text-center") #{game.gameName}
       div(class="modal-body")
-        div(class="startMessage")
-        div(class="modalKeyboard keyboard")
+        div(class="display")
+          div(class="startMessage")
+        div(class="keyboard")
           include keyboard.jade
 
       div(class="modal-footer")
@@ -22,15 +23,16 @@ div(class="modal-dialog modal-lg")
           span(aria-hidden="true") &times;
         h4(class="modal-title text-center")
       div(class="modal-body")
-        div(class="playing")
-          span(class="correct")
-          span(class="miss")
-          span(class="timer")
+        div(class="display")
+          div(class="playing")
+            span(class="correct")
+            span(class="miss")
+            span(class="timer")
 
-          div(class="modalTitle")
+            div(class="modalTitle")
 
-          div(class="modalContent")
-        div(class="modalKeyboard keyboard")
+            div(class="modalContent")
+        div(class="keyboard")
           include keyboard.jade
 
       div(class="modal-footer")

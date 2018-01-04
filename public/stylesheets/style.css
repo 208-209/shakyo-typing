@@ -42,8 +42,20 @@ body {
 
 .modal-body {
   background: #eee;
-  height: 500px;
+  height: 600px;
 }
+
+.display {
+  height: 300px;
+}
+
+.keyboard {
+  height: 300px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+
 
 .start{
   height: 200px;
@@ -69,11 +81,6 @@ body {
   display: none;
 }
 
-.keyboard {
-  list-style: none;
-  display: flex;
-  flex-flow: row wrap;
-}
 
 .key {
   width: 48px;
@@ -111,8 +118,8 @@ body {
 }
 
 .isKey {
-  color: white;
+  color: #ffffff;
   font: bold;
-  background-color: orange;
+  background-color: #ffa500;
 }
 

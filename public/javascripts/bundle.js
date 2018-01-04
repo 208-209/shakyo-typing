@@ -10359,6 +10359,7 @@ const bootstrap = __webpack_require__(0);
 const privacy = $('#editPrivacy').data('privacy');
 $('#editPrivacy').val(privacy);
 
+// キーボードの表示・非表示
 $('.keyboardBtn').addClass('active');
 $('.keyboardBtn').click(() => {
   $('.keyboardBtn').toggleClass('active');
@@ -10529,8 +10530,8 @@ $('.playGame').each((i, e) => {
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
       $('.isKey').removeClass('isKey');
       $('.key_' + currentKeyCode).addClass('isKey');
-      modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span id="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
-      $('#isLetter').css('color', 'orange');
+      modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span class="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
+      $('.isLetter').css('color', '#ffa500');
       console.log(currentContent[currentNumber]);
       console.log(currentKeyCode);
     }
