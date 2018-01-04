@@ -12,10 +12,10 @@ block content
   form(method="post" action="/games/#{game.gameId}/stages?edit=1")
     div(class="form-group")
       label(for="stageTitle") ステージタイトル
-      input(id="stageTitle" class="form-control" type="text" name="stageTitle")
+      input(id="stageTitle" class="form-control monospace" type="text" name="stageTitle")
     div(class="form-group")
       label(for="stageContent") ステージコンテンツ
-      textarea(id="stageContent" class="form-control" name="stageContent")
+      textarea(id="stageContent" class="form-control monospace" name="stageContent")
     div(class="form-group pull-right")
       button(class="form-control btn btn-info" type="submit") ステージの追加
     div(class="row")
@@ -23,9 +23,9 @@ block content
   each stage in stages
     div(class="panel panel-default")
       div(class="panel-heading")
-        h4(class="panel-title") #{stage.stageTitle}
+        h4(class="panel-title monospace") #{stage.stageTitle}
       div(class="panel-body")
-        p(class="panel-text") #{stage.stageContent}
+        p(class="panel-text monospace") #{stage.stageContent}
       div(class="panel-footer")
         form(method="post" action="/games/#{game.gameId}/stages?delete=1")
           input(type="hidden" name="stageId" value="#{stage.stageId}")

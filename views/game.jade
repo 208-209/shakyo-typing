@@ -30,9 +30,9 @@ block content
   each stage in stages
     div(class="panel panel-default")
       div(class="panel-heading")
-        h4(class="panel-title") #{stage.stageTitle}
+        h4(class="panel-title monospace") #{stage.stageTitle}
       div(class="panel-body")
-        p(class="panel-text") #{stage.stageContent}
+        p(class="panel-text monospace") #{stage.stageContent}
       div(class="row")
   hr
   - var hasComments = comments.length > 0

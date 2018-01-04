@@ -12,9 +12,14 @@ $('#editPrivacy').val(privacy);
 $('.keyboardBtn').addClass('active');
 $('.keyboardBtn').click(() => {
   $('.keyboardBtn').toggleClass('active');
-  $('.keyboardBtn').hasClass('active') ? $('.keyboard').show() : $('.keyboard').hide();
+  if ($('.keyboardBtn').hasClass('active')) {
+    $('.keyboard').show()
+    $('.display').css('height', '300px');
+  } else {
+    $('.keyboard').hide();
+    $('.display').css('height', '600px');
+  }
 });
-
 
 $('[data-toggle="tooltip"]').tooltip();
 
@@ -40,8 +45,8 @@ $('.favorite-toggle-button').each((i, e) => {
 $('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
-    const modalTitle = $('.modalTitle');
-    const modalContent = $('.modalContent');
+    const title = $('.title');
+    const content = $('.content');
     const modalStart = $('.modalStart');
     const modalPlaying = $('.modalPlaying');
     const modalResult = $('.modalResult');
@@ -167,8 +172,9 @@ $('.playGame').each((i, e) => {
       modalResult.hide();
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
-      modalTitle.html(currentTitle);
-      modalContent.html(currentContent);
+      currentContent = currentContent.replace(/\n/g, '');
+      title.html(currentTitle);
+      content.html(currentContent);
       correctInfo.html(correct);
       missInfo.html(miss);
       currentNumber = 0;
@@ -179,8 +185,8 @@ $('.playGame').each((i, e) => {
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
       $('.isKey').removeClass('isKey');
       $('.key_' + currentKeyCode).addClass('isKey');
-      modalContent.html(`<span>${currentContent.substring(0, currentNumber)}</span><span class="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
-      $('.isLetter').css('color', '#ffa500');
+      content.html(`<span>${currentContent.substring(0, currentNumber)}</span><span class="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
+      $('.isLetter').css({'color': "#fff", 'background-color': '#ffa500'});
       console.log(currentContent[currentNumber]);
       console.log(currentKeyCode);
     }

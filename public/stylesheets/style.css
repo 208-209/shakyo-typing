@@ -5,6 +5,11 @@ body {
   padding-top: 70px;
 }
 
+.monospace {
+  white-space: pre-wrap;
+  font-family: sans-serif;
+}
+
 .glyphicon:hover {
   cursor: pointer;
 }
@@ -47,6 +52,7 @@ body {
 
 .display {
   height: 300px;
+  overflow-y: scroll;
 }
 
 .keyboard {
@@ -63,10 +69,6 @@ body {
   text-align: center;
 }
 
-.playing{
-  height: 200px;
-  overflow-y: scroll;
-}
 
 .result{
   height: 200px;
