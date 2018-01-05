@@ -57,11 +57,8 @@ body {
 
 .keyboard {
   height: 300px;
-  display: flex;
-  flex-flow: row wrap;
+  overflow: hidden;
 }
-
-
 
 .start{
   height: 200px;
@@ -85,6 +82,7 @@ body {
 
 
 .key {
+  float: left;
   width: 48px;
   height: 48px;
   line-height: 48px;
@@ -92,30 +90,30 @@ body {
   background: #fff;
   border: 1px solid #f9f9f9;
   border-radius: 5px;
-  margin: 0 4px 4px 4px;
+  margin: 4px;
 }
 
-.keyboard .tab, .keyboard .enter-top {
+.tab, .enter-top {
   width: 74px;
 }
 
-.keyboard .capsLock {
+.capsLock {
   width: 100px;
 }
 
-.keyboard .leftShift {
+.leftShift {
   width: 126px;
 }
 
-.keyboard .rightShift {
+.rightShift {
   width: 74px;
 }
 
-.keyboard .blank {
+.blank {
   width: 60px;
 }
 
-.keyboard .space {
+.key_space {
   width: 200px;
 }
 

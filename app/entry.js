@@ -56,6 +56,7 @@ $('.playGame').each((i, e) => {
     const timerInfo = $('.timer');
     const replayBtn = $('.replayBtn');
     const missBtn = $('.missBtn');
+    const closeBtnbtn = $('.closeBtnbtn');
     
     const dataStages = playGame.data('stages');
     const missStages = new Map();
@@ -89,7 +90,7 @@ $('.playGame').each((i, e) => {
       if (isStarted === false) {
         return;
       }
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && (e.which === 13 || e.which === 32)) {
         currentNumber++;
         nextStage();
         isLetter();
@@ -132,6 +133,11 @@ $('.playGame').each((i, e) => {
       init();
     });
 
+    closeBtnbtn.click(() => {
+      init();
+    });
+
+
     function startCountDown() {
       countDownTimerId = setTimeout(() => {
         let timeLeft = countDownTime - (Date.now() - countDownStartTime);
@@ -172,7 +178,7 @@ $('.playGame').each((i, e) => {
       modalResult.hide();
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
-      currentContent = currentContent.replace(/\n/g, '');
+      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
       title.html(currentTitle);
       content.html(currentContent);
       correctInfo.html(correct);
@@ -214,6 +220,7 @@ $('.playGame').each((i, e) => {
       startTime = 0;
       missStages.clear();
       isStarted = false;
+      $('.isKey').removeClass('isKey');
       startMessage.html('スペースキーで開始');
       shuffle(stages);
     }
