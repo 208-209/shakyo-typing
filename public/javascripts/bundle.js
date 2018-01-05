@@ -10422,7 +10422,7 @@ $('.playGame').each((i, e) => {
       'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':', ']',
       'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '+', '*', '}',
       'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\',
-      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_'];
+      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '↵'];
     let stageNumber; // stages code letter
     let currentTitle;
     let currentContent;
@@ -10441,8 +10441,14 @@ $('.playGame').each((i, e) => {
       if (isStarted === false) {
         return;
       }
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && (e.which === 13 || e.which === 32)) {
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
         currentNumber++;
+        nextStage();
+        isLetter();
+      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
+        currentNumber++;
+        correct++;
+        correctInfo.html(correct);
         nextStage();
         isLetter();
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
@@ -10529,7 +10535,7 @@ $('.playGame').each((i, e) => {
       modalResult.hide();
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
-      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r');
       title.html(currentTitle);
       content.html(currentContent);
       correctInfo.html(correct);
