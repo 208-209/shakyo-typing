@@ -21,16 +21,22 @@ block content
         each game in games
           div(class="panel panel-default")
             div(class="panel-body")
-              - var favorite = favoriteMap.get(game.gameId) || 0
-              if favorite === 1
-                span(class="favorite-toggle-button glyphicon glyphicon-heart pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-              else
-                span(class="favorite-toggle-button glyphicon glyphicon-heart-empty pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
               h3
                 a(href="/games/#{game.gameId}") #{game.gameName}
               h4
                 each tag in game.tags
                   span(class="label label-primary") #{tag}
+              ul
+                li
+                  span(class="glyphicon glyphicon-thumbs-up")
+                  span(class="badge") 8
+                if user
+                  li
+                    - var favorite = favoriteMap.get(game.gameId) || 0
+                    if favorite === 1
+                      span(class="favorite-toggle-button glyphicon glyphicon-heart pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+                    else
+                      span(class="favorite-toggle-button glyphicon glyphicon-heart-empty pull-right" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
             - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
             div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
           div(class="modal fade" id="#{game.gameId}")

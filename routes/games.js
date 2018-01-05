@@ -24,6 +24,11 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
     createdBy: req.user.id
   }).then((game) => {
     res.redirect('/games/' + game.gameId + '/edit');
+    console.info(
+      `【ゲームの新規作成】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+      `remoteAddress: ${req.connection.remoteAddress}, ` +
+      `userAgent: ${req.headers['user-agent']} `
+    );
   });
 });
 
@@ -119,6 +124,11 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
           createdBy: req.user.id
         }).then(() => {
           res.redirect('/');
+          console.info(
+            `【ゲームの編集】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+            `remoteAddress: ${req.connection.remoteAddress}, ` +
+            `userAgent: ${req.headers['user-agent']} `
+          );
         });
       } else {
         const err = new Error('指定されたゲームがない、または、編集する権限がありません');
@@ -132,9 +142,14 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
         gameId: req.params.gameId
       }
     }).then((game) => {
-      if (game && (req.user.id === game.createdBy || req.user.id === '30428943' )) { // 作成者 と 管理人が削除
+      if (game && (req.user.id === game.createdBy || req.user.id === '30428943')) { // 作成者 と 管理人が削除
         deleteGame(game.gameId, () => {
           res.redirect('/');
+          console.info(
+            `【ゲームの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+            `remoteAddress: ${req.connection.remoteAddress}, ` +
+            `userAgent: ${req.headers['user-agent']} `
+          );
         });
       }
     });
@@ -145,16 +160,16 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
   }
 });
 
-function deleteGame (gameId, done, err) {
+function deleteGame(gameId, done, err) {
   Stage.findAll({
     where: {
       gameId: gameId
     }
   }).then((stages) => {
-    const promises = stages.map((s) => { return s.destroy();});
+    const promises = stages.map((s) => { return s.destroy(); });
     return Promise.all(promises);
   }).then(() => {
-    return Game.findById(gameId).then((g) => { return g.destroy();});
+    return Game.findById(gameId).then((g) => { return g.destroy(); });
   }).then(() => {
     if (err) return done(err);
     done();

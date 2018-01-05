@@ -21,6 +21,11 @@ router.post('/:gameId/stages', authenticationEnsurer, (req, res, next) => {
           createdBy: req.user.id
         }).then(() => {
           res.redirect('/games/' + game.gameId + '/edit');
+          console.info(
+            `【ステージの作成】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+            `remoteAddress: ${req.connection.remoteAddress}, ` +
+            `userAgent: ${req.headers['user-agent']} `
+          );
         });
       } else {
         const err = new Error('指定されたゲームがない、または、追加する権限がありません');
@@ -42,6 +47,11 @@ router.post('/:gameId/stages', authenticationEnsurer, (req, res, next) => {
           }
         }).then((stage) => {
           stage.destroy();
+          console.info(
+            `【ステージの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+            `remoteAddress: ${req.connection.remoteAddress}, ` +
+            `userAgent: ${req.headers['user-agent']} `
+          );
         }).then(() => {
           res.redirect('/games/' + game.gameId + '/edit');
         });

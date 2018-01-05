@@ -11,6 +11,11 @@ router.post('/:gameId/comments', authenticationEnsurer, (req, res, next) => {
     Comment.findById(req.body.id).then((comment) => {
       if (req.user.id === comment.postedBy || req.user.id === '30428943') { // 投稿者 または 管理人が削除
         comment.destroy();
+        console.info(
+          `【コメントの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+          `remoteAddress: ${req.connection.remoteAddress}, ` +
+          `userAgent: ${req.headers['user-agent']} `
+        );
       }
       res.redirect('/games/' + gameId);
     });
@@ -21,6 +26,11 @@ router.post('/:gameId/comments', authenticationEnsurer, (req, res, next) => {
       postedBy: req.user.id
     }).then(() => {
       res.redirect('/games/' + gameId);
+      console.info(
+        `【コメントの投稿】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+        `remoteAddress: ${req.connection.remoteAddress}, ` +
+        `userAgent: ${req.headers['user-agent']} `
+      );
     });
   }
 });

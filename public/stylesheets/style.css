@@ -10,9 +10,24 @@ body {
   font-family: sans-serif;
 }
 
+.glyphicon {
+  vertical-align: -25%;
+  font-size: 20px;
+}
+
 .glyphicon:hover {
   cursor: pointer;
 }
+.glyphicon-heart, .glyphicon-heart-empty {
+  color: palevioletred;
+}
+
+.glyphicon-thumbs-up {
+  color: blueviolet;
+  margin-right: 6px;
+}
+
+
 
 .panel .modalContent {
   white-space: pre-wrap;
@@ -20,6 +35,11 @@ body {
 
 .panel {
   margin-top: 15px;
+}
+.panel ul {
+  list-style:none;
+  display: flex;
+  justify-content: space-around;
 
 }
 .label {
@@ -38,12 +58,6 @@ body {
 }
 
 
-.glyphicon {
-  font-size: 20px;
-}
-.glyphicon-heart, .glyphicon-heart-empty {
-  color: palevioletred;
-}
 
 .modal-body {
   background: #eee;
