@@ -5,6 +5,7 @@ const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
+const Comment = require('../models/comment');
 
 router.get('/', (req, res, next) => {
   if (req.user) {
@@ -15,6 +16,9 @@ router.get('/', (req, res, next) => {
       },{
         model: Favorite,
         attributes: ['favorite']
+      },{
+        model: Comment,
+        attributes: ['comment']
       }],
       where: { privacy: 'public' },
       order: '"updatedAt" DESC'
@@ -30,7 +34,6 @@ router.get('/', (req, res, next) => {
         favorites.forEach((f) => {
           favoriteMap.set(f.gameId, f.favorite);
         });
-        console.log(favoriteMap);
         res.render('index', {
           user: req.user,
           games: games,
@@ -44,6 +47,9 @@ router.get('/', (req, res, next) => {
       include: [{
         model: Stage,
         attributes: ['stageTitle', 'stageContent']
+      },{
+        model: Comment,
+        attributes: ['comment']
       }],
       where: {
         privacy: 'public'

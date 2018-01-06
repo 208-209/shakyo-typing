@@ -28,8 +28,9 @@ block content
                 span(class="label label-primary") #{tag}
             ul
               li
+                - var commentCount = game.comments.length
                 i(class="fa fa-commenting-o" aria-hidden="true")
-                span(class="badge likeCount") 8
+                span(class="badge commentCount") #{commentCount}
 
               if user
                 li
