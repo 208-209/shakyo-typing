@@ -3,13 +3,13 @@ const loader = require('./sequelize-loader');
 const Sequelize = loader.Sequelize;
 
 const Favorite = loader.database.define('favorites', {
-  gameId: {
-    type: Sequelize.UUID,
+  userId: {
+    type: Sequelize.STRING,
     primaryKey: true,
     allowNull: false
   },
-  userId: {
-    type: Sequelize.STRING,
+  gameId: {
+    type: Sequelize.UUID,
     primaryKey: true,
     allowNull: false
   },

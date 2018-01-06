@@ -6,6 +6,7 @@ const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
+const Comment = require('../models/comment');
 
 router.get('/:userId', (req, res, next) => {
   if (req.user) {
@@ -14,10 +15,10 @@ router.get('/:userId', (req, res, next) => {
         model: Stage,
         attributes: ['stageTitle', 'stageContent']
       },{
-        model: Favorite,
-        attributes: ['favorite']
+        model: Comment,
+        attributes: ['comment']
       }],
-      where: { createdBy: req.user.id },
+      where: { createdBy: req.user.id }, // 自分が作ったゲームのみを表示
       order: '"updatedAt" DESC'
     }).then((games) => {
       const gameMap = new Map();

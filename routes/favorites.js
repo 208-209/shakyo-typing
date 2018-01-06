@@ -6,6 +6,7 @@ const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
+const Comment = require('../models/comment');
 
 router.get('/:userId/favorites', (req, res, next) => {
   if (req.user) {
@@ -18,8 +19,11 @@ router.get('/:userId/favorites', (req, res, next) => {
         attributes: ['favorite'],
         where: {
           userId: req.user.id,
-          favorite: 1
+          favorite: 1 // お気に入り登録したゲームのみを表示
         }
+      },{
+        model: Comment,
+        attributes: ['comment']
       }],
       order: '"updatedAt" DESC'
     }).then((games) => {

@@ -14,13 +14,10 @@ router.get('/', (req, res, next) => {
         model: Stage,
         attributes: ['stageTitle', 'stageContent']
       },{
-        model: Favorite,
-        attributes: ['favorite']
-      },{
         model: Comment,
         attributes: ['comment']
       }],
-      where: { privacy: 'public' },
+      where: { privacy: 'public' }, // 公開ゲームのみを表示
       order: '"updatedAt" DESC'
     }).then((games) => {
       const gameMap = new Map();
