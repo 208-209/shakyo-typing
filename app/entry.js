@@ -35,8 +35,8 @@ $('.favorite-toggle-button').each((i, e) => {
       { favorite: nextFavorite },
       (data) => {
         button.data('favorite', data.favorite);
-        const buttonStyles = ['glyphicon-heart-empty', 'glyphicon-heart'];
-        button.removeClass('glyphicon-heart-empty', 'glyphicon-heart');
+        const buttonStyles = ['fa-star-o', 'fa-star'];
+        button.removeClass('fa-star-o', 'fa-star');
         button.addClass(buttonStyles[data.favorite]);
       });
   });

@@ -10,20 +10,16 @@ body {
   font-family: sans-serif;
 }
 
-.glyphicon {
-  vertical-align: -25%;
+.fa {
+  vertical-align: -15%;
   font-size: 20px;
 }
 
-.glyphicon:hover {
+.fa:hover:not(.fa-commenting-o) {
   cursor: pointer;
 }
-.glyphicon-heart, .glyphicon-heart-empty {
-  color: palevioletred;
-}
 
-.glyphicon-thumbs-up {
-  color: blueviolet;
+.fa-commenting-o, .fa-thumbs-o-up {
   margin-right: 6px;
 }
 
