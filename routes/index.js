@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const util = require('./util.js');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
@@ -57,6 +58,7 @@ router.get('/', (req, res, next) => {
       games.forEach((g) => {
         gameMap.set(g.gameId, g.stages);
       });
+
       res.render('index', {
         user: req.user,
         games: games,

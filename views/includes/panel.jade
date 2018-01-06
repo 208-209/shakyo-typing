@@ -1,0 +1,82 @@
+//- includes/panel.jade
+- var hasGames = games.length > 0
+if hasGames
+  each game in games
+    div(class="panel panel-default")
+      div(class="panel-body")
+        h3
+          a(href="/games/#{game.gameId}") #{game.gameName}
+        h4
+          each tag in game.tags
+            span(class="label label-primary") #{tag}
+        ul
+          li
+            - var commentCount = game.comments.length
+            i(class="fa fa-commenting-o" aria-hidden="true")
+            span(class="badge commentCount") #{commentCount}
+
+          if user
+            li
+              - var favorite = favoriteMap.get(game.gameId) || 0
+              if favorite === 1
+                i(class="fa fa-star favorite-toggle-button" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+              else
+                i(class="fa fa-star-o favorite-toggle-button" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+
+      - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+      div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
+
+      //- モーダル
+      div(class="modal fade" id="#{game.gameId}")
+        div(class="modal-dialog modal-lg")
+          div(class="modal-content")
+            //- start
+            div(class="modalStart")
+              div(class="modal-header")
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4(class="modal-title text-center") #{game.gameName}
+              div(class="modal-body")
+                div(class="display")
+                  div(class="startMessage")
+                div(class="keyboard")
+                  include keyboard.jade
+
+              div(class="modal-footer")
+                button(class="keyboardBtn btn btn-default pull-left") キーボード
+                button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
+            //- playing
+            div(class="modalPlaying")
+              div(class="modal-header")
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4(class="modal-title text-center")
+              div(class="modal-body")
+                div(class="display")
+                  div(class="info")
+                    span(class="correct")
+                    span(class="miss")
+                    span(class="timer")
+                  div(class="title monospace")
+
+                  div(class="content monospace")
+
+                div(class="keyboard")
+                  include keyboard.jade
+
+              div(class="modal-footer")
+                button(class="keyboardBtn btn btn-default pull-left") キーボード
+                button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
+            //- result
+            div(class="modalResult")
+              div(class="modal-header")
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4(class="modal-title text-center") #{game.gameName}
+              div(class="modal-body")
+                div(class="result")
+              div(class="modal-footer")
+                button(class="twitterBtn btn btn-default") ツイート
+                button(class="missBtn btn btn-default") ミスだけ
+                button(class="replayBtn btn btn-default") もう一回
+                button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる

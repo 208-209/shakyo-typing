@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
+const util = require('./util.js');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
@@ -48,7 +49,7 @@ router.get('/:userId', (req, res, next) => {
   }
 });
 
-router.post('/:userId/games/:gemeId', authenticationEnsurer, (req, res, next) => {
+router.post('/:userId/games/:gemeId/favorite', authenticationEnsurer, (req, res, next) => {
   const gameId = req.params.gemeId;
   const userId = req.params.userId;
   let favorite = req.body.favorite;

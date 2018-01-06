@@ -31,7 +31,7 @@ $('.favorite-toggle-button').each((i, e) => {
     const favorite = parseInt(button.data('favorite'));
     const nextFavorite = (favorite + 1) % 2;
 
-    $.post(`/users/${userId}/games/${gameId}`,
+    $.post(`/users/${userId}/games/${gameId}/favorite`,
       { favorite: nextFavorite },
       (data) => {
         button.data('favorite', data.favorite);
@@ -41,6 +41,7 @@ $('.favorite-toggle-button').each((i, e) => {
       });
   });
 });
+
 
 $('.playGame').each((i, e) => {
   const playGame = $(e)
