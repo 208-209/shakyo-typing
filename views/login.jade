@@ -9,6 +9,9 @@ block content
   if user
     button(type="button" class="btn btn-primary btn-lg btn-block") #{user.username} でログイン中
   else
-    a(href="/auth/google" type="button" class="btn btn-primary btn-lg btn-block") Googleでログイン
-    a(href="/auth/twitter" type="button" class="btn btn-primary btn-lg btn-block") Twitterでログイン
-    a(href="/auth/github" type="button" class="btn btn-primary btn-lg btn-block") GitHubでログイン
+    a(href="/auth/google" type="button" class="btn btn-lg btn-block googleBtn")
+      i(class="fa fa-google" aria-hidden="true")  Google アカウントでログイン
+    a(href="/auth/twitter" type="button" class="btn btn-lg btn-block twitterBtn")
+      i(class="fa fa-twitter" aria-hidden="true")  Twitter アカウントでログイン
+    a(href="/auth/github" type="button" class="btn btn-lg btn-block githubBtn")
+      i(class="fa fa-github" aria-hidden="true")  GitHub アカウントでログイン

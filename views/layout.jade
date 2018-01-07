@@ -31,15 +31,11 @@ html(lang="ja")
                       span(class="caret")
                     ul(class="dropdown-menu")
                       li
-                        a(href="/users/#{user.id}/profile") プロフィール
-                      li
                         a(href="/logout") ログアウト
                   when "twitter"
                     a(href="" class="dropdown-toggle" data-toggle="dropdown") #{user.username} 
                       span(class="caret")
                     ul(class="dropdown-menu")
-                      li
-                        a(href="/users/#{user.id}/profile") プロフィール
                       li
                         a(href="/logout") ログアウト
                   when "github"

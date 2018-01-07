@@ -24,6 +24,7 @@ block content
       - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
       if isDeletable
         form(method="post" action="/games/#{game.gameId}?delete=1")
+          input(type="hidden" name="_csrf" value!="#{csrfToken}")
           button(class="btn btn-danger pull-right" type="submit") 削除
 
 
@@ -58,6 +59,7 @@ block content
             - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
             if isDeletable
               form(method="post" action="/games/#{game.gameId}/comments?delete=1")
+                input(type="hidden" name="_csrf" value!="#{csrfToken}")
                 input(type="hidden" name="id" value="#{comment.commentId}")
                 button(type="submit") 削除
 
@@ -66,7 +68,10 @@ block content
     div
       h3 コメントの投稿
       form(method="post" action="/games/#{game.gameId}/comments")
+        input(type="hidden" name="_csrf" value!="#{csrfToken}")
         div(class="form-group")
           textarea(name="comment" class="form-control" rows="2")
         div(class="form-group")
           button(type="submit" class="btn btn-info pull-right") 投稿
+  else
+    p コメントするにはログインする必要があります。

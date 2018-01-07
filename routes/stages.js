@@ -5,8 +5,11 @@ const authenticationEnsurer = require('./authentication-ensurer');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
-router.post('/:gameId/stages', authenticationEnsurer, (req, res, next) => {
+// ステージの作成・削除
+router.post('/:gameId/stages', authenticationEnsurer, csrfProtection, (req, res, next) => {
   if (parseInt(req.query.edit) === 1) {
     Game.findOne({
       where: {
@@ -33,7 +36,6 @@ router.post('/:gameId/stages', authenticationEnsurer, (req, res, next) => {
         next(err);
       }
     });
-  
   } else if (parseInt(req.query.delete) === 1) {
     Game.findOne({
       where: {

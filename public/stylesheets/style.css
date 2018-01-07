@@ -9,6 +9,38 @@ body {
 }
 
 /* ========== メインエリア ========== */
+/* ログイン */
+.googleBtn {
+  color: white;
+  background-color: #c6594b;
+  opacity: 0.9;
+}
+.googleBtn:hover {
+  color: white;
+  background-color: #c6594b;
+  opacity: 1;
+}
+.twitterBtn {
+  color: white;
+  background-color: #55acee;
+  opacity: 0.9;
+}
+.twitterBtn:hover {
+  color: white;
+  background-color: #55acee;
+  opacity: 1;
+}
+.githubBtn {
+  color: white;
+  background-color: #4d4d4d;
+  opacity: 0.9;
+}
+.githubBtn:hover {
+  color: white;
+  background-color: #4d4d4d;
+  opacity: 1;
+}
+
 /* パネル */
 .panel {
   margin-top: 15px;
@@ -41,7 +73,7 @@ body {
   font-size: 20px;
   margin-right: 6px;
 }
-.panel .fa:hover:not(.fa-commenting-o) {
+.isPointer {
   cursor: pointer;
 }
 .panel .fa-star {

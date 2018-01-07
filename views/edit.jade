@@ -10,6 +10,7 @@ block content
 
 
   form(method="post" action="/games/#{game.gameId}/stages?edit=1")
+    input(type="hidden" name="_csrf" value!="#{csrfToken}")
     div(class="form-group")
       label(for="stageTitle") ステージタイトル
       input(id="stageTitle" class="form-control" type="text" name="stageTitle")
@@ -28,10 +29,12 @@ block content
         p(class="panel-text") #{stage.stageContent}
       div(class="panel-footer")
         form(method="post" action="/games/#{game.gameId}/stages?delete=1")
+          input(type="hidden" name="_csrf" value!="#{csrfToken}")
           input(type="hidden" name="stageId" value="#{stage.stageId}")
           button(class="btn btn-danger" type="submit") Delete
 
   form(method="post" action="/games/#{game.gameId}?edit=1")
+    input(type="hidden" name="_csrf" value!="#{csrfToken}")
     div(class="form-group")
       label(for="gameName") ゲームネーム
       input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")

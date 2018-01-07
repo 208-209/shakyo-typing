@@ -4,8 +4,11 @@ const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
 const User = require('../models/user');
 const Comment = require('../models/comment');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
-router.post('/:gameId/comments', authenticationEnsurer, (req, res, next) => {
+// コメントの投稿
+router.post('/:gameId/comments', authenticationEnsurer, csrfProtection, (req, res, next) => {
   const gameId = req.params.gameId;
   if (parseInt(req.query.delete) === 1) {
     Comment.findById(req.body.id).then((comment) => {

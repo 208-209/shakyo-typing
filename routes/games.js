@@ -8,12 +8,19 @@ const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Comment = require('../models/comment');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
-router.get('/new', authenticationEnsurer, (req, res, next) => {
-  res.render('new', { user: req.user });
+// ゲームの新規作成ページ
+router.get('/new', authenticationEnsurer, csrfProtection, (req, res, next) => {
+  res.render('new', {
+    user: req.user,
+    csrfToken: req.csrfToken()
+  });
 });
 
-router.post('/', authenticationEnsurer, (req, res, next) => {
+// ゲームの新規作成
+router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
   const gameId = uuid.v4();
   const tagArray = req.body.tags.trim().split('\n').map((t) => t.trim());
   Game.create({
@@ -32,7 +39,8 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/:gameId', (req, res, next) => {
+// ゲームの詳細
+router.get('/:gameId', csrfProtection, (req, res, next) => {
   Game.findOne({
     include: [{
       model: User,
@@ -40,7 +48,7 @@ router.get('/:gameId', (req, res, next) => {
     }],
     where: { gameId: req.params.gameId }
   }).then((game) => {
-    game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
+    game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
     // プライバシーが公開 || プライバシーが非公開 && 作成者と閲覧者が同一
     if (game && (game.privacy === 'public' || game.privacy === 'secret' && req.user.id === game.createdBy)) {
       Stage.findAll({
@@ -61,7 +69,8 @@ router.get('/:gameId', (req, res, next) => {
             user: req.user,
             game: game,
             stages: stages,
-            comments: comments
+            comments: comments,
+            csrfToken: req.csrfToken()
           });
         });
       });
@@ -73,7 +82,8 @@ router.get('/:gameId', (req, res, next) => {
   });
 });
 
-router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
+// ゲームの編集ページの表示
+router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, next) => {
   Game.findOne({
     where: { gameId: req.params.gameId }
   }).then((game) => {
@@ -87,7 +97,8 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
           user: req.user,
           game: game,
           tags: tags,
-          stages: stages
+          stages: stages,
+          csrfToken: req.csrfToken()
         });
         console.log(game.privacy);
       });
@@ -99,7 +110,8 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
   });
 });
 
-router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
+// ゲームの編集・削除
+router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) => {
   if (parseInt(req.query.edit) === 1) { // 編集
     Game.findOne({
       where: { gameId: req.params.gameId }

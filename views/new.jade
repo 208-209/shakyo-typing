@@ -8,6 +8,7 @@ block content
     li(class="breadcrumb-item active") New
 
   form(method="post" action="/games")
+    input(type="hidden" name="_csrf" value!="#{csrfToken}")
     div(class="form-group")
       label(for="gameName") タイトル
       input(id="gameName" class="form-control" type="text" name="gameName")
