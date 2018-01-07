@@ -1,34 +1,15 @@
-.navbar-brand {
-  font-size: 24px;
-}
+/* ========== 共通 ========== */
 body {
   padding-top: 70px;
 }
 
-.monospace {
-  white-space: pre-wrap;
-  font-family: sans-serif;
+/* ========== ヘッダー ========== */
+.navbar-brand {
+  font-size: 24px;
 }
 
-.fa {
-  vertical-align: -15%;
-  font-size: 20px;
-}
-
-.fa:hover:not(.fa-commenting-o) {
-  cursor: pointer;
-}
-
-.fa-commenting-o, .fa-thumbs-o-up {
-  margin-right: 6px;
-}
-
-
-
-.panel .modalContent {
-  white-space: pre-wrap;
-}
-
+/* ========== メインエリア ========== */
+/* パネル */
 .panel {
   margin-top: 15px;
 }
@@ -36,11 +17,10 @@ body {
   list-style:none;
   display: flex;
   justify-content: space-around;
-
 }
 .label {
   margin-right: 4px;
-  background-color: olive;
+  background-color: #0DA921;
 }
 .playGame {
   color: white;
@@ -55,6 +35,35 @@ body {
 
 
 
+/* アイコン */
+.panel .fa {
+  vertical-align: -15%;
+  font-size: 20px;
+  margin-right: 6px;
+}
+.panel .fa:hover:not(.fa-commenting-o) {
+  cursor: pointer;
+}
+.panel .fa-star {
+  color: #F6A615;
+}
+.panel .fa-heart {
+  color: #E82A37;
+}
+.panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
+  color: gray;
+}
+
+/* モーダル */
+.panel .modalContent {
+  white-space: pre-wrap;
+}
+
+.monospace {
+  white-space: pre-wrap;
+  font-family: sans-serif;
+}
+
 .modal-body {
   background: #eee;
   height: 600px;
@@ -65,10 +74,6 @@ body {
   overflow-y: scroll;
 }
 
-.keyboard {
-  height: 300px;
-  overflow: hidden;
-}
 
 .start{
   height: 200px;
@@ -90,7 +95,11 @@ body {
   display: none;
 }
 
-
+/* キーボード */
+.keyboard {
+  height: 300px;
+  overflow: hidden;
+}
 .key {
   float: left;
   width: 48px;
@@ -132,4 +141,6 @@ body {
   font: bold;
   background-color: #ffa500;
 }
+
+/* ========== フッター ========== */
 

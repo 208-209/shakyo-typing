@@ -9,10 +9,13 @@ block content
   if user
     ul(class="nav nav-tabs")
       li
-        a(href="/") Home
+        a(href="/")
+          i(class="fa fa-home" aria-hidden="true")  HOME
       li
-        a(href="/users/#{user.id}") user
+        a(href="/users/#{user.id}")
+          i(class="fa fa-user" aria-hidden="true")  #{user.username}
       li(class="active")
-        a(href="/users/#{user.id}/favorites") favorites
+        a(href="/users/#{user.id}/favorites")
+          i(class="fa fa-star" aria-hidden="true")  お気に入り
   //- パネル
   include includes/panel.jade
