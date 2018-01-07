@@ -12,8 +12,9 @@ block content
         a(href="/")
           i(class="fa fa-home" aria-hidden="true")  HOME
       li
+        - var userName = user.username || user.displayName
         a(href="/users/#{user.id}")
-          i(class="fa fa-user" aria-hidden="true")  #{user.username}
+          i(class="fa fa-user" aria-hidden="true")  #{userName}
       li(class="active")
         a(href="/users/#{user.id}/favorites")
           i(class="fa fa-star" aria-hidden="true")  ブックマーク
