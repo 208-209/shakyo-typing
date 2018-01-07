@@ -8,6 +8,7 @@ const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 router.get('/:userId', (req, res, next) => {
   if (req.user) {
@@ -15,7 +16,7 @@ router.get('/:userId', (req, res, next) => {
       include: [{
         model: Stage,
         attributes: ['stageTitle', 'stageContent']
-      },{
+      }, {
         model: Comment,
         attributes: ['comment']
       }],
@@ -33,12 +34,20 @@ router.get('/:userId', (req, res, next) => {
         favorites.forEach((f) => {
           favoriteMap.set(f.gameId, f.favorite);
         });
-        console.log(favoriteMap);
-        res.render('user', {
-          user: req.user,
-          games: games,
-          gameMap: gameMap,
-          favoriteMap: favoriteMap
+        Like.findAll({
+          where: { userId: req.user.id }
+        }).then((likes) => {
+          const likeMap = new Map();
+          likes.forEach((l) => {
+            likeMap.set(l.gameId, l.like);
+          });
+          res.render('user', {
+            user: req.user,
+            games: games,
+            gameMap: gameMap,
+            favoriteMap: favoriteMap,
+            likeMap: likeMap
+          });
         });
       });
     });
@@ -56,8 +65,8 @@ router.post('/:userId/games/:gemeId/favorite', authenticationEnsurer, (req, res,
   favorite = favorite ? parseInt(favorite) : 0;
 
   Favorite.upsert({
-    gameId: gameId,
     userId: userId,
+    gameId: gameId,
     favorite: favorite
   }).then(() => {
     res.json({ status: 'OK', favorite: favorite });

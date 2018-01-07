@@ -22,6 +22,21 @@ if hasGames
                 i(class="fa fa-star favorite-toggle-button" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
               else
                 i(class="fa fa-star-o favorite-toggle-button" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+            li
+              - var like = likeMap.get(game.gameId) || 0
+              if like === 1
+                i(class="fa fa-heart like-toggle-button" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
+              else
+                i(class="fa fa-heart-o like-toggle-button" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
+              span(class="badge likeCount")
+          else
+            li
+              i(class="fa fa-star-o" aria-hidden="true")
+            li
+              i(class="fa fa-heart-o" aria-hidden="true")
+              span(class="badge likeCount")
+
+
 
       - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
       div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY

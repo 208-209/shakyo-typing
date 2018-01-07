@@ -42,6 +42,27 @@ $('.favorite-toggle-button').each((i, e) => {
   });
 });
 
+$('.like-toggle-button').each((i, e) => {
+  const button = $(e);
+  button.click(() => {
+    const userId = button.data('user-id');
+    const gameId = button.data('game-id');
+    const like = parseInt(button.data('like'));
+    const nextLike = (like + 1) % 2;
+
+    $.post(`/users/${userId}/games/${gameId}/like`,
+      { like: nextLike },
+      (data) => {
+        button.data('like', data.like);
+        $('.likeCount').text(data.likeCount);
+        const buttonStyles = ['fa-heart-o', 'fa-heart'];
+        button.removeClass('fa-heart-o', 'fa-heart');
+        button.addClass(buttonStyles[data.like]);
+      });
+  });
+});
+
+
 
 $('.playGame').each((i, e) => {
   const playGame = $(e)

@@ -7,6 +7,7 @@ const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 router.get('/', (req, res, next) => {
   if (req.user) {
@@ -14,7 +15,7 @@ router.get('/', (req, res, next) => {
       include: [{
         model: Stage,
         attributes: ['stageTitle', 'stageContent']
-      },{
+      }, {
         model: Comment,
         attributes: ['comment']
       }],
@@ -32,11 +33,20 @@ router.get('/', (req, res, next) => {
         favorites.forEach((f) => {
           favoriteMap.set(f.gameId, f.favorite);
         });
-        res.render('index', {
-          user: req.user,
-          games: games,
-          gameMap: gameMap,
-          favoriteMap: favoriteMap
+        Like.findAll({
+          where: { userId: req.user.id }
+        }).then((likes) => {
+          const likeMap = new Map();
+          likes.forEach((l) => {
+            likeMap.set(l.gameId, l.like);
+          });
+          res.render('index', {
+            user: req.user,
+            games: games,
+            gameMap: gameMap,
+            favoriteMap: favoriteMap,
+            likeMap: likeMap
+          });
         });
       });
     });
@@ -45,20 +55,17 @@ router.get('/', (req, res, next) => {
       include: [{
         model: Stage,
         attributes: ['stageTitle', 'stageContent']
-      },{
+      }, {
         model: Comment,
         attributes: ['comment']
       }],
-      where: {
-        privacy: 'public'
-      },
+      where: { privacy: 'public' },
       order: '"updatedAt" DESC'
     }).then((games) => {
       const gameMap = new Map();
       games.forEach((g) => {
         gameMap.set(g.gameId, g.stages);
       });
-
       res.render('index', {
         user: req.user,
         games: games,

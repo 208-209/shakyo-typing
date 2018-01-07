@@ -38,17 +38,13 @@ router.get('/:gameId', (req, res, next) => {
       model: User,
       attributes: ['userId', 'username']
     }],
-    where: {
-      gameId: req.params.gameId
-    }
+    where: { gameId: req.params.gameId }
   }).then((game) => {
     game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
     // プライバシーが公開 || プライバシーが非公開 && 作成者と閲覧者が同一
     if (game && (game.privacy === 'public' || game.privacy === 'secret' && req.user.id === game.createdBy)) {
       Stage.findAll({
-        where: {
-          gameId: game.gameId
-        },
+        where: { gameId: game.gameId },
         order: '"stageId" DESC'
       }).then((stages) => {
         Comment.findAll({
@@ -79,15 +75,11 @@ router.get('/:gameId', (req, res, next) => {
 
 router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
   Game.findOne({
-    where: {
-      gameId: req.params.gameId
-    }
+    where: { gameId: req.params.gameId }
   }).then((game) => {
     if (game && req.user.id === game.createdBy) { // 作成者のみが編集フォームを開ける
       Stage.findAll({
-        where: {
-          gameId: game.gameId
-        },
+        where: { gameId: game.gameId },
         order: '"stageId" DESC'
       }).then((stages) => {
         const tags = game.tags.join('\n');
@@ -110,9 +102,7 @@ router.get('/:gameId/edit', authenticationEnsurer, (req, res, next) => {
 router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
   if (parseInt(req.query.edit) === 1) { // 編集
     Game.findOne({
-      where: {
-        gameId: req.params.gameId
-      }
+      where: { gameId: req.params.gameId }
     }).then((game) => {
       if (game && req.user.id === game.createdBy) { // 作成者のみ
         const tagArray = req.body.tags.trim().split('\n').map((t) => t.trim());
@@ -162,9 +152,7 @@ router.post('/:gameId', authenticationEnsurer, (req, res, next) => {
 
 function deleteGame(gameId, done, err) {
   Stage.findAll({
-    where: {
-      gameId: gameId
-    }
+    where: { gameId: gameId }
   }).then((stages) => {
     const promises = stages.map((s) => { return s.destroy(); });
     return Promise.all(promises);

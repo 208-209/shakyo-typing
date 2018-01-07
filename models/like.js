@@ -2,18 +2,18 @@
 const loader = require('./sequelize-loader');
 const Sequelize = loader.Sequelize;
 
-const Favorite = loader.database.define('favorites', {
-  userId: {
-    type: Sequelize.STRING,
-    primaryKey: true,
-    allowNull: false
-  },
+const Like = loader.database.define('likes', {
   gameId: {
     type: Sequelize.UUID,
     primaryKey: true,
     allowNull: false
   },
-  favorite: {
+  userId: {
+    type: Sequelize.STRING,
+    primaryKey: true,
+    allowNull: false
+  },
+  like: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
@@ -23,9 +23,9 @@ const Favorite = loader.database.define('favorites', {
     timestamps: false,
     indexes: [
       {
-        fields: ['favorite']
+        fields: ['like']
       }
     ]
   });
 
-module.exports = Favorite;
+module.exports = Like;

@@ -8,6 +8,7 @@ const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 router.get('/:userId/favorites', (req, res, next) => {
   if (req.user) {
@@ -22,7 +23,7 @@ router.get('/:userId/favorites', (req, res, next) => {
           userId: req.user.id,
           favorite: 1 // お気に入り登録したゲームのみを表示
         }
-      },{
+      }, {
         model: Comment,
         attributes: ['comment']
       }],
@@ -39,12 +40,20 @@ router.get('/:userId/favorites', (req, res, next) => {
         favorites.forEach((f) => {
           favoriteMap.set(f.gameId, f.favorite);
         });
-        console.log(games);
-        res.render('favorite', {
-          user: req.user,
-          games: games,
-          gameMap: gameMap,
-          favoriteMap: favoriteMap
+        Like.findAll({
+          where: { userId: req.user.id }
+        }).then((likes) => {
+          const likeMap = new Map();
+          likes.forEach((l) => {
+            likeMap.set(l.gameId, l.like);
+          });
+          res.render('favorite', {
+            user: req.user,
+            games: games,
+            gameMap: gameMap,
+            favoriteMap: favoriteMap,
+            likeMap: likeMap
+          });
         });
       });
     });
