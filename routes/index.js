@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const util = require('./util.js');
+const loader = require('../models/sequelize-loader');
+const sequelize = loader.database;
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
@@ -40,12 +42,26 @@ router.get('/', (req, res, next) => {
           likes.forEach((l) => {
             likeMap.set(l.gameId, l.likeState);
           });
-          res.render('index', {
-            user: req.user,
-            games: games,
-            gameMap: gameMap,
-            favoriteMap: favoriteMap,
-            likeMap: likeMap
+          Like.findAll({
+            attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
+            group: ['gameId'],
+            where: {
+              likeState: 1 // いいね！されたものだけ
+            }
+          }).then((likes) => {
+            const likeCountMap = new Map();
+            likes.forEach((l) => {
+              likeCountMap.set(l.gameId, l.dataValues['count']); // l.countではundefined
+              console.log(likeCountMap);
+            });
+            res.render('index', {
+                  user: req.user,
+              games: games,
+              gameMap: gameMap,
+              favoriteMap: favoriteMap,
+              likeMap: likeMap,
+              likeCountMap: likeCountMap
+            });
           });
         });
       });
@@ -66,10 +82,24 @@ router.get('/', (req, res, next) => {
       games.forEach((g) => {
         gameMap.set(g.gameId, g.stages);
       });
-      res.render('index', {
-        user: req.user,
-        games: games,
-        gameMap: gameMap
+      Like.findAll({
+        attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
+        group: ['gameId'],
+        where: {
+          likeState: 1 // いいね！されたものだけ
+        }
+      }).then((likes) => {
+        const likeCountMap = new Map();
+        likes.forEach((l) => {
+          likeCountMap.set(l.gameId, l.dataValues['count']); // l.countではundefined
+          console.log(likeCountMap);
+        });
+        res.render('index', {
+          user: req.user,
+          games: games,
+          gameMap: gameMap,
+          likeCountMap: likeCountMap
+        });
       });
     });
   }
