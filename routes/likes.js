@@ -2,8 +2,6 @@
 const express = require('express');
 const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
-const loader = require('../models/sequelize-loader');
-const sequelize = loader.database;
 
 const User = require('../models/user');
 const Game = require('../models/game');
@@ -21,12 +19,19 @@ router.post('/:userId/games/:gemeId/like', authenticationEnsurer, (req, res, nex
   Like.upsert({
     gameId: gameId,
     userId: userId,
-    like: like
+    likeState: like
   }).then(() => {
-    
-    res.json({ status: 'OK', like: like });
-
+    Like.findAll({
+      where: {
+        gameId: gameId,
+        likeState: 1
+      }
+    }).then((likes) => {
+      const cnt = likes.length;
+      res.json({ status: 'OK', like: like, likeCount: cnt });
+    });
     /*
+    res.json({ status: 'OK', like: like });
     Like.findAll({
       attributes: [[sequelize.fn('COUNT', sequelize.col('userId')), 'cnt']],
       where: {
@@ -41,6 +46,7 @@ router.post('/:userId/games/:gemeId/like', authenticationEnsurer, (req, res, nex
       });
     });
     */
+
   });
 });
 

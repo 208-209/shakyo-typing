@@ -13,7 +13,7 @@ const Like = loader.database.define('likes', {
     primaryKey: true,
     allowNull: false
   },
-  like: {
+  likeState: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
@@ -23,7 +23,7 @@ const Like = loader.database.define('likes', {
     timestamps: false,
     indexes: [
       {
-        fields: ['like']
+        fields: ['likeState']
       }
     ]
   });

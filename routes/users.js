@@ -39,7 +39,7 @@ router.get('/:userId', (req, res, next) => {
         }).then((likes) => {
           const likeMap = new Map();
           likes.forEach((l) => {
-            likeMap.set(l.gameId, l.like);
+            likeMap.set(l.gameId, l.likeState);
           });
           res.render('user', {
             user: req.user,
