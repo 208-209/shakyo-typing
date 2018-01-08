@@ -79,7 +79,7 @@ $('.playGame').each((i, e) => {
     const replayBtn = $('.replayBtn');
     const missBtn = $('.missBtn');
     const closeBtnbtn = $('.closeBtnbtn');
-    
+
     const dataStages = playGame.data('stages');
     const missStages = new Map();
     let stages = dataStages;
@@ -93,7 +93,7 @@ $('.playGame').each((i, e) => {
       'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':', ']',
       'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '+', '*', '}',
       'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\',
-      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '↵'];
+      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '\r'];
     let stageNumber; // stages code letter
     let currentTitle;
     let currentContent;
@@ -195,7 +195,7 @@ $('.playGame').each((i, e) => {
       let t = new Date(time);
       let s = t.getSeconds();
       let ms = t.getMilliseconds();
-      ms = ('00' + ms).slice(-3);
+      ms = ('0' + ms).slice(-2);
       let timerString = s + '.' + ms;
       startMessage.html(timerString)
     }
@@ -220,7 +220,7 @@ $('.playGame').each((i, e) => {
       $('.isKey').removeClass('isKey');
       $('.key_' + currentKeyCode).addClass('isKey');
       content.html(`<span>${currentContent.substring(0, currentNumber)}</span><span class="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
-      $('.isLetter').css({'color': "#fff", 'background-color': '#ffa500'});
+      $('.isLetter').css({ 'color': "#fff", 'background-color': '#ffa500' });
       console.log(currentContent[currentNumber]);
       console.log(currentKeyCode);
     }
@@ -270,12 +270,26 @@ $('.playGame').each((i, e) => {
       modalResult.show();
       missStages.size ? missBtn.show() : missBtn.hide();
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
-      const elapsedTime = (currentTime / 1000).toFixed(2)
-      const WPM = ((correct + miss) / elapsedTime * 60).toFixed(2);
+      const WPM = ((correct + miss) / (currentTime / 1000) * 60).toFixed(2);
       const score = (WPM * Math.pow(accuracy, 3)).toFixed(2);
       const level = determine(score);
-      const result = `スコア: ${score}<br>レベル: ${level}<br>入力時間: ${elapsedTime}<br>入力文字: ${correct}<br>ミス入力: ${miss}<br>WPM: ${WPM}<br>正解率: ${accuracy * 100}%`;
-      $('.result').html(result);
+
+      let t = new Date(currentTime);
+      let m = t.getMinutes();
+      let s = t.getSeconds();
+      let ms = t.getMilliseconds();
+      m = ('0' + m).slice(-2);
+      s = ('0' + s).slice(-2);
+      ms = ('0' + ms).slice(-2);
+
+
+      $('.resultScore').text(score);
+      $('.resultLevel').text(level);
+      $('.resultTime').text(m + '分' + s + '秒' + ms);
+      $('.resultCorrect').text(correct);
+      $('.resultMiss').text(miss);
+      $('.resultWpm').text(WPM);
+      $('.resultAccuracy').text(accuracy * 100 + '%');
     }
 
     function determine(score) {

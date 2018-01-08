@@ -22,7 +22,9 @@ router.get('/:tag', (req, res, next) => {
         model: Comment,
         attributes: ['comment']
       }],
-      where: { tags: { $like: '%' + req.params.tag + '%' } }, // タグ
+      where: {
+        tags: { $like: '%' + req.params.tag + '%' }
+      },
       order: '"updatedAt" DESC'
     }).then((games) => {
       const gameMap = new Map();
@@ -76,7 +78,9 @@ router.get('/:tag', (req, res, next) => {
         model: Comment,
         attributes: ['comment']
       }],
-      where: { tags: { $like: '%' + req.params.tag + '%' } },
+      where: {
+        tags: { $like: '%' + req.params.tag + '%' }
+      },
       order: '"updatedAt" DESC'
     }).then((games) => {
       const gameMap = new Map();
