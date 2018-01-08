@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  //- パンくずリスト
+  ol(class="breadcrumb")
+    li(class="breadcrumb-item active")
+      a(href="/") Home
+  //- タブ
+  if user
+    ul(class="nav nav-tabs")
+      li
+        a(href="/")
+          i(class="fa fa-home" aria-hidden="true")  HOME
+      li
+        - var userName = user.username || user.displayName
+        a(href="/users/#{user.id}")
+          i(class="fa fa-user" aria-hidden="true")  #{userName}
+      li
+        a(href="/users/#{user.id}/favorites")
+          i(class="fa fa-star" aria-hidden="true")  Bookmark
+      li(class="active")
+        a(href="")
+          i(class="fa fa-search" aria-hidden="true")  Search
+  //- パネル
+  include includes/panel.jade
