@@ -1,5 +1,10 @@
 'use strict';
 
+function ensure(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login?from=' + req.originalUrl);
+}
+
 function createGameMap(games) {
   const gameMap = new Map();
   games.forEach((g) => {
@@ -14,11 +19,6 @@ function createFavoriteMap(favorites) {
     favoriteMap.set(f.gameId, f.favorite);
   });
   return favoriteMap;
-}
-
-function ensure(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
 }
 
 module.exports = {

@@ -12,9 +12,9 @@ block content
     small #{game.formattedCreatedAt} 更新
     h4 #{game.privacy}
     h2 #{game.gameName}
-    h4
-      each tag in game.tags
-        span(class="label label-primary") #{tag}
+    - var tags = game.tags.split('\n');
+    each tag in tags
+      a(class="label label-primary" href="/tags/#{tag}") #{tag}
 
 
     if user

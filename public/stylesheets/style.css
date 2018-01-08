@@ -85,6 +85,9 @@ body {
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
   color: gray;
 }
+.label {
+  font-size: 14px;
+}
 
 /* モーダル */
 .panel .modalContent {

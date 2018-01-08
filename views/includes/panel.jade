@@ -6,15 +6,14 @@ if hasGames
       div(class="panel-body")
         h3
           a(href="/games/#{game.gameId}") #{game.gameName}
-        h4
-          each tag in game.tags
-            span(class="label label-primary") #{tag}
+        - var tags = game.tags.split('\n');
+        each tag in tags
+          a(class="label label-primary" href="/tags/#{tag}") #{tag}
         ul
           li
             - var commentCount = game.comments.length
             i(class="fa fa-commenting-o" aria-hidden="true")
             span(class="badge commentCount") #{commentCount}
-
           if user
             li
               - var favorite = favoriteMap.get(game.gameId) || 0

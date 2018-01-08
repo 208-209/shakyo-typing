@@ -40,7 +40,7 @@ block content
       input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
     div(class="form-group")
       label(for="tags") タグ
-      textarea(id="tags" class="form-control" name="tags") #{tags}
+      textarea(id="tags" class="form-control" name="tags") #{game.tags}
       p(class="help-block") ※複数入力する場合は改行してください
     div(class="form-group")
       label(for="editPrivacy") プライバシー

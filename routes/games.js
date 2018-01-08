@@ -23,10 +23,11 @@ router.get('/new', authenticationEnsurer, csrfProtection, (req, res, next) => {
 router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
   const gameId = uuid.v4();
   const tagArray = req.body.tags.trim().split('\n').map((t) => t.trim());
+  const tags = tagArray.join('\n');
   Game.create({
     gameId: gameId,
     gameName: req.body.gameName.slice(0, 255),
-    tags: tagArray,
+    tags: tags,
     privacy: req.body.privacy,
     createdBy: req.user.id
   }).then((game) => {
@@ -92,11 +93,9 @@ router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, ne
         where: { gameId: game.gameId },
         order: '"stageId" DESC'
       }).then((stages) => {
-        const tags = game.tags.join('\n');
         res.render('edit', {
           user: req.user,
           game: game,
-          tags: tags,
           stages: stages,
           csrfToken: req.csrfToken()
         });
@@ -118,10 +117,11 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
     }).then((game) => {
       if (game && req.user.id === game.createdBy) { // 作成者のみ
         const tagArray = req.body.tags.trim().split('\n').map((t) => t.trim());
+        const tags = tagArray.join('\n');
         game.update({
           gameId: game.gameId,
           gameName: req.body.gameName,
-          tags: tagArray,
+          tags: tags,
           privacy: req.body.privacy,
           createdBy: req.user.id
         }).then(() => {
