@@ -48,13 +48,8 @@ router.get('/', (req, res, next) => {
       });
     }).then((likeCount) => {
       util.createLikeCountMap(likeCount, likeCountMap);
-      return User.findOne({
-        where: { userId: req.user.id }
-      });
-    }).then((user) => {
       res.render('index', {
         user: req.user,
-        userImage: user.image,
         games: storedGames,
         gameMap: gameMap,
         favoriteMap: favoriteMap,

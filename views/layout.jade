@@ -24,6 +24,7 @@ html(lang="ja")
             if user
               li(class="dropdown")
                 - var userName = user.username || user.displayName
+                - var userImage = user._json.avatar_url || user.photos[0].value
                 a(href="" class="dropdown-toggle userName" data-toggle="dropdown") #{userName} 
                   img(src="#{userImage}" alt="userImage" class="img-circle pull-left userImage")
                   span(class="caret")
