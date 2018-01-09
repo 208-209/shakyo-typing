@@ -11,6 +11,10 @@ const User = loader.database.define('users', {
   username: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 }, {
     freezeTableName: true,

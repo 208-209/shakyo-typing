@@ -24,7 +24,6 @@ function createLikeCountMap(likeCount, likeCountMap) {
   });
 }
 
-
 module.exports = {
   createGameMap: createGameMap,
   createFavoriteMap: createFavoriteMap,

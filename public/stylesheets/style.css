@@ -8,6 +8,10 @@ body {
   font-size: 24px;
 }
 
+.userImage {
+  height: 20px;
+  margin-right: 8px;
+}
 /* ========== メインエリア ========== */
 /* ログイン */
 .googleBtn {
