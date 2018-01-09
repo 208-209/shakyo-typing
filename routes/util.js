@@ -1,28 +1,33 @@
 'use strict';
 
-function ensure(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login?from=' + req.originalUrl);
-}
-
-function createGameMap(games) {
-  const gameMap = new Map();
+function createGameMap(games, gameMap) {
   games.forEach((g) => {
     gameMap.set(g.gameId, g.stages);
   });
-  return gameMap;
 }
 
-function createFavoriteMap(favorites) {
-  const favoriteMap = new Map();
+function createFavoriteMap(favorites, favoriteMap) {
   favorites.forEach((f) => {
     favoriteMap.set(f.gameId, f.favorite);
   });
-  return favoriteMap;
 }
 
+function createLikeMap(likes, likeMap) {
+  likes.forEach((l) => {
+    likeMap.set(l.gameId, l.likeState);
+  });
+}
+
+function createLikeCountMap(likeCount, likeCountMap) {
+  likeCount.forEach((l) => {
+    likeCountMap.set(l.gameId, l.dataValues['count']); // l.countではundefined
+  });
+}
+
+
 module.exports = {
-  ensure: ensure,
   createGameMap: createGameMap,
-  createFavoriteMap: createFavoriteMap
+  createFavoriteMap: createFavoriteMap,
+  createLikeMap: createLikeMap,
+  createLikeCountMap: createLikeCountMap
 };

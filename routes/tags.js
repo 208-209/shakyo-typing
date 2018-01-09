@@ -12,7 +12,11 @@ const Comment = require('../models/comment');
 const Like = require('../models/like');
 
 router.get('/:tag', (req, res, next) => {
-  const tag = req.params.tag;
+  const gameMap = new Map();
+  const favoriteMap = new Map();
+  const likeMap = new Map();
+  const likeCountMap = new Map();
+  let storedGames = null;
   if (req.user) {
     Game.findAll({
       include: [{
@@ -27,46 +31,32 @@ router.get('/:tag', (req, res, next) => {
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
-      const gameMap = new Map();
-      games.forEach((g) => {
-        gameMap.set(g.gameId, g.stages);
-      });
-      Favorite.findAll({
+      storedGames = games;
+      util.createGameMap(games, gameMap);
+      return Favorite.findAll({
         where: { userId: req.user.id }
-      }).then((favorites) => {
-        const favoriteMap = new Map();
-        favorites.forEach((f) => {
-          favoriteMap.set(f.gameId, f.favorite);
-        });
-        Like.findAll({
-          where: { userId: req.user.id }
-        }).then((likes) => {
-          const likeMap = new Map();
-          likes.forEach((l) => {
-            likeMap.set(l.gameId, l.likeState);
-          });
-          Like.findAll({
-            attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
-            group: ['gameId'],
-            where: {
-              likeState: 1 // いいね！されたものだけ
-            }
-          }).then((likes) => {
-            const likeCountMap = new Map();
-            likes.forEach((l) => {
-              likeCountMap.set(l.gameId, l.dataValues['count']); // l.countではundefined
-              console.log(likeCountMap);
-            });
-            res.render('tag', {
-              user: req.user,
-              games: games,
-              gameMap: gameMap,
-              favoriteMap: favoriteMap,
-              likeMap: likeMap,
-              likeCountMap: likeCountMap
-            });
-          });
-        });
+      });
+    }).then((favorites) => {
+      util.createFavoriteMap(favorites, favoriteMap)
+      return Like.findAll({
+        where: { userId: req.user.id }
+      });
+    }).then((likes) => {
+      util.createLikeMap(likes, likeMap);
+      return Like.findAll({
+        attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
+        group: ['gameId'],
+        where: { likeState: 1 }
+      });
+    }).then((likeCount) => {
+      util.createLikeCountMap(likeCount, likeCountMap);
+      res.render('tag', {
+        user: req.user,
+        games: storedGames,
+        gameMap: gameMap,
+        favoriteMap: favoriteMap,
+        likeMap: likeMap,
+        likeCountMap: likeCountMap
       });
     });
   } else {
@@ -83,28 +73,20 @@ router.get('/:tag', (req, res, next) => {
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
-      const gameMap = new Map();
-      games.forEach((g) => {
-        gameMap.set(g.gameId, g.stages);
-      });
-      Like.findAll({
+      storedGames = games
+      util.createGameMap(games, gameMap);
+      return Like.findAll({
         attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
         group: ['gameId'],
-        where: {
-          likeState: 1 // いいね！されたものだけ
-        }
-      }).then((likes) => {
-        const likeCountMap = new Map();
-        likes.forEach((l) => {
-          likeCountMap.set(l.gameId, l.dataValues['count']); // l.countではundefined
-          console.log(likeCountMap);
-        });
-        res.render('tag', {
-          user: req.user,
-          games: games,
-          gameMap: gameMap,
-          likeCountMap: likeCountMap
-        });
+        where: { likeState: 1 }
+      });
+    }).then((likeCount) => {
+      util.createLikeCountMap(likeCount, likeCountMap);
+      res.render('tag', {
+        user: req.user,
+        games: storedGames,
+        gameMap: gameMap,
+        likeCountMap: likeCountMap
       });
     });
   }
