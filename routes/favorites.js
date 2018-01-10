@@ -70,4 +70,19 @@ router.get('/:userId/favorites', authenticationEnsurer , (req, res, next) => {
   }
 });
 
+router.post('/:userId/games/:gemeId/favorite', authenticationEnsurer, (req, res, next) => {
+  const gameId = req.params.gemeId;
+  const userId = req.params.userId;
+  let favorite = req.body.favorite;
+  favorite = favorite ? parseInt(favorite) : 0;
+
+  Favorite.upsert({
+    userId: userId,
+    gameId: gameId,
+    favorite: favorite
+  }).then(() => {
+    res.json({ status: 'OK', favorite: favorite });
+  });
+});
+
 module.exports = router;

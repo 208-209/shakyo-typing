@@ -15,7 +15,7 @@ block content
     h2 #{game.gameName}
     - var tags = game.tags.split('\n');
     each tag in tags
-      a(class="label label-primary" href="/tags/#{tag}") #{tag}
+      a(class="label label-primary" href="/games/tags/#{tag}") #{tag}
 
     if user
       - var isMine = (user.id === game.createdBy)

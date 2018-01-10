@@ -23,6 +23,7 @@ $('.keyboardBtn').click(() => {
 
 $('[data-toggle="tooltip"]').tooltip();
 
+// AJAXによるfavoriteの更新
 $('.favorite-toggle-button').each((i, e) => {
   const button = $(e);
   button.click(() => {
@@ -42,6 +43,7 @@ $('.favorite-toggle-button').each((i, e) => {
   });
 });
 
+// AJAXによるlikeの更新
 $('.like-toggle-button').each((i, e) => {
   const button = $(e);
   button.click(() => {
@@ -61,8 +63,6 @@ $('.like-toggle-button').each((i, e) => {
       });
   });
 });
-
-
 
 $('.playGame').each((i, e) => {
   const playGame = $(e)
