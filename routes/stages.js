@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
-const User = require('../models/user');
+const util = require('./util.js');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const csrf = require('csurf');
@@ -10,64 +10,58 @@ const csrfProtection = csrf({ cookie: true });
 
 // ステージの作成・削除
 router.post('/:gameId/stages', authenticationEnsurer, csrfProtection, (req, res, next) => {
-  if (parseInt(req.query.edit) === 1) {
+  let storedGame = null;
+  if (parseInt(req.query.delete) === 1) {
     Game.findOne({
-      where: {
-        gameId: req.params.gameId
-      }
+      where: { gameId: req.params.gameId }
     }).then((game) => {
-      if (isMineGame(req, game)) {
-        Stage.create({
-          stageTitle: req.body.stageTitle,
+      storedGame = game
+      // ゲームの作成者のみ
+      if (util.isMine(req, game)) {
+        return Stage.findOne({
+          where: { stageId: req.body.stageId }
+        });
+      } else {
+        const err = new Error('削除する権限がありません');
+        err.status = 404;
+        next(err);
+      }
+    }).then((stage) => {
+      stage.destroy();
+      console.info(
+        `【ステージの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+        `remoteAddress: ${req.connection.remoteAddress}, ` +
+        `userAgent: ${req.headers['user-agent']} `
+      );
+      res.redirect('/games/' + storedGame.gameId + '/edit');
+    });
+  } else {
+    Game.findOne({
+      where: { gameId: req.params.gameId }
+    }).then((game) => {
+      storedGame = game
+      // ゲームの作成者のみ
+      if (util.isMine(req, game)) {
+        return Stage.create({
+          stageTitle: req.body.stageTitle.slice(0, 255),
           stageContent: req.body.stageContent,
           gameId: game.gameId,
           createdBy: req.user.id
-        }).then(() => {
-          res.redirect('/games/' + game.gameId + '/edit');
-          console.info(
-            `【ステージの作成】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
-            `remoteAddress: ${req.connection.remoteAddress}, ` +
-            `userAgent: ${req.headers['user-agent']} `
-          );
         });
       } else {
-        const err = new Error('指定されたゲームがない、または、追加する権限がありません');
+        const err = new Error('作成する権限がありません');
         err.status = 404;
         next(err);
       }
-    });
-  } else if (parseInt(req.query.delete) === 1) {
-    Game.findOne({
-      where: {
-        gameId: req.params.gameId,
-      }
-    }).then((game) => {
-      if (isMineGame(req, game)) {
-        Stage.findOne({
-          where: {
-            stageId: req.body.stageId
-          }
-        }).then((stage) => {
-          stage.destroy();
-          console.info(
-            `【ステージの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
-            `remoteAddress: ${req.connection.remoteAddress}, ` +
-            `userAgent: ${req.headers['user-agent']} `
-          );
-        }).then(() => {
-          res.redirect('/games/' + game.gameId + '/edit');
-        });
-      } else {
-        const err = new Error('指定されたゲームがない、または、追加する権限がありません');
-        err.status = 404;
-        next(err);
-      }
+    }).then(() => {
+      res.redirect('/games/' + storedGame.gameId + '/edit');
+      console.info(
+        `【ステージの作成】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+        `remoteAddress: ${req.connection.remoteAddress}, ` +
+        `userAgent: ${req.headers['user-agent']} `
+      );
     });
   }
 });
-
-function isMineGame(req, game) {
-  return game && parseInt(game.createdBy) === parseInt(req.user.id);
-}
 
 module.exports = router;

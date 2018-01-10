@@ -5,7 +5,6 @@ const authenticationEnsurer = require('./authentication-ensurer');
 const util = require('./util.js');
 const loader = require('../models/sequelize-loader');
 const sequelize = loader.database;
-const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');

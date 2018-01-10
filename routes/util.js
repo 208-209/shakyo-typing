@@ -24,9 +24,15 @@ function createLikeCountMap(likeCount, likeCountMap) {
   });
 }
 
+function isMine(req, game) {
+  return game && req.user.id === game.createdBy;
+}
+
+
 module.exports = {
   createGameMap: createGameMap,
   createFavoriteMap: createFavoriteMap,
   createLikeMap: createLikeMap,
-  createLikeCountMap: createLikeCountMap
+  createLikeCountMap: createLikeCountMap,
+  isMine: isMine
 };

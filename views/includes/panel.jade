@@ -8,7 +8,7 @@ if hasGames
           a(href="/games/#{game.gameId}") #{game.gameName}
         - var tags = game.tags.split('\n');
         each tag in tags
-          a(class="label label-primary" href="/tags/#{tag}") #{tag}
+          a(class="label label-primary" href="/games/tags/#{tag}") #{tag}
         ul
           li
             - var commentCount = game.comments.length

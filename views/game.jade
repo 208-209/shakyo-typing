@@ -8,14 +8,14 @@ block content
     li(class="breadcrumb-item active") #{game.gameName}
 
   div(class="jumbotron")
-    h3 @#{game.user.username}
+    img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
+    span #{game.user.username}
     small #{game.formattedCreatedAt} 更新
     h4 #{game.privacy}
     h2 #{game.gameName}
     - var tags = game.tags.split('\n');
     each tag in tags
       a(class="label label-primary" href="/tags/#{tag}") #{tag}
-
 
     if user
       - var isMine = (user.id === game.createdBy)
@@ -27,15 +27,18 @@ block content
           input(type="hidden" name="_csrf" value!="#{csrfToken}")
           button(class="btn btn-danger pull-right" type="submit") 削除
 
+  - var hasStages = stages.length > 0
+  if hasStages
+    each stage in stages
+      div(class="panel panel-default")
+        div(class="panel-heading")
+          h4(class="panel-title monospace") #{stage.stageTitle}
+        div(class="panel-body")
+          p(class="panel-text monospace") #{stage.stageContent}
+        div(class="row")
 
-  each stage in stages
-    div(class="panel panel-default")
-      div(class="panel-heading")
-        h4(class="panel-title monospace") #{stage.stageTitle}
-      div(class="panel-body")
-        p(class="panel-text monospace") #{stage.stageContent}
-      div(class="row")
   hr
+
   - var hasComments = comments.length > 0
   if hasComments
     h3 投稿一覧
@@ -48,19 +51,19 @@ block content
           p #{comment.commentId} : 管理人 ★
           p #{comment.comment}
           p #{comment.postedBy}
-          p #{comment.createdAt}
+          p #{comment.formattedUpdatedAt}
         else
           p #{comment.commentId}
           p #{comment.comment}
           p #{comment.postedBy}
-          p #{comment.createdAt}
+          p #{comment.formattedUpdatedAt}
         div(class="panel-footer")
           if user
             - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
             if isDeletable
               form(method="post" action="/games/#{game.gameId}/comments?delete=1")
                 input(type="hidden" name="_csrf" value!="#{csrfToken}")
-                input(type="hidden" name="id" value="#{comment.commentId}")
+                input(type="hidden" name="commentId" value="#{comment.commentId}")
                 button(type="submit") 削除
 
   //- コメントの投稿

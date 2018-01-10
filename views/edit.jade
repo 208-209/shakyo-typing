@@ -8,8 +8,7 @@ block content
       li(class="breadcrumb-item active") #{game.gameName}
     div(class="row")
 
-
-  form(method="post" action="/games/#{game.gameId}/stages?edit=1")
+  form(method="post" action="/games/#{game.gameId}/stages")
     input(type="hidden" name="_csrf" value!="#{csrfToken}")
     div(class="form-group")
       label(for="stageTitle") ステージタイトル
