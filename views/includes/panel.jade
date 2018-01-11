@@ -67,14 +67,14 @@ if hasGames
                   span(aria-hidden="true") &times;
                 h4(class="modal-title text-center")
               div(class="modal-body")
-                div(class="display")
+                pre(class="display prettyprint")
                   ul(class="info")
                     li(class="") 正解: 
                       span(class="correct")
                     li(class="") ミス: 
                       span(class="miss")
-                  div(class="title monospace")
-                  div(class="content monospace")
+                  pre(class="title prettyprint")
+                  pre(class="content prettyprint")
 
                 div(class="keyboard")
                   include keyboard.jade

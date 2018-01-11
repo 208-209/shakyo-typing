@@ -119,18 +119,18 @@ $('.playGame').each((i, e) => {
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
-        correctInfo.html(correct);
+        correctInfo.text(correct);
         nextStage();
         isLetter();
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
-        correctInfo.html(correct);
+        correctInfo.text(correct);
         nextStage();
         isLetter();
       } else {
         miss++;
-        missInfo.html(miss);
+        missInfo.text(miss);
         missStages.set(currentTitle, currentContent);
       }
       console.log(missStages);
@@ -197,7 +197,7 @@ $('.playGame').each((i, e) => {
       let ms = t.getMilliseconds();
       ms = ('0' + ms).slice(-2);
       let timerString = s + '.' + ms;
-      startMessage.html(timerString)
+      startMessage.text(timerString)
     }
 
     function setStage() {
@@ -207,10 +207,10 @@ $('.playGame').each((i, e) => {
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
       currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r');
-      title.html(currentTitle);
-      content.html(currentContent);
-      correctInfo.html(correct);
-      missInfo.html(miss);
+      title.text(currentTitle);
+      content.text(currentContent);
+      correctInfo.text(correct);
+      missInfo.text(miss);
       currentNumber = 0;
       isLetter();
     }
@@ -221,6 +221,11 @@ $('.playGame').each((i, e) => {
       $('.key_' + currentKeyCode).addClass('isKey');
       content.html(`<span>${currentContent.substring(0, currentNumber)}</span><span class="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
       $('.isLetter').css({ 'color': "#fff", 'background-color': '#ffa500' });
+      /*
+      $('.isPreLetter').text(currentContent.substring(0, currentNumber));
+      $('.isLetter').text(currentContent[currentNumber]);
+      $('.isNextLetter').text(currentContent.substring(currentNumber + 1));
+      */
       console.log(currentContent[currentNumber]);
       console.log(currentKeyCode);
     }
@@ -249,7 +254,7 @@ $('.playGame').each((i, e) => {
       missStages.clear();
       isStarted = false;
       $('.isKey').removeClass('isKey');
-      startMessage.html('スペースキーで開始');
+      startMessage.text('スペースキーで開始');
       shuffle(stages);
     }
 

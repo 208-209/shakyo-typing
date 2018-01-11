@@ -49,6 +49,13 @@ body {
 .panel {
   margin-top: 15px;
 }
+
+.panel-body .prettyprint {
+  background-color: white;
+  border-style: hidden;
+}
+
+
 .panel ul {
   list-style:none;
   display: flex;
@@ -94,8 +101,12 @@ body {
 }
 
 /* ========== モーダル ========== */
-.panel .modalContent {
-  white-space: pre-wrap;
+.modal-body {
+  height: 600px;
+}
+.modal-body .prettyprint {
+  background-color: white;
+  border-style: hidden;
 }
 
 .monospace {
@@ -103,9 +114,6 @@ body {
   font-family: sans-serif;
 }
 
-.modal-body {
-  height: 600px;
-}
 /* ディスプレイ */
 .display {
   height: 300px;
@@ -123,9 +131,13 @@ body {
 }
 .title {
   font-size: 32px;
+  padding : 20px;
+
 }
 .content {
   font-size: 24px;
+  padding : 20px;
+
 }
 
 .start{

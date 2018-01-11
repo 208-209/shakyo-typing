@@ -53,10 +53,11 @@ block content
 
   each stage in stages
     div(class="panel panel-default")
-      div(class="panel-heading monospace")
-        h4(class="panel-title") #{stage.stageTitle}
-      div(class="panel-body monospace")
-        p(class="panel-text") #{stage.stageContent}
+      div(class="panel-heading")
+        
+      div(class="panel-body")
+        pre(class="panel-title prettyprint") #{stage.stageTitle}
+        pre(class="panel-text prettyprint") #{stage.stageContent}
       div(class="panel-footer clearfix")
         span #{stage.formattedUpdatedAt}
         form(method="post" action="/games/#{game.gameId}/stages?delete=1")
