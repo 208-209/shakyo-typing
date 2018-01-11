@@ -32,7 +32,8 @@ block content
     each stage in stages
       div(class="panel panel-default")
         div(class="panel-heading")
-          h4(class="panel-title monospace") #{stage.stageTitle}
+          span(class="panel-title monospace") #{stage.stageTitle}
+          span #{stage.formattedUpdatedAt}
         div(class="panel-body")
           p(class="panel-text monospace") #{stage.stageContent}
         div(class="row")

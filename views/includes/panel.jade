@@ -57,7 +57,6 @@ if hasGames
                   div(class="startMessage")
                 div(class="keyboard")
                   include keyboard.jade
-
               div(class="modal-footer")
                 button(class="keyboardBtn btn btn-default pull-left") キーボード
                 button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
@@ -69,12 +68,12 @@ if hasGames
                 h4(class="modal-title text-center")
               div(class="modal-body")
                 div(class="display")
-                  div(class="info")
-                    span(class="correct")
-                    span(class="miss")
-                    span(class="timer")
+                  ul(class="info")
+                    li(class="") 正解: 
+                      span(class="correct")
+                    li(class="") ミス: 
+                      span(class="miss")
                   div(class="title monospace")
-
                   div(class="content monospace")
 
                 div(class="keyboard")
@@ -90,6 +89,7 @@ if hasGames
                   span(aria-hidden="true") &times;
                 h4(class="modal-title text-center") #{game.gameName}
               div(class="modal-body")
+                h1 タイピング結果
                 table(class="table table-striped table-bordered table-hover")
                   tr
                     th スコア

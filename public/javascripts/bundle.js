@@ -10368,7 +10368,7 @@ $('.keyboardBtn').click(() => {
     $('.display').css('height', '300px');
   } else {
     $('.keyboard').hide();
-    $('.display').css('height', '600px');
+    $('.display').css('height', '570px');
   }
 });
 

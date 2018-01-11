@@ -14,7 +14,7 @@ block content
       div(class="form-group")
         label(class="col-sm-2 control-label" for="gameName") ゲームタイトル
         div(class="col-sm-9")
-          input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
+          input(id="gameName" class="form-control input-lg" type="text" name="gameName" value="#{game.gameName}")
         div(class="form-group")
           div(class="col-sm-1")
             button(class="btn btn-default" type="submit") 変更
@@ -57,9 +57,10 @@ block content
         h4(class="panel-title") #{stage.stageTitle}
       div(class="panel-body monospace")
         p(class="panel-text") #{stage.stageContent}
-      div(class="panel-footer")
+      div(class="panel-footer clearfix")
+        span #{stage.formattedUpdatedAt}
         form(method="post" action="/games/#{game.gameId}/stages?delete=1")
           input(type="hidden" name="_csrf" value!="#{csrfToken}")
           input(type="hidden" name="stageId" value="#{stage.stageId}")
-          button(class="btn btn-danger" type="submit") Delete
+          button(class="btn btn-danger pull-right" type="submit") Delete
 

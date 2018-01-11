@@ -65,6 +65,9 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
       next(err);
     }
   }).then((stages) => {
+    stages.forEach((stage) => {
+      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+    });
     storedStages = stages;
     return Comment.findAll({
       include: [{
@@ -107,6 +110,9 @@ router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, ne
       next(err);
     }
   }).then((stages) => {
+    stages.forEach((stage) => {
+      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+    });
     res.render('edit', {
       user: req.user,
       game: storedGame,
