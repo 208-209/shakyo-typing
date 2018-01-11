@@ -138,7 +138,7 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
         next(err);
       }
     }).then(() => {
-      res.redirect('/');
+      res.redirect('/games/' + req.params.gameId + '/edit');
       console.info(
         `【ゲームの編集】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
         `remoteAddress: ${req.connection.remoteAddress}, ` +

@@ -8,16 +8,47 @@ block content
       li(class="breadcrumb-item active") #{game.gameName}
     div(class="row")
 
-  form(method="post" action="/games/#{game.gameId}/stages")
+  div(class="jumbotron")
+    form(class="form-horizontal" method="post" action="/games/#{game.gameId}?edit=1")
+      input(type="hidden" name="_csrf" value!="#{csrfToken}")
+      div(class="form-group")
+        label(class="col-sm-2 control-label" for="gameName") ゲームタイトル
+        div(class="col-sm-9")
+          input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
+        div(class="form-group")
+          div(class="col-sm-1")
+            button(class="btn btn-default" type="submit") 変更
+      div(class="form-group")
+        label(class="col-sm-2 control-label" for="tags") タグ
+        div(class="col-sm-9")
+          textarea(id="tags" class="form-control" name="tags" rows="3") #{game.tags}
+        div(class="form-group")
+          div(class="col-sm-1")
+            button(class="btn btn-default" type="submit") 変更
+      div(class="form-group")
+        label(class="col-sm-2 control-label" for="editPrivacy") プライバシー
+        div(class="col-sm-9")
+          select(id="editPrivacy" class="form-control" name="privacy" data-privacy="#{game.privacy}")
+            option(value="secret") 非公開
+            option(value="public") 公開
+        div(class="form-group")
+          div(class="col-sm-1")
+            button(class="btn btn-default" type="submit") 変更
+
+  form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
     input(type="hidden" name="_csrf" value!="#{csrfToken}")
     div(class="form-group")
-      label(for="stageTitle") ステージタイトル
-      input(id="stageTitle" class="form-control" type="text" name="stageTitle")
+      label(class="col-sm-2 control-label" for="stageTitle") ステージタイトル
+      div(class="col-sm-10")
+        input(id="stageTitle" class="form-control" type="text" name="stageTitle" placeholder="ハローワールド" required)
     div(class="form-group")
-      label(for="stageContent") ステージコンテンツ
-      textarea(id="stageContent" class="form-control" name="stageContent")
-    div(class="form-group pull-right")
-      button(class="form-control btn btn-info" type="submit") ステージの追加
+      label(class="col-sm-2 control-label" for="stageContent") コンテンツ
+      div(class="col-sm-10")
+        textarea(id="stageContent" class="form-control" name="stageContent" rows="3" placeholder="console.log('Hello, World');" required)
+    div(class="form-group")
+      div(class="col-sm-offset-2 col-sm-10")
+        button(class="btn btn-info" type="submit") ステージの追加
+        p(class="help-block") ※複数追加することができます
     div(class="row")
 
   each stage in stages
@@ -32,19 +63,3 @@ block content
           input(type="hidden" name="stageId" value="#{stage.stageId}")
           button(class="btn btn-danger" type="submit") Delete
 
-  form(method="post" action="/games/#{game.gameId}?edit=1")
-    input(type="hidden" name="_csrf" value!="#{csrfToken}")
-    div(class="form-group")
-      label(for="gameName") ゲームネーム
-      input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
-    div(class="form-group")
-      label(for="tags") タグ
-      textarea(id="tags" class="form-control" name="tags") #{game.tags}
-      p(class="help-block") ※複数入力する場合は改行してください
-    div(class="form-group")
-      label(for="editPrivacy") プライバシー
-      select(id="editPrivacy" class="form-control" name="privacy" data-privacy="#{game.privacy}")
-        option(value="secret") 非公開
-        option(value="public") 公開
-    div(class="form-group btn-group pull-right")
-      button(class="btn" type="submit") 保存
