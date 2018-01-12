@@ -17,10 +17,6 @@ pre {
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
-.panel-wrapper {
-  display: flex;
-  flex-flow: column wrap;
-}
 /* /games/new */
 .newGame, .newComment, .newStage {
   padding: 32px 40px 16px 40px;
@@ -74,9 +70,17 @@ pre {
 /* 編集 */
 
 /* パネル */
-.panel {
-  margin: 15px;
-  width: 300px;
+#panel-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#panel-wrapper .panel {
+  margin-top: 10px;
+  width: 32%;
 }
 
 .panel-body .prettyprint {
