@@ -2,119 +2,123 @@
 - var hasGames = games.length > 0
 if hasGames
   each game in games
-    div(class="panel panel-default")
-      div(class="panel-body")
-        h3
-          a(href="/games/#{game.gameId}") #{game.gameName}
-        - var tags = game.tags.split('\n');
-        each tag in tags
-          a(class="label label-primary" href="/games/tags/#{tag}") #{tag}
-        ul
-          li
-            - var commentCount = game.comments.length
-            i(class="fa fa-commenting-o" aria-hidden="true")
-            span(class="badge commentCount") #{commentCount}
-          if user
+    div(class="panel-wrapper")
+      div(class="panel panel-default")
+        div(class="panel-body")
+          h3
+            a(href="/games/#{game.gameId}") #{game.gameName}
+          - var tags = game.tags.split('\n');
+          each tag in tags
+            a(class="label label-primary" href="/games/tags/#{tag}") #{tag}
+          ul
             li
-              - var favorite = favoriteMap.get(game.gameId) || 0
-              if favorite === 1
-                i(class="fa fa-star favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-              else
-                i(class="fa fa-star-o favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-            li
-              - var like = likeMap.get(game.gameId) || 0
-              - var likeCount = likeCountMap.get(game.gameId) || 0
-              if like === 1
-                i(class="fa fa-heart like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
-              else
-                i(class="fa fa-heart-o like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
-              span(class="badge likeCount") #{likeCount}
-          else
-            li
-              i(class="fa fa-star-o" aria-hidden="true")
-            li
-              - var likeCount = likeCountMap.get(game.gameId) || 0
-              i(class="fa fa-heart-o" aria-hidden="true")
-              span(class="badge likeCount") #{likeCount}
+              - var commentCount = game.comments.length
+              i(class="fa fa-commenting-o" aria-hidden="true")
+              span(class="badge commentCount") #{commentCount}
+            if user
+              li
+                - var favorite = favoriteMap.get(game.gameId) || 0
+                if favorite === 1
+                  i(class="fa fa-star favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+                else
+                  i(class="fa fa-star-o favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+              li
+                - var like = likeMap.get(game.gameId) || 0
+                - var likeCount = likeCountMap.get(game.gameId) || 0
+                if like === 1
+                  i(class="fa fa-heart like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
+                else
+                  i(class="fa fa-heart-o like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
+                span(class="badge likeCount") #{likeCount}
+            else
+              li
+                i(class="fa fa-star-o" aria-hidden="true")
+              li
+                - var likeCount = likeCountMap.get(game.gameId) || 0
+                i(class="fa fa-heart-o" aria-hidden="true")
+                span(class="badge likeCount") #{likeCount}
+        - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+        - var hasStages = gameMap.get(game.gameId).length > 0
+        if hasStages
+          div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY GAME
 
+          //- モーダル
+          div(class="modal fade" id="#{game.gameId}")
+            div(class="modal-dialog modal-lg")
+              div(class="modal-content")
+                //- start
+                div(class="modalStart")
+                  div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                      span(aria-hidden="true") &times;
+                    h4(class="modal-title text-center") #{game.gameName}
+                  div(class="modal-body")
+                    div(class="display")
+                      div(class="startMessage")
+                    div(class="keyboard")
+                      include keyboard.jade
+                  div(class="modal-footer")
+                    button(class="keyboardBtn btn btn-default pull-left") キーボード
+                    button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
+                //- playing
+                div(class="modalPlaying")
+                  div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                      span(aria-hidden="true") &times;
+                    h4(class="modal-title text-center")
+                  div(class="modal-body")
+                    div(class="display")
+                      ul(class="info")
+                        li(class="") 正解: 
+                          span(class="correct")
+                        li(class="") ミス: 
+                          span(class="miss")
+                      pre(class="title prettyprint")
+                      pre(class="content prettyprint")
+                      //-
+                        code(class="beforeLetter")
+                        code(class="currentLetter")
+                        code(class="afterLetter")
 
+                    div(class="keyboard")
+                      include keyboard.jade
 
-      - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-      div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY
+                  div(class="modal-footer")
+                    button(class="keyboardBtn btn btn-default pull-left") キーボード
+                    button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
+                //- result
+                div(class="modalResult")
+                  div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                      span(aria-hidden="true") &times;
+                    h4(class="modal-title text-center") #{game.gameName}
+                  div(class="modal-body")
+                    h1 タイピング結果
+                    table(class="table table-striped table-bordered table-hover")
+                      tr
+                        th スコア
+                        td(class="resultScore text-right")
+                      tr
+                        th レベル
+                        td(class="resultLevel text-right")
+                      tr
+                        th 入力時間
+                        td(class="resultTime text-right")
+                      tr
+                        th 入力文字数
+                        td(class="resultCorrect text-right")
+                      tr
+                        th ミス入力数
+                        td(class="resultMiss text-right")
+                      tr
+                        th WPM
+                        td(class="resultWpm text-right")
+                      tr
+                        th 正解率
+                        td(class="resultAccuracy text-right")
 
-      //- モーダル
-      div(class="modal fade" id="#{game.gameId}")
-        div(class="modal-dialog modal-lg")
-          div(class="modal-content")
-            //- start
-            div(class="modalStart")
-              div(class="modal-header")
-                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                  span(aria-hidden="true") &times;
-                h4(class="modal-title text-center") #{game.gameName}
-              div(class="modal-body")
-                div(class="display")
-                  div(class="startMessage")
-                div(class="keyboard")
-                  include keyboard.jade
-              div(class="modal-footer")
-                button(class="keyboardBtn btn btn-default pull-left") キーボード
-                button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
-            //- playing
-            div(class="modalPlaying")
-              div(class="modal-header")
-                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                  span(aria-hidden="true") &times;
-                h4(class="modal-title text-center")
-              div(class="modal-body")
-                pre(class="display prettyprint")
-                  ul(class="info")
-                    li(class="") 正解: 
-                      span(class="correct")
-                    li(class="") ミス: 
-                      span(class="miss")
-                  pre(class="title prettyprint")
-                  pre(class="content prettyprint")
-
-                div(class="keyboard")
-                  include keyboard.jade
-
-              div(class="modal-footer")
-                button(class="keyboardBtn btn btn-default pull-left") キーボード
-                button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
-            //- result
-            div(class="modalResult")
-              div(class="modal-header")
-                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                  span(aria-hidden="true") &times;
-                h4(class="modal-title text-center") #{game.gameName}
-              div(class="modal-body")
-                h1 タイピング結果
-                table(class="table table-striped table-bordered table-hover")
-                  tr
-                    th スコア
-                    td(class="resultScore text-right")
-                  tr
-                    th レベル
-                    td(class="resultLevel text-right")
-                  tr
-                    th 入力時間
-                    td(class="resultTime text-right")
-                  tr
-                    th 入力文字数
-                    td(class="resultCorrect text-right")
-                  tr
-                    th ミス入力数
-                    td(class="resultMiss text-right")
-                  tr
-                    th WPM
-                    td(class="resultWpm text-right")
-                  tr
-                    th 正解率
-                    td(class="resultAccuracy text-right")
-
-              div(class="modal-footer")
-                button(class="twitterBtn btn btn-default") ツイート
-                button(class="missBtn btn btn-default") ミスだけ
-                button(class="replayBtn btn btn-default") もう一回
-                button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる
+                  div(class="modal-footer")
+                    button(class="twitterBtn btn btn-default") ツイート
+                    button(class="missBtn btn btn-default") ミスだけ
+                    button(class="replayBtn btn btn-default") もう一回
+                    button(class="closeBtnbtn btn btn-default" data-dismiss="modal") 閉じる

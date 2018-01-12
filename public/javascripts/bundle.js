@@ -10355,25 +10355,6 @@ const global = Function('return this;')();
 global.jQuery = $;
 const bootstrap = __webpack_require__(0);
 
-// 編集メニューでのプライバシーの自動選択
-const privacy = $('#editPrivacy').data('privacy');
-$('#editPrivacy').val(privacy);
-
-// キーボードの表示・非表示
-$('.keyboardBtn').addClass('active');
-$('.keyboardBtn').click(() => {
-  $('.keyboardBtn').toggleClass('active');
-  if ($('.keyboardBtn').hasClass('active')) {
-    $('.keyboard').show()
-    $('.display').css('height', '300px');
-  } else {
-    $('.keyboard').hide();
-    $('.display').css('height', '570px');
-  }
-});
-
-$('[data-toggle="tooltip"]').tooltip();
-
 // AJAXによるfavoriteの更新
 $('.favorite-toggle-button').each((i, e) => {
   const button = $(e);
@@ -10415,6 +10396,27 @@ $('.like-toggle-button').each((i, e) => {
   });
 });
 
+// Bootstrapツールチップ
+$('[data-toggle="tooltip"]').tooltip();
+
+// 編集メニューでのプライバシーの自動選択
+const privacy = $('#editPrivacy').data('privacy');
+$('#editPrivacy').val(privacy);
+
+// キーボードの表示・非表示
+$('.keyboardBtn').addClass('active');
+$('.keyboardBtn').click(() => {
+  $('.keyboardBtn').toggleClass('active');
+  if ($('.keyboardBtn').hasClass('active')) {
+    $('.keyboard').show()
+    $('.display').css('height', '300px');
+  } else {
+    $('.keyboard').hide();
+    $('.display').css('height', '570px');
+  }
+});
+
+// タイピングゲーム
 $('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
@@ -10466,19 +10468,19 @@ $('.playGame').each((i, e) => {
       if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
         currentNumber++;
         nextStage();
-        isLetter();
+        isTarget();
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
         correctInfo.text(correct);
         nextStage();
-        isLetter();
+        isTarget();
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
         correctInfo.text(correct);
         nextStage();
-        isLetter();
+        isTarget();
       } else {
         miss++;
         missInfo.text(miss);
@@ -10563,22 +10565,36 @@ $('.playGame').each((i, e) => {
       correctInfo.text(correct);
       missInfo.text(miss);
       currentNumber = 0;
-      isLetter();
+      isTarget();
     }
 
-    function isLetter() {
-      const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
+    function isTarget() {
+      // keyのターゲット
       $('.isKey').removeClass('isKey');
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1) {
+        $('.key_space').addClass('isKey');
+      }
+      const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
       $('.key_' + currentKeyCode).addClass('isKey');
-      content.html(`<span>${currentContent.substring(0, currentNumber)}</span><span class="isLetter">${currentContent[currentNumber]}</span><span>${currentContent.substring(currentNumber + 1)}</span>`);
-      $('.isLetter').css({ 'color': "#fff", 'background-color': '#ffa500' });
+      // 文字ののターゲット
+      const beforeTarget = currentContent.substring(0, currentNumber);
+      const currentTarget = currentContent[currentNumber];
+      const afterTarget = currentContent.substring(currentNumber + 1);
+      content.html('<span>' + escapeLetter(beforeTarget) + '</span><span class="currentTarget">' + escapeLetter(currentTarget) + '</span><span>' + escapeLetter(afterTarget) + '</span>');
+      $('.currentTarget').addClass('isKey');
       /*
-      $('.isPreLetter').text(currentContent.substring(0, currentNumber));
-      $('.isLetter').text(currentContent[currentNumber]);
-      $('.isNextLetter').text(currentContent.substring(currentNumber + 1));
+      $('.beforeLetter').text(currentContent.substring(0, currentNumber));
+      $('.currentLetter').text(currentContent[currentNumber]);
+      $('.afterLetter').text(currentContent.substring(currentNumber + 1));
+      $('.currentLetter').css('isLetter');
       */
+
       console.log(currentContent[currentNumber]);
       console.log(currentKeyCode);
+    }
+
+    function escapeLetter(letter) {
+      return letter.replace(/'/g, '&apos;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
     function nextStage() {

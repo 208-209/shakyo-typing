@@ -1,6 +1,10 @@
 /* ========== 共通 ========== */
 body {
   padding-top: 70px;
+  
+}
+pre {
+  white-space: pre-wrap;
 }
 
 /* ========== ヘッダー ========== */
@@ -9,10 +13,32 @@ body {
 }
 
 .userImage {
-  height: 22px;
+  height: 20px;
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
+.panel-wrapper {
+  display: flex;
+  flex-flow: column wrap;
+}
+/* /games/new */
+.newGame, .newComment, .newStage {
+  padding: 32px 40px 16px 40px;
+  border: solid 5px gray;
+  margin-bottom: 30px;
+  border-radius: 6px;
+}
+
+/* /games/:gameId */
+
+/* /games/:edit */
+.editGame {
+  padding: 32px 40px 16px 40px;
+  background-color: lightgray;
+  margin-bottom: 30px;
+  border-radius: 6px;
+}
+
 /* ログイン */
 .googleBtn {
   color: white;
@@ -44,15 +70,24 @@ body {
   background-color: #4d4d4d;
   opacity: 1;
 }
+/* 詳細 */
+/* 編集 */
 
 /* パネル */
 .panel {
-  margin-top: 15px;
+  margin: 15px;
+  width: 300px;
 }
 
 .panel-body .prettyprint {
   background-color: white;
   border-style: hidden;
+}
+.panelTitle {
+  font-size: 20px;
+}
+.panelContent {
+  font-size: 20px;
 }
 
 
@@ -115,6 +150,12 @@ body {
 }
 
 /* ディスプレイ */
+.isletter {
+  color: #ffffff;
+  font: bold;
+  background-color: #ffa500;
+}
+
 .display {
   height: 300px;
   overflow-y: scroll;
@@ -130,16 +171,12 @@ body {
   justify-content: space-around;
 }
 .title {
-  font-size: 32px;
-  padding : 20px;
+  font-size: 30px;
 
 }
 .content {
-  font-size: 24px;
-  padding : 20px;
-
+  font-size: 26px;
 }
-
 .start{
   height: 200px;
   line-height: 200px;

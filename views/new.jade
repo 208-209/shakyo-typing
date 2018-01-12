@@ -7,23 +7,24 @@ block content
       a(href="/") Home
     li(class="breadcrumb-item active") New
 
-  form(method="post" action="/games" class="form-horizontal")
-    input(type="hidden" name="_csrf" value!="#{csrfToken}")
-    div(class="form-group")
-      label(class="col-sm-2 control-label" for="gameName") ゲームタイトル
-      div(class="col-sm-10")
-        input(id="gameName" class="form-control" type="text" name="gameName" placeholder="JavaScript入門" required)
-    div(class="form-group")
-      label(class="col-sm-2 control-label" for="tags") タグ
-      div(class="col-sm-10")
-        textarea(id="tags" class="form-control" name="tags" rows="3" placeholder="JavaScript\n入門\n初心者" required)
-        p(class="help-block") ※複数入力する場合は改行してください
-    div(class="form-group")
-      label(class="col-sm-2 control-label" for="privacy") プライバシー
-      div(class="col-sm-10")
-        select(id="privacy" class="form-control" name="privacy")
-          option(value="secret" selected) 非公開
-          option(value="public") 公開
-    div(class="form-group")
-      div(class="col-sm-offset-2 col-sm-10")
-        button(class="btn btn-info" type="submit") 作成
+  div(class="newGame")
+    form(method="post" action="/games" class="form-horizontal")
+      input(type="hidden" name="_csrf" value!="#{csrfToken}")
+      div(class="form-group")
+        label(class="col-sm-2 control-label" for="gameName") ゲームタイトル
+        div(class="col-sm-10")
+          input(id="gameName" class="form-control" type="text" name="gameName" placeholder="JavaScript入門" required)
+      div(class="form-group")
+        label(class="col-sm-2 control-label" for="tags") タグ
+        div(class="col-sm-10")
+          textarea(id="tags" class="form-control" name="tags" rows="3" placeholder="JavaScript\n入門\n初心者" required)
+          p(class="help-block") ※複数入力する場合は改行してください
+      div(class="form-group")
+        label(class="col-sm-2 control-label" for="privacy") プライバシー設定
+        div(class="col-sm-10")
+          select(id="privacy" class="form-control" name="privacy")
+            option(value="secret" selected) 非公開
+            option(value="public") 公開
+      div(class="form-group")
+        div(class="col-sm-offset-2 col-sm-10")
+          button(class="btn btn-info" type="submit") 作成

@@ -7,16 +7,15 @@ block content
       a(href="/") Home
     li(class="breadcrumb-item active") #{game.gameName}
 
-  div(class="jumbotron")
+  div(class="jumbotron clearfix")
     img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
     span #{game.user.username}
-    small #{game.formattedCreatedAt} 更新
-    h4 #{game.privacy}
+    small(class="pull-right") #{game.formattedCreatedAt}
     h2 #{game.gameName}
     - var tags = game.tags.split('\n');
-    each tag in tags
-      a(class="label label-primary" href="/games/tags/#{tag}") #{tag}
-
+    h3
+      each tag in tags
+        a(class="label label-primary" href="/games/tags/#{tag}") #{tag}
     if user
       - var isMine = (user.id === game.createdBy)
       if isMine
@@ -31,51 +30,46 @@ block content
   if hasStages
     each stage in stages
       div(class="panel panel-default")
-        div(class="panel-heading")
-          span #{stage.formattedUpdatedAt}
+        div(class="panel-heading clearfix")
+          code(class="panel-title prettyprint") #{stage.stageTitle}
+          span(class="pull-right") #{stage.formattedUpdatedAt}
         div(class="panel-body")
-          pre(class="panel-title prettyprint") #{stage.stageTitle}
           pre(class="panel-text prettyprint") #{stage.stageContent}
         div(class="row")
 
   hr
 
-  - var hasComments = comments.length > 0
-  if hasComments
-    h3 投稿一覧
-    each comment in comments
-      div(class="panel panel-default")
-        div(class="panel-heading")
-        div(class="panel-body")
-        - var isPostedByAdmin = (comment.postedBy === '30428943')
-        if isPostedByAdmin
-          p #{comment.commentId} : 管理人 ★
-          p #{comment.comment}
-          p #{comment.postedBy}
-          p #{comment.formattedUpdatedAt}
-        else
-          p #{comment.commentId}
-          p #{comment.comment}
-          p #{comment.postedBy}
-          p #{comment.formattedUpdatedAt}
-        div(class="panel-footer")
-          if user
-            - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
-            if isDeletable
-              form(method="post" action="/games/#{game.gameId}/comments?delete=1")
-                input(type="hidden" name="_csrf" value!="#{csrfToken}")
-                input(type="hidden" name="commentId" value="#{comment.commentId}")
-                button(type="submit") 削除
+  div(class="commentArea")
+    - var hasComments = comments.length > 0
+    if hasComments
+      h3 投稿一覧
+      each comment in comments
+        div(class="panel panel-default")
+          div(class="panel-heading commentHeader clearfix")
+            span #{comment.user.username}
+            span(class="pull-right") #{comment.formattedUpdatedAt}
 
-  //- コメントの投稿
-  if user
-    div
-      h3 コメントの投稿
-      form(method="post" action="/games/#{game.gameId}/comments")
-        input(type="hidden" name="_csrf" value!="#{csrfToken}")
-        div(class="form-group")
-          textarea(name="comment" class="form-control" rows="2")
-        div(class="form-group")
-          button(type="submit" class="btn btn-info pull-right") 投稿
-  else
-    p コメントするにはログインする必要があります。
+          div(class="panel-body commentContent") #{comment.comment}
+            if user
+              - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
+              if isDeletable
+                form(method="post" action="/games/#{game.gameId}/comments?delete=1")
+                  input(type="hidden" name="_csrf" value!="#{csrfToken}")
+                  input(type="hidden" name="commentId" value="#{comment.commentId}")
+                  button(type="submit" class="btn btn-danger btn-sm pull-right") 削除
+
+          
+    //- コメントの投稿
+    if user
+      div(class="newComment")
+        form(method="post" action="/games/#{game.gameId}/comments" class="form-horizontal")
+          input(type="hidden" name="_csrf" value!="#{csrfToken}")
+          div(class="form-group")
+            label(for="comment" class="col-sm-2 control-label") コメントの投稿
+            div(class="col-sm-10")
+              textarea(id="comment" name="comment" class="form-control" rows="2")
+          div(class="form-group")
+            div(class="col-sm-offset-2 col-sm-10")
+              button(type="submit" class="btn btn-info") 投稿
+    else
+      p コメントするにはログインする必要があります。

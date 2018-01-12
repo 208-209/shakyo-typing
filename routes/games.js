@@ -51,7 +51,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
     }],
     where: { gameId: req.params.gameId }
   }).then((game) => {
-    game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+    game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     storedGame = game;
     // プライバシーが公開 または プライバシーが非公開なら作成者のみ
     if (game && game.privacy === 'public' || game.privacy === 'secret' && util.isMine(req, game)) {
@@ -66,7 +66,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
     }
   }).then((stages) => {
     stages.forEach((stage) => {
-      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     });
     storedStages = stages;
     return Comment.findAll({
@@ -79,7 +79,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
     });
   }).then((comments) => {
     comments.forEach((comment) => {
-      comment.formattedUpdatedAt = moment(comment.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+      comment.formattedUpdatedAt = moment(comment.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     });
     res.render('game', {
       user: req.user,
@@ -111,7 +111,7 @@ router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, ne
     }
   }).then((stages) => {
     stages.forEach((stage) => {
-      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     });
     res.render('edit', {
       user: req.user,
