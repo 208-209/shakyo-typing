@@ -124,12 +124,6 @@ $('.playGame').each((i, e) => {
         correctInfo.text(correct);
         nextStage();
         isTarget();
-      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
-        currentNumber++;
-        correct++;
-        correctInfo.text(correct);
-        nextStage();
-        isTarget();
       } else {
         miss++;
         missInfo.text(miss);

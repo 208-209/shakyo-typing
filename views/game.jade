@@ -7,11 +7,12 @@ block content
       a(href="/") Home
     li(class="breadcrumb-item active") #{game.gameName}
 
-  div(class="jumbotron clearfix")
-    img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
-    span #{game.user.username}
-    small(class="pull-right") #{game.formattedCreatedAt}
-    h2 #{game.gameName}
+  div(class="well clearfix")
+    h4
+      img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
+      span #{game.user.username}
+      small(class="pull-right") #{game.formattedCreatedAt}
+    h3 #{game.gameName}
     - var tags = game.tags.split('\n');
     h3
       each tag in tags
@@ -28,28 +29,29 @@ block content
 
   - var hasStages = stages.length > 0
   if hasStages
-    each stage in stages
-      div(class="panel panel-default")
-        div(class="panel-heading clearfix")
-          code(class="panel-title prettyprint") #{stage.stageTitle}
-          span(class="pull-right") #{stage.formattedUpdatedAt}
-        div(class="panel-body")
-          pre(class="panel-text prettyprint") #{stage.stageContent}
-        div(class="row")
+    div(class="well")
+      h3 ステージ一覧
+      div(class="panel panel-primary well")
+        each stage in stages
+          div(class="panel-heading clearfix")
+            span(class="panel-title prettyprint") #{stage.stageTitle}
+            span(class="pull-right") #{stage.formattedUpdatedAt}
+          div(class="panel-body")
+            pre(class="panel-text prettyprint") #{stage.stageContent}
+          div(class="row")
 
-  hr
-
-  div(class="commentArea")
+  div(class="well")
     - var hasComments = comments.length > 0
     if hasComments
-      h3 投稿一覧
-      each comment in comments
-        div(class="panel panel-default")
-          div(class="panel-heading commentHeader clearfix")
+      h3 コメント一覧
+      div(class="panel panel-info well")
+        each comment in comments
+          div(class="panel-heading commentHeader")
+            img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
             span #{comment.user.username}
             span(class="pull-right") #{comment.formattedUpdatedAt}
-
-          div(class="panel-body commentContent") #{comment.comment}
+          div(class="panel-body clearfix")
+            p #{comment.comment}
             if user
               - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
               if isDeletable
@@ -57,11 +59,9 @@ block content
                   input(type="hidden" name="_csrf" value!="#{csrfToken}")
                   input(type="hidden" name="commentId" value="#{comment.commentId}")
                   button(type="submit" class="btn btn-danger btn-sm pull-right") 削除
-
-          
     //- コメントの投稿
     if user
-      div(class="newComment")
+      div(class="well")
         form(method="post" action="/games/#{game.gameId}/comments" class="form-horizontal")
           input(type="hidden" name="_csrf" value!="#{csrfToken}")
           div(class="form-group")
@@ -72,4 +72,6 @@ block content
             div(class="col-sm-offset-2 col-sm-10")
               button(type="submit" class="btn btn-info") 投稿
     else
-      p コメントするにはログインする必要があります。
+      div(class="well")
+        p コメントするにはログインする必要があります。
+        a(href="/login" type="button" class="btn btn-success btn-block") ログイン

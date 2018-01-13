@@ -1,7 +1,6 @@
 /* ========== 共通 ========== */
 body {
   padding-top: 70px;
-  
 }
 pre {
   white-space: pre-wrap;
@@ -10,17 +9,19 @@ pre {
 /* ========== ヘッダー ========== */
 .navbar-brand {
   font-size: 24px;
+  padding: 0;
+  line-height: 60px;
 }
 
 .userImage {
-  height: 20px;
+  height: 22px;
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
 /* /games/new */
 .newGame, .newComment, .newStage {
   padding: 32px 40px 16px 40px;
-  border: solid 5px gray;
+  border: solid 3px #2c3e50;
   margin-bottom: 30px;
   border-radius: 6px;
 }
@@ -49,11 +50,13 @@ pre {
 .twitterBtn {
   color: white;
   background-color: #55acee;
+  border-color: #55acee;
   opacity: 0.9;
 }
 .twitterBtn:hover {
   color: white;
   background-color: #55acee;
+  border-color: #55acee;
   opacity: 1;
 }
 .githubBtn {
@@ -70,6 +73,7 @@ pre {
 /* 編集 */
 
 /* パネル */
+
 #panel-wrapper {
   display: flex;
   flex-direction: row;
@@ -84,8 +88,12 @@ pre {
 }
 
 .panel-body .prettyprint {
-  background-color: white;
+  background-color: transparent;
   border-style: hidden;
+}
+
+.panel-body {
+  background-color: white;
 }
 .panelTitle {
   font-size: 20px;
@@ -94,25 +102,23 @@ pre {
   font-size: 20px;
 }
 
+.panel .gameName {
+  color: #2c3e50;
+}
 
 .panel ul {
   list-style:none;
   display: flex;
   justify-content: space-around;
 }
-.label {
-  margin-right: 4px;
-  background-color: darkgray;
-}
 .playGame {
   color: white;
-  background: #11b69d;
+  background: #18bc9c;
   text-align: center;
-  opacity: 0.9;
 }
 .playGame:hover {
   cursor: pointer;
-  opacity: 1;
+  background: #0f7864;
 }
 
 
@@ -137,6 +143,11 @@ pre {
 }
 .label {
   font-size: 14px;
+  margin-right: 4px;
+  background-color: #95a5a6;
+}
+.icons {
+  margin: 8px 0;
 }
 
 /* ========== モーダル ========== */
@@ -196,6 +207,32 @@ pre {
 .modalResult {
   display: none;
 }
+.replayBtn {
+  color: white;
+  background-color: #0DA921;
+  border-color: #0DA921;
+  opacity: 0.9;
+}
+.replayBtn:hover {
+  color: white;
+  background-color: #0DA921;
+  border-color: #0DA921;
+  opacity: 1;
+}
+
+.missBtn {
+  color: white;
+  background-color: #E85A90;
+  border-color: #E85A90;
+  opacity: 0.9;
+}
+.missBtn:hover {
+  color: white;
+  background-color: #E85A90;
+  border-color: #E85A90;
+  opacity: 1;
+}
+
 /* キーボード */
 .keyboard {
   height: 300px;
@@ -208,7 +245,7 @@ pre {
   line-height: 48px;
   text-align: center;
   background: #fff;
-  border: 2px solid gray;
+  border: 2px solid #2c3e50;
   border-radius: 5px;
   margin: 4px;
 }

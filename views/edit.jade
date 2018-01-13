@@ -8,13 +8,13 @@ block content
       li(class="breadcrumb-item active") #{game.gameName}
     div(class="row")
 
-  div(class="editGame")
+  div(class="well")
     form(class="form-horizontal" method="post" action="/games/#{game.gameId}?edit=1")
       input(type="hidden" name="_csrf" value!="#{csrfToken}")
       div(class="form-group")
         label(class="col-sm-2 control-label" for="gameName") ゲームタイトル
         div(class="col-sm-9")
-          input(id="gameName" class="form-control input-lg" type="text" name="gameName" value="#{game.gameName}")
+          input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
         div(class="form-group")
           div(class="col-sm-1")
             button(class="btn btn-default" type="submit") 変更
@@ -35,30 +35,32 @@ block content
           div(class="col-sm-1")
             button(class="btn btn-default" type="submit") 変更
 
-  div(class="newStage")
-    form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
-      input(type="hidden" name="_csrf" value!="#{csrfToken}")
-      div(class="form-group")
-        label(class="col-sm-2 control-label" for="stageTitle") ステージタイトル
-        div(class="col-sm-10")
-          input(id="stageTitle" class="form-control" type="text" name="stageTitle" placeholder="こんにちは、世界！" required)
-      div(class="form-group")
-        label(class="col-sm-2 control-label" for="stageContent") コンテンツ
-        div(class="col-sm-10")
-          textarea(id="stageContent" class="form-control" name="stageContent" rows="3" placeholder="console.log('Hello, World!');" required)
-      div(class="form-group")
-        div(class="col-sm-offset-2 col-sm-10")
-          button(class="btn btn-info" type="submit") ステージの追加
-          p(class="help-block") ※複数追加することができます
-      div(class="row")
-
-  each stage in stages
-    div(class="panel panel-default")
-      div(class="panel-heading")
-        code(class="panelTitle prettyprint") #{stage.stageTitle}
-      div(class="panel-body clearfix")
-        pre(class="panelContent prettyprint") #{stage.stageContent}
-        form(method="post" action="/games/#{game.gameId}/stages?delete=1")
-          input(type="hidden" name="_csrf" value!="#{csrfToken}")
-          input(type="hidden" name="stageId" value="#{stage.stageId}")
-          button(class="btn btn-danger pull-right btn-sm" type="submit") Delete
+  div(class="well")
+    h3 ステージの作成
+    div(class="well")
+      form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
+        input(type="hidden" name="_csrf" value!="#{csrfToken}")
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="stageTitle") ステージタイトル
+          div(class="col-sm-10")
+            input(id="stageTitle" class="form-control" type="text" name="stageTitle" placeholder="こんにちは、世界！" required)
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="stageContent") コンテンツ
+          div(class="col-sm-10")
+            textarea(id="stageContent" class="form-control" name="stageContent" rows="3" placeholder="console.log('Hello, World!');" required)
+        div(class="form-group")
+          div(class="col-sm-offset-2 col-sm-10")
+            button(class="btn btn-info" type="submit") ステージの追加
+            p(class="help-block") ※複数追加することができます
+    - var hasStages = stages.length > 0
+    if hasStages
+      div(class="panel panel-primary well")
+        each stage in stages
+          div(class="panel-heading")
+            span(class="panel-title") #{stage.stageTitle}
+          div(class="panel-body clearfix")
+            pre(class="panelContent prettyprint") #{stage.stageContent}
+            form(method="post" action="/games/#{game.gameId}/stages?delete=1")
+              input(type="hidden" name="_csrf" value!="#{csrfToken}")
+              input(type="hidden" name="stageId" value="#{stage.stageId}")
+              button(class="btn btn-danger pull-right btn-sm" type="submit") Delete
