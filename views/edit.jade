@@ -5,8 +5,9 @@ block content
   ol(class="breadcrumb")
       li(class="breadcrumb-item")
         a(href="/") Home
-      li(class="breadcrumb-item active") #{game.gameName}
-    div(class="row")
+      li(class="breadcrumb-item active")
+        a(href="/games/#{game.gameId}") #{game.gameName}
+      li(class="breadcrumb-item active") 編集
 
   div(class="well")
     form(class="form-horizontal" method="post" action="/games/#{game.gameId}?edit=1")
