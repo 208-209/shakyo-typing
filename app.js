@@ -56,7 +56,6 @@ passport.use(new GoogleStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      console.log(profile);
       User.upsert({
         userId: profile.id,
         username: profile.displayName,
@@ -75,7 +74,6 @@ passport.use(new TwitterStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      console.log(profile);
       User.upsert({
         userId: profile.id,
         username: profile.username,
@@ -94,7 +92,6 @@ passport.use(new GitHubStrategy({
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      console.log(profile);
       User.upsert({
         userId: profile.id,
         username: profile.username,
@@ -202,7 +199,6 @@ app.get('/auth/github/callback',
       res.redirect('/');
     }
   });
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
