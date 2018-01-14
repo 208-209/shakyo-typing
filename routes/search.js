@@ -30,6 +30,7 @@ router.get('/', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
+        privacy: 'public',
         $or: [{ gameName: { $like: '%' + req.query.q + '%' } }, { tags: { $like: '%' + req.query.q + '%' } }]
       },
       order: '"updatedAt" DESC'
@@ -72,7 +73,8 @@ router.get('/', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        $or: [{gameName: {$like: '%' + req.query.q + '%'}}, {tags: {$like: '%' + req.query.q + '%'}}]
+        privacy: 'public',
+        $or: [{ gameName: { $like: '%' + req.query.q + '%' } }, { tags: { $like: '%' + req.query.q + '%' } }]
       },
       order: '"updatedAt" DESC'
     }).then((games) => {

@@ -4,12 +4,12 @@ const router = express.Router();
 const util = require('./util.js');
 const loader = require('../models/sequelize-loader');
 const sequelize = loader.database;
+const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
-const User = require('../models/user');
 
 router.get('/users/:userId', (req, res, next) => {
   const gameMap = new Map();
@@ -27,8 +27,8 @@ router.get('/users/:userId', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        createdBy: req.params.userId, // そのユーザーの公開ゲームのみ
-        privacy: 'public'
+        privacy: 'public',
+        createdBy: req.params.userId // そのユーザーの公開ゲームのみ
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
@@ -75,8 +75,8 @@ router.get('/users/:userId', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        createdBy: req.params.userId,
-        privacy: 'public'
+        privacy: 'public',
+        createdBy: req.params.userId
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
