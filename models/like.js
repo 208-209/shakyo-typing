@@ -13,7 +13,7 @@ const Like = loader.database.define('likes', {
     primaryKey: true,
     allowNull: false
   },
-  likeState: { // like だとエラーが出る箇所がある
+  likeState: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0

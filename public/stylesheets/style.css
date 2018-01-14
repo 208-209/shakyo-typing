@@ -41,8 +41,12 @@ pre {
   margin-top: 10px;
   width: 32%;
 }
+#panel-wrapper .panel-body {
+  background-color: #ecf0f1;
+}
+
 .panel .gameName {
-  color: #2c3e50;
+  color: #0f7864;
 }
 .panel ul {
   list-style:none;
@@ -64,6 +68,10 @@ pre {
 /* /games/new */
 
 /* /games/:gameId */
+#userLink {
+  color: #0f7864;
+}
+
 /* コメント */
 #commentHeader {
   color: white;
@@ -124,8 +132,6 @@ pre {
 /* 編集 */
 
 /* パネル */
-
-
 .panel-body .prettyprint {
   background-color: transparent;
   border-style: hidden;

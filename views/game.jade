@@ -10,7 +10,7 @@ block content
   div(class="well clearfix")
     h4
       img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
-      span #{game.user.username}
+      a(href="/games/#{game.user.userId}" id="userLink") #{game.user.username}
       small(class="pull-right") #{game.formattedCreatedAt}
     h3 #{game.gameName}
     - var tags = game.tags.split('\n');

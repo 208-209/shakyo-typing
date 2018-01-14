@@ -7,11 +7,11 @@ if hasGames
         div(class="panel-body")
           h3(class="ellipsis")
             a(href="/games/#{game.gameId}" class="gameName") #{game.gameName}
-          div(class="ellipsis")
+          div(class="panelTags ellipsis")
             - var tags = game.tags.split('\n');
             each tag in tags
               span(class="label label-default")
-                a(href="/games/tags/#{tag}") #{tag}
+                a(href="/games/tags/#{tag}" class="tag") #{tag}
           ul(class="icons")
             li
               - var commentCount = game.comments.length
