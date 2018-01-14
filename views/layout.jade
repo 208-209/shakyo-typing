@@ -22,11 +22,19 @@ html(lang="ja")
               a(href="/games/new" type="button" class="btn btn-info navbar-btn") ゲームを作る
             if user
               li(class="dropdown")
-                - var userName = user.username || user.displayName
-                - var userImage = user._json.avatar_url || user.photos[0].value
-                a(href="" class="dropdown-toggle userName" data-toggle="dropdown") #{userName} 
-                  img(src="#{userImage}" alt="userImage" class="img-circle pull-left userImage")
-                  span(class="caret")
+                case user.provider
+                  when "google"
+                    a(href="" class="dropdown-toggle userName" data-toggle="dropdown") #{user.displayName} 
+                      img(src="#{user.photos[0].value}" alt="userImage" class="img-circle pull-left userImage")
+                      span(class="caret")
+                  when "twitter"
+                    a(href="" class="dropdown-toggle userName" data-toggle="dropdown") #{user.username} 
+                      img(src="#{user.photos[0].value}" alt="userImage" class="img-circle pull-left userImage")
+                      span(class="caret")
+                  when "github"
+                    a(href="" class="dropdown-toggle userName" data-toggle="dropdown") #{user.username} 
+                      img(src="#{user._json.avatar_url}" alt="userImage" class="img-circle pull-left userImage")
+                      span(class="caret")
                 ul(class="dropdown-menu")
                   li
                     a(href="/logout") ログアウト
