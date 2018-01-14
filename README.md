@@ -86,7 +86,7 @@
 | /games/tags/:tag | GET | タグのゲーム一覧 |
 | /games?q=XXXX | GET | 検索のゲーム一覧 |
 | /games/:gameId | GET | ゲームの詳細・ステージ一覧・コメントの投稿・コメント一覧 |
-| /games/:userId | GET | そのユーザーの公開ゲーム一覧 |
+| /games/:userId | GET | 他のユーザーの公開ゲーム一覧 |
 | /games/:gemeId/edit | GET | ゲームの編集・ステージの作成 |
 | /login | GET | ログイン |
 | /logout | GET | ログアウト |
@@ -113,6 +113,7 @@
 | routes/likes.js | 「いいね！」に関する処理 |
 | routes/tags.js | タグに関する処理 |
 | routes/search.js | 検索に関する処理 |
+| routes/others.js | 他のユーザーに関する処理 |
 | routes/comments.js | コメントに関する処理 |
 | routes/login.js | ログイン処理 |
 | routes/logout.js | ログアウト処理 |
