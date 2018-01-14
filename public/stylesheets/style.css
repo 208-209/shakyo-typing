@@ -5,6 +5,18 @@ body {
 pre {
   white-space: pre-wrap;
 }
+.label {
+  margin-right: 4px;
+}
+.label a{
+  color: white;
+}
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 
 /* ========== ヘッダー ========== */
 .navbar-brand {
@@ -18,23 +30,62 @@ pre {
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
-/* /games/new */
-.newGame, .newComment, .newStage {
-  padding: 32px 40px 16px 40px;
-  border: solid 3px #2c3e50;
-  margin-bottom: 30px;
-  border-radius: 6px;
+#panel-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
 }
+#panel-wrapper .panel {
+  margin-top: 10px;
+  width: 32%;
+}
+.panel .gameName {
+  color: #2c3e50;
+}
+.panel ul {
+  list-style:none;
+  display: flex;
+  justify-content: space-around;
+}
+.playGame {
+  color: white;
+  background: #18bc9c;
+  text-align: center;
+}
+.playGame:hover {
+  cursor: pointer;
+  background: #0f7864;
+}
+
+
+
+/* /games/new */
 
 /* /games/:gameId */
+/* コメント */
+#commentHeader {
+  color: white;
+}
+#comment-wrapper {
+  padding: 19px;
+  border-radius: 4px;
+  border: 1px solid #2c3e50;
+  
+  background-color: #2c3e50;
+}
+#commentList {
+  padding: 19px;
+}
+#commentPost {
+  padding: 19px;
+}
+#commentPost .well {
+  margin-bottom: 0;
+}
 
 /* /games/:edit */
-.editGame {
-  padding: 32px 40px 16px 40px;
-  background-color: lightgray;
-  margin-bottom: 30px;
-  border-radius: 6px;
-}
 
 /* ログイン */
 .googleBtn {
@@ -74,18 +125,6 @@ pre {
 
 /* パネル */
 
-#panel-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-#panel-wrapper .panel {
-  margin-top: 10px;
-  width: 32%;
-}
 
 .panel-body .prettyprint {
   background-color: transparent;
@@ -94,32 +133,12 @@ pre {
 
 .panel-body {
   background-color: white;
-  
 }
 .panelTitle {
   font-size: 20px;
 }
 .panelContent {
   font-size: 20px;
-}
-
-.panel .gameName {
-  color: #2c3e50;
-}
-
-.panel ul {
-  list-style:none;
-  display: flex;
-  justify-content: space-around;
-}
-.playGame {
-  color: white;
-  background: #18bc9c;
-  text-align: center;
-}
-.playGame:hover {
-  cursor: pointer;
-  background: #0f7864;
 }
 
 
@@ -143,16 +162,6 @@ pre {
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
   color: gray;
 }
-.tags .tag {
-  word-wrap: break-word;
-  font-size: 14px;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  background-color: #eee;
-  padding: 3px 4px;
-  color: black;
-  border-radius: 4px;
-}
 .icons {
   margin: 8px 0;
 }
@@ -164,11 +173,6 @@ pre {
 .modal-body .prettyprint {
   background-color: white;
   border-style: hidden;
-}
-
-.monospace {
-  white-space: pre-wrap;
-  font-family: sans-serif;
 }
 
 /* ディスプレイ */
@@ -194,7 +198,6 @@ pre {
 }
 .title {
   font-size: 30px;
-
 }
 .content {
   font-size: 26px;

@@ -5,12 +5,13 @@ if hasGames
     each game in games
       div(class="panel panel-default")
         div(class="panel-body")
-          h3
+          h3(class="ellipsis")
             a(href="/games/#{game.gameId}" class="gameName") #{game.gameName}
-          - var tags = game.tags.split('\n');
-          each tag in tags
-            span(class="tag")
-              a(class="tag" href="/games/tags/#{tag}") #{tag}
+          div(class="ellipsis")
+            - var tags = game.tags.split('\n');
+            each tag in tags
+              span(class="label label-default")
+                a(href="/games/tags/#{tag}") #{tag}
           ul(class="icons")
             li
               - var commentCount = game.comments.length
