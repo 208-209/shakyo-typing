@@ -21,5 +21,13 @@ block content
       li(class="active")
         a(href="")
           i(class="fa fa-search" aria-hidden="true")  Search
+  else
+    ul(class="nav nav-tabs")
+      li
+        a(href="/")
+          i(class="fa fa-home" aria-hidden="true")  HOME
+      li(class="active")
+        a(href="")
+          i(class="fa fa-search" aria-hidden="true")  Search
   //- パネル
   include includes/panel.jade

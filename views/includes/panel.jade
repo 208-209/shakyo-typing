@@ -38,7 +38,7 @@ if hasGames
               li
                 - var likeCount = likeCountMap.get(game.gameId) || 0
                 i(class="fa fa-heart-o" aria-hidden="true")
-                  span(class="badge likeCount") #{likeCount}
+                span(class="badge likeCount") #{likeCount}
         - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
         - var hasStages = gameMap.get(game.gameId).length > 0
         if hasStages

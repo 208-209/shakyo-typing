@@ -18,6 +18,13 @@ block content
       li
         a(href="/users/#{user.id}/favorites")
           i(class="fa fa-star" aria-hidden="true")  ブックマーク
+  else
+    ul(class="nav nav-tabs")
+      li(class="active")
+        a(href="/")
+          i(class="fa fa-home" aria-hidden="true")  HOME
+
+
   //- パネル
   include includes/panel.jade
 
