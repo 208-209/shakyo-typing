@@ -54,15 +54,15 @@ router.get('/users/:userId', (req, res, next) => {
       return User.findOne({
         where: { userId: req.params.userId },
       });
-    }).then((others) => {
-      res.render('others', {
+    }).then((other) => {
+      res.render('other', {
         user: req.user,
         games: storedGames,
         gameMap: gameMap,
         favoriteMap: favoriteMap,
         likeMap: likeMap,
         likeCountMap: likeCountMap,
-        others: others
+        other: other
       });
     });
   } else {
@@ -92,13 +92,13 @@ router.get('/users/:userId', (req, res, next) => {
       return User.findOne({
         where: { userId: req.params.userId },
       });
-    }).then((others) => {
-      res.render('others', {
+    }).then((other) => {
+      res.render('other', {
         user: req.user,
         games: storedGames,
         gameMap: gameMap,
         likeCountMap: likeCountMap,
-        others: others
+        other: other
       });
     });
   }

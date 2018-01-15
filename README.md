@@ -42,7 +42,7 @@
 | createdBy | 文字列 | ユーザーID (FK) |
 | createdAt | 日付 | 作成日時 |
 | updatedAt | 日付 | 更新日時 |
-- user 1 ___ 0...* comment
+- game 1 ___ 1...* stage
 - game 1 ___ 0...* favorite
 - game 1 ___ 0...* like
 - game 1 ___ 0...* comment
@@ -81,13 +81,13 @@
 | :-- | :-- | :-- |
 | / | GET | トップページ・公開ゲーム一覧 |
 | /games/new | GET | ゲームの新規作成 |
-| /users/:userId | GET | ログインユーザーが作ったゲーム一覧 |
-| /users/:userId/favorites | GET | ログインユーザーの「ブックマーク」ゲーム一覧 |
+| /games/:gameId | GET | ゲームの詳細・ステージ一覧・コメントの投稿・コメント一覧 |
+| /games/:gemeId/edit | GET | ゲームの編集・ステージの作成 |
 | /games/tags/:tag | GET | タグのゲーム一覧 |
 | /games?q=XXXX | GET | 検索のゲーム一覧 |
-| /games/:gameId | GET | ゲームの詳細・ステージ一覧・コメントの投稿・コメント一覧 |
 | /games/users/:userId | GET | 他のユーザーの公開ゲーム一覧 |
-| /games/:gemeId/edit | GET | ゲームの編集・ステージの作成 |
+| /users/:userId | GET | ログインユーザーが作ったゲーム一覧 |
+| /users/:userId/favorites | GET | ログインユーザーの「ブックマーク」ゲーム一覧 |
 | /login | GET | ログイン |
 | /logout | GET | ログアウト |
 ### Web API の URL 一覧

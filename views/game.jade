@@ -26,7 +26,7 @@ block content
             button(class="btn btn-danger pull-right" type="submit") ゲームの削除
         - var isMine = (user.id === game.createdBy)
         if isMine
-          a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集と問題の作成
+          a(href="/games/#{game.gameId}/edit" class="btn btn-primary pull-right") 問題の作成とゲームの編集
 
   - var hasStages = stages.length > 0
   if hasStages

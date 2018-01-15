@@ -30,16 +30,16 @@ pre {
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
+/* パネル */
 #panel-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: flex-start;
 }
 #panel-wrapper .panel {
-  margin-top: 10px;
-  width: 32%;
+  width: 31.333%;
+  margin: 1%;
 }
 #panel-wrapper .panel-body {
   background-color: #ecf0f1;
@@ -63,6 +63,43 @@ pre {
   background: #0f7864;
 }
 
+.panel-body .prettyprint {
+  background-color: transparent;
+  border-style: hidden;
+}
+
+.panel-body {
+  background-color: white;
+}
+.panelTitle {
+  font-size: 20px;
+}
+.panelContent {
+  font-size: 20px;
+}
+
+/* アイコン */
+.panel .fa {
+  vertical-align: -15%;
+  font-size: 20px;
+  margin-right: 6px;
+}
+.isPointer {
+  cursor: pointer;
+}
+
+.panel .fa-star {
+  color: #F6A615;
+}
+.panel .fa-heart {
+  color: #E82A37;
+}
+.panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
+  color: gray;
+}
+.icons {
+  margin: 8px 0;
+}
 
 
 /* /games/new */
@@ -131,46 +168,6 @@ pre {
 /* 詳細 */
 /* 編集 */
 
-/* パネル */
-.panel-body .prettyprint {
-  background-color: transparent;
-  border-style: hidden;
-}
-
-.panel-body {
-  background-color: white;
-}
-.panelTitle {
-  font-size: 20px;
-}
-.panelContent {
-  font-size: 20px;
-}
-
-
-
-/* アイコン */
-.panel .fa {
-  vertical-align: -15%;
-  font-size: 20px;
-  margin-right: 6px;
-}
-.isPointer {
-  cursor: pointer;
-}
-
-.panel .fa-star {
-  color: #F6A615;
-}
-.panel .fa-heart {
-  color: #E82A37;
-}
-.panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
-  color: gray;
-}
-.icons {
-  margin: 8px 0;
-}
 
 /* ========== モーダル ========== */
 .modal-body {
