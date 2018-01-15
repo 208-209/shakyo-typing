@@ -23,7 +23,7 @@ router.get('/new', authenticationEnsurer, csrfProtection, (req, res, next) => {
 // ゲームの新規作成
 router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
   const gameId = uuid.v4();
-  const tags = req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n');
+  const tags = req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n').slice(0, 255);
   Game.create({
     gameId: gameId,
     gameName: req.body.gameName.slice(0, 255),
@@ -130,7 +130,7 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
     }).then((game) => {
       // 作成者のみ
       if (util.isMine(req, game)) {
-        const tags = req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n');
+        const tags = req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n').slice(0, 255);
         return game.update({
           gameId: game.gameId,
           gameName: req.body.gameName.slice(0, 255),
