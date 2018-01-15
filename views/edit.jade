@@ -38,7 +38,7 @@ block content
 
   div(class="well")
     h3 問題の作成
-    div(class="well")
+    div(id="stagePost" class="well")
       form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
         input(type="hidden" name="_csrf" value!="#{csrfToken}")
         div(class="form-group")
