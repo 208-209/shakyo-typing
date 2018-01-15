@@ -10416,7 +10416,7 @@ $('.keyboardBtn').click(() => {
 
 const $ = __webpack_require__(0);
 
-// タイピングゲーム
+// タイピングゲームの挙動
 $('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
@@ -10456,11 +10456,22 @@ $('.playGame').each((i, e) => {
     let timer;
     let isStarted;
 
+    const countDownTime = 3 * 1000;
+    let countDownStartTime;
+    let countDownTimerId;
     let startTime;
     let currentTime;
     let timerId;
 
+    // スペースキーでスタート
+    $(window).keypress((e) => {
+      if (e.which === 32 && isStarted === false) {
+        countDownStartTime = Date.now();
+        startCountDown();
+      }
+    });
 
+    // キーの判定
     $(window).keypress((e) => {
       if (isStarted === false) {
         return;
@@ -10487,32 +10498,24 @@ $('.playGame').each((i, e) => {
       console.log(String.fromCharCode(e.which) + ':' + e.which);
     });
 
-    const countDownTime = 3 * 1000;
-    let countDownStartTime;
-    let countDownTimerId;
-
-    $(window).keypress((e) => {
-      if (e.which === 32 && isStarted === false) {
-        countDownStartTime = Date.now();
-        startCountDown();
-      }
-    });
-
+    // もう一回
     replayBtn.click(() => {
       stages = dataStages;
       init();
     });
 
+    // ミスだけ
     missBtn.click(() => {
       stages = Array.from(missStages);
       init();
     });
 
+    // 閉じる
     closeBtnbtn.click(() => {
       init();
     });
 
-
+    // スペースキーを押してからのカウントダウン
     function startCountDown() {
       countDownTimerId = setTimeout(() => {
         let timeLeft = countDownTime - (Date.now() - countDownStartTime);
@@ -10531,13 +10534,10 @@ $('.playGame').each((i, e) => {
       }, 10);
     }
 
-    function countUp() {
-      timerId = setTimeout(() => {
-        currentTime = Date.now() - startTime;
-        countUp();
-      }, 10);
-    }
-
+    /**
+     * 
+     * @param {} time 
+     */
     function updateTimer(time) {
       let t = new Date(time);
       let s = t.getSeconds();
@@ -10546,6 +10546,15 @@ $('.playGame').each((i, e) => {
       let timerString = s + '.' + ms;
       startMessage.text(timerString)
     }
+
+    // ゲームのPlay時間を計算
+    function countUp() {
+      timerId = setTimeout(() => {
+        currentTime = Date.now() - startTime;
+        countUp();
+      }, 10);
+    }
+
 
     function setStage() {
       modalStart.hide();
@@ -10574,15 +10583,12 @@ $('.playGame').each((i, e) => {
       const beforeTarget = currentContent.substring(0, currentNumber);
       const currentTarget = currentContent[currentNumber];
       const afterTarget = currentContent.substring(currentNumber + 1);
-      content.html('<span>' + escapeLetter(beforeTarget) + '</span><span class="currentTarget">' + escapeLetter(currentTarget) + '</span><span>' + escapeLetter(afterTarget) + '</span>');
-      $('.currentTarget').addClass('isKey');
-      /*
-      $('.beforeLetter').text(currentContent.substring(0, currentNumber));
-      $('.currentLetter').text(currentContent[currentNumber]);
-      $('.afterLetter').text(currentContent.substring(currentNumber + 1));
-      $('.currentLetter').css('isLetter');
-      */
+      const escapeBeforeTarget = beforeTarget ? escapeLetter(beforeTarget) : '';
+      const escapeCurrentTarget = currentTarget ? escapeLetter(currentTarget) : '';
+      const escapeAfterTarget = afterTarget ? escapeLetter(afterTarget) : '';
 
+      content.html('<span>' + escapeBeforeTarget + '</span><span class="currentTarget">' + escapeCurrentTarget + '</span><span>' + escapeAfterTarget + '</span>');
+      $('.currentTarget').addClass('isKey');
       console.log(currentContent[currentNumber]);
       console.log(currentKeyCode);
     }
@@ -10592,10 +10598,11 @@ $('.playGame').each((i, e) => {
     }
 
     function nextStage() {
-      // すべての文字が正解した時の処理
+      // 最後のステージ で 最後の文字が正解
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
         clearTimeout(timerId);
         result();
+      // 途中のステージ で 最後の文字が正解
       } else if (currentNumber === currentContent.length) {
         stageNumber++;
         setStage();
