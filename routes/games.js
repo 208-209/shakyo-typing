@@ -8,6 +8,8 @@ const moment = require('moment-timezone');
 const User = require('../models/user');
 const Game = require('../models/game');
 const Stage = require('../models/stage');
+const Favorite = require('../models/favorite');
+const Like = require('../models/like');
 const Comment = require('../models/comment');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
@@ -172,8 +174,22 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
 });
 
 function deleteGame(gameId, done, err) {
-  Comment.findAll({
+  Like.findAll({
     where: { gameId: gameId }
+  }).then((likes) => {
+    const promises = likes.map((l) => { return l.destroy(); });
+    return Promise.all(promises);
+  }).then(() => {
+    return Favorite.findAll({
+      where: { gameId: gameId }
+    });
+  }).then((favorites) => {
+    const promises = favorites.map((f) => { return f.destroy(); });
+    return Promise.all(promises);
+  }).then(() => {
+    return Comment.findAll({
+      where: { gameId: gameId }
+    });
   }).then((comments) => {
     const promises = comments.map((c) => { return c.destroy(); });
     return Promise.all(promises);

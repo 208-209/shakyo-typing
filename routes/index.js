@@ -7,8 +7,8 @@ const sequelize = loader.database;
 const Game = require('../models/game');
 const Stage = require('../models/stage');
 const Favorite = require('../models/favorite');
-const Comment = require('../models/comment');
 const Like = require('../models/like');
+const Comment = require('../models/comment');
 
 router.get('/', (req, res, next) => {
   const gameMap = new Map();
