@@ -53,7 +53,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
   }).then((game) => {
     game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     storedGame = game;
-    // プライバシーが公開 または プライバシーが非公開なら作成者のみ
+    // プライバシー設定が公開 || プライバシー設定が非公開なら作成者のみ
     if (game && game.privacy === 'public' || game.privacy === 'secret' && util.isMine(req, game)) {
       return Stage.findAll({
         where: { gameId: game.gameId },
@@ -65,9 +65,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
       next(err);
     }
   }).then((stages) => {
-    stages.forEach((stage) => {
-      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
-    });
+    util.momentTimezone(stages);
     storedStages = stages;
     return Comment.findAll({
       include: [{
@@ -78,9 +76,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
       order: '"commentId" ASC'
     });
   }).then((comments) => {
-    comments.forEach((comment) => {
-      comment.formattedUpdatedAt = moment(comment.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
-    });
+    util.momentTimezone(comments);
     res.render('game', {
       user: req.user,
       game: storedGame,
@@ -110,9 +106,7 @@ router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, ne
       next(err);
     }
   }).then((stages) => {
-    stages.forEach((stage) => {
-      stage.formattedUpdatedAt = moment(stage.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
-    });
+    util.momentTimezone(stages);
     res.render('edit', {
       user: req.user,
       game: storedGame,

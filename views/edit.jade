@@ -64,4 +64,4 @@ block content
             form(method="post" action="/games/#{game.gameId}/stages?delete=1")
               input(type="hidden" name="_csrf" value!="#{csrfToken}")
               input(type="hidden" name="stageId" value="#{stage.stageId}")
-              button(class="btn btn-danger pull-right btn-sm" type="submit") Delete
+              button(class="btn btn-danger pull-right btn-sm" type="submit") 削除

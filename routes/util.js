@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment-timezone');
 
 function createGameMap(games, gameMap) {
   games.forEach((g) => {
@@ -29,9 +30,14 @@ function isMine(req, game) {
 }
 
 function parseTags(req) {
-    return req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n').slice(0, 255);
-  }
+  return req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n').slice(0, 255);
+}
 
+function momentTimezone(data) {
+  data.forEach((d) => {
+    d.formattedUpdatedAt = moment(d.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
+  });
+}
 
 module.exports = {
   createGameMap: createGameMap,
@@ -39,5 +45,6 @@ module.exports = {
   createLikeMap: createLikeMap,
   createLikeCountMap: createLikeCountMap,
   isMine: isMine,
-  parseTags: parseTags
+  parseTags: parseTags,
+  momentTimezone: momentTimezone
 };
