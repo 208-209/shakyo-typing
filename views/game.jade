@@ -23,7 +23,7 @@ block content
     h4
       each tag in tags
         a(class="label label-default ellipsis" href="/games/tags/#{tag}") #{tag}
-    //- 問題の作成・ゲームの編集・削除ボタン
+    //- stageの作成・ゲームの編集・削除ボタン
     if user
       - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
       if isDeletable
@@ -34,7 +34,6 @@ block content
       if isMine
         a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
 
-  //- 問題の一覧
   - var hasStages = stages.length > 0
   if hasStages
     div(class="well")
@@ -50,22 +49,6 @@ block content
 
   //- コメント
   div(id="comment-wrapper")
-    div(id="commentPost")
-      if user
-        div(class="well")
-          form(method="post" action="/games/#{game.gameId}/comments" class="form-horizontal")
-            input(type="hidden" name="_csrf" value!="#{csrfToken}")
-            div(class="form-group")
-              label(for="comment" class="col-sm-2 control-label") コメントの投稿
-              div(class="col-sm-10")
-                textarea(id="comment" name="comment" class="form-control" rows="2")
-            div(class="form-group")
-              div(class="col-sm-offset-2 col-sm-10")
-                button(type="submit" class="btn btn-info") 投稿
-      else
-        div(class="well")
-          p コメントするにはログインする必要があります。
-          a(href="/login" type="button" class="btn btn-success btn-block") ログイン
     - var hasComments = comments.length > 0
     if hasComments
       div(id="commentList")
@@ -84,3 +67,19 @@ block content
                     input(type="hidden" name="_csrf" value!="#{csrfToken}")
                     input(type="hidden" name="commentId" value="#{comment.commentId}")
                     button(type="submit" class="btn btn-danger btn-sm btn-sm pull-right") 削除
+    div(id="commentPost")
+      if user
+        div(class="well")
+          form(method="post" action="/games/#{game.gameId}/comments" class="form-horizontal")
+            input(type="hidden" name="_csrf" value!="#{csrfToken}")
+            div(class="form-group")
+              label(for="comment" class="col-sm-2 control-label") コメントの投稿
+              div(class="col-sm-10")
+                textarea(id="comment" name="comment" class="form-control" rows="2")
+            div(class="form-group")
+              div(class="col-sm-offset-2 col-sm-10")
+                button(type="submit" class="btn btn-info") 投稿
+      else
+        div(class="well")
+          p コメントするにはログインする必要があります。
+          a(href="/login" type="button" class="btn btn-success btn-block") ログイン

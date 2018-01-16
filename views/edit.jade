@@ -9,6 +9,7 @@ block content
         a(href="/games/#{game.gameId}") #{game.gameName}
       li(class="breadcrumb-item active") Edit
 
+  //- ゲームの編集
   div(class="well clearfix")
     form(class="form-horizontal" method="post" action="/games/#{game.gameId}?edit=1")
       input(type="hidden" name="_csrf" value!="#{csrfToken}")
@@ -36,6 +37,7 @@ block content
           div(class="col-sm-1")
             button(class="btn btn-default" type="submit") 変更
 
+  //- ステージの追加と削除
   div(class="well")
     div(id="stagePost" class="well")
       form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
@@ -45,7 +47,7 @@ block content
           div(class="col-sm-10")
             input(id="stageTitle" class="form-control" type="text" name="stageTitle" placeholder="こんにちは、世界！" required)
         div(class="form-group")
-          label(class="col-sm-2 control-label" for="stageContent") 文章
+          label(class="col-sm-2 control-label" for="stageContent") タイピングの文章
           div(class="col-sm-10")
             textarea(id="stageContent" class="form-control" name="stageContent" rows="3" placeholder="console.log('Hello, World!');" required)
         div(class="form-group")
@@ -58,9 +60,10 @@ block content
         each stage in stages
           div(class="panel-heading")
             span(class="panel-title") #{stage.stageTitle}
+            span(class="pull-right") #{stage.formattedUpdatedAt}
           div(class="panel-body clearfix")
             pre(class="panelContent prettyprint") #{stage.stageContent}
-            form(method="post" action="/games/#{game.gameId}/stages?delete=1")
+            form(method="post" action="/games/#{game.gameId}/stages/delete")
               input(type="hidden" name="_csrf" value!="#{csrfToken}")
               input(type="hidden" name="stageId" value="#{stage.stageId}")
               button(class="btn btn-danger pull-right btn-sm" type="submit") 削除

@@ -55,7 +55,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
   }).then((game) => {
     game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     storedGame = game;
-    // プライバシー設定が公開 || プライバシー設定が非公開なら作成者のみ
+    // プライバシー設定が公開なら誰でも または プライバシー設定が非公開なら作成者のみ
     if (game && game.privacy === 'public' || game && game.privacy === 'secret' && util.isMine(req, game)) {
       return Stage.findAll({
         where: { gameId: game.gameId },
@@ -150,8 +150,7 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
     Game.findOne({
       where: { gameId: req.params.gameId }
     }).then((game) => {
-      // 作成者 または 管理人
-      if (game && util.isMine(req, game) || game && util.isAdmin(req)) {
+      if (game && util.isMine(req, game) || game && util.isAdmin(req)) { // 作成者 または 管理人
         deleteGame(req.params.gameId, () => {
           res.redirect('/');
           console.info(

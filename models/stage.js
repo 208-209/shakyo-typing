@@ -27,7 +27,7 @@ const Stage = loader.database.define('stages', {
   }
 }, {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         fields: ['gameId']
