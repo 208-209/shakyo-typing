@@ -17,7 +17,7 @@ const Comment = loader.database.define('comments', {
     type: Sequelize.UUID,
     allowNull: false
   },
-  postedBy: {
+  createdBy: {
     type: Sequelize.STRING,
     allowNull: false
   }

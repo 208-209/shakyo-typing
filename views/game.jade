@@ -7,6 +7,7 @@ block content
       a(href="/") Home
     li(class="breadcrumb-item active") #{game.gameName}
 
+  //- ゲームの詳細
   div(class="well clearfix")
     h4
       img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
@@ -18,12 +19,11 @@ block content
           small(id="privacySecret") 非公開
         else if game.privacy === 'public'
           small(id="privacyPublic") 公開
-
     - var tags = game.tags.split('\n');
     h4
       each tag in tags
         a(class="label label-default ellipsis" href="/games/tags/#{tag}") #{tag}
-      
+    //- 問題の作成・ゲームの編集・削除ボタン
     if user
       - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
       if isDeletable
@@ -32,12 +32,12 @@ block content
           button(class="btn btn-danger pull-right" type="submit") ゲームの削除
       - var isMine = (user.id === game.createdBy)
       if isMine
-        a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") 問題の作成と編集
+        a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
 
+  //- 問題の一覧
   - var hasStages = stages.length > 0
   if hasStages
     div(class="well")
-      h3 問題一覧
       div(class="panel panel-primary well")
         each stage in stages
           div(class="panel-heading clearfix")
@@ -46,28 +46,10 @@ block content
           div(class="panel-body")
             pre(class="panel-text prettyprint") #{stage.stageContent}
           div(class="row")
+  hr
 
+  //- コメント
   div(id="comment-wrapper")
-    - var hasComments = comments.length > 0
-    if hasComments
-      h3(id="commentHeader") コメント一覧
-      div(id="commentList")
-        div(class="panel panel-default")
-          each comment in comments
-            div(class="panel-heading commentHeader")
-              img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
-              span #{comment.user.username}
-              span(class="pull-right") #{comment.formattedUpdatedAt}
-            div(class="panel-body clearfix")
-              p #{comment.comment}
-              if user
-                - var isDeletable = (user.id === comment.postedBy || user.id === '30428943')
-                if isDeletable
-                  form(method="post" action="/games/#{game.gameId}/comments?delete=1")
-                    input(type="hidden" name="_csrf" value!="#{csrfToken}")
-                    input(type="hidden" name="commentId" value="#{comment.commentId}")
-                    button(type="submit" class="btn btn-danger btn-sm btn-sm pull-right") 削除
-    //- コメントの投稿
     div(id="commentPost")
       if user
         div(class="well")
@@ -84,3 +66,21 @@ block content
         div(class="well")
           p コメントするにはログインする必要があります。
           a(href="/login" type="button" class="btn btn-success btn-block") ログイン
+    - var hasComments = comments.length > 0
+    if hasComments
+      div(id="commentList")
+        div(class="panel panel-default")
+          each comment in comments
+            div(class="panel-heading commentHeader")
+              img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
+              span #{comment.user.username}
+              span(class="pull-right") #{comment.formattedUpdatedAt}
+            div(class="panel-body clearfix")
+              p(id="comment") #{comment.comment}
+              if user
+                - var isDeletable = (user.id === comment.createdBy || user.id === '30428943')
+                if isDeletable
+                  form(method="post" action="/games/#{game.gameId}/comments?delete=1")
+                    input(type="hidden" name="_csrf" value!="#{csrfToken}")
+                    input(type="hidden" name="commentId" value="#{comment.commentId}")
+                    button(type="submit" class="btn btn-danger btn-sm btn-sm pull-right") 削除

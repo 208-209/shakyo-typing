@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
+const util = require('./util.js');
 const Comment = require('../models/comment');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
@@ -12,7 +13,7 @@ router.post('/:gameId/comments', authenticationEnsurer, csrfProtection, (req, re
   if (parseInt(req.query.delete) === 1) {
     Comment.findById(req.body.commentId).then((comment) => {
       // 投稿者 または 管理人
-      if (req.user.id === comment.postedBy || req.user.id === '30428943') {
+      if (util.isMine(req, comment) || util.isAdmin(req)) {
         comment.destroy();
         console.info(
           `【コメントの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
@@ -30,7 +31,7 @@ router.post('/:gameId/comments', authenticationEnsurer, csrfProtection, (req, re
     Comment.create({
       comment: req.body.comment,
       gameId: gameId,
-      postedBy: req.user.id
+      createdBy: req.user.id
     }).then(() => {
       res.redirect('/games/' + gameId);
       console.info(

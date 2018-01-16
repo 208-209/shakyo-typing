@@ -25,8 +25,12 @@ function createLikeCountMap(likeCount, likeCountMap) {
   });
 }
 
-function isMine(req, game) {
-  return game && req.user.id === game.createdBy;
+function isMine(req, data) {
+  return req.user.id === data.createdBy;
+}
+
+function isAdmin(req) {
+  return req.user.id === '30428943';
 }
 
 function parseTags(req) {
@@ -45,6 +49,7 @@ module.exports = {
   createLikeMap: createLikeMap,
   createLikeCountMap: createLikeCountMap,
   isMine: isMine,
+  isAdmin: isAdmin,
   parseTags: parseTags,
   momentTimezone: momentTimezone
 };

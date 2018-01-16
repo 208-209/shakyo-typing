@@ -7,7 +7,7 @@ block content
         a(href="/") Home
       li(class="breadcrumb-item active")
         a(href="/games/#{game.gameId}") #{game.gameName}
-      li(class="breadcrumb-item active") 編集
+      li(class="breadcrumb-item active") Edit
 
   div(class="well clearfix")
     form(class="form-horizontal" method="post" action="/games/#{game.gameId}?edit=1")
@@ -37,16 +37,15 @@ block content
             button(class="btn btn-default" type="submit") 変更
 
   div(class="well")
-    h3 問題の作成
     div(id="stagePost" class="well")
       form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
         input(type="hidden" name="_csrf" value!="#{csrfToken}")
         div(class="form-group")
-          label(class="col-sm-2 control-label" for="stageTitle") タイトル
+          label(class="col-sm-2 control-label" for="stageTitle") 文章のタイトル
           div(class="col-sm-10")
             input(id="stageTitle" class="form-control" type="text" name="stageTitle" placeholder="こんにちは、世界！" required)
         div(class="form-group")
-          label(class="col-sm-2 control-label" for="stageContent") 問題
+          label(class="col-sm-2 control-label" for="stageContent") 文章
           div(class="col-sm-10")
             textarea(id="stageContent" class="form-control" name="stageContent" rows="3" placeholder="console.log('Hello, World!');" required)
         div(class="form-group")

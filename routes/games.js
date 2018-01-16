@@ -54,7 +54,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
     game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     storedGame = game;
     // プライバシー設定が公開 || プライバシー設定が非公開なら作成者のみ
-    if (game && game.privacy === 'public' || game.privacy === 'secret' && util.isMine(req, game)) {
+    if (game && game.privacy === 'public' || game && game.privacy === 'secret' && util.isMine(req, game)) {
       return Stage.findAll({
         where: { gameId: game.gameId },
         order: '"stageId" DESC'
@@ -95,7 +95,7 @@ router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, ne
   }).then((game) => {
     storedGame = game
     // 作成者のみ
-    if (util.isMine(req, game)) {
+    if (game && util.isMine(req, game)) {
       return Stage.findAll({
         where: { gameId: game.gameId },
         order: '"stageId" DESC'
@@ -118,12 +118,11 @@ router.get('/:gameId/edit', authenticationEnsurer, csrfProtection, (req, res, ne
 
 // ゲームの編集・削除
 router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) => {
-  if (parseInt(req.query.edit) === 1) { // 編集
+  if (parseInt(req.query.edit) === 1) {
     Game.findOne({
       where: { gameId: req.params.gameId }
     }).then((game) => {
-      // 作成者のみ
-      if (util.isMine(req, game)) {
+      if (game && util.isMine(req, game)) { // 作成者のみ
         const tags = util.parseTags(req);
         return game.update({
           gameId: game.gameId,
@@ -145,12 +144,12 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
         `userAgent: ${req.headers['user-agent']} `
       );
     });
-  } else if (parseInt(req.query.delete) === 1) { // 削除
+  } else if (parseInt(req.query.delete) === 1) {
     Game.findOne({
       where: { gameId: req.params.gameId }
     }).then((game) => {
       // 作成者 または 管理人
-      if (util.isMine(req, game) || game && req.user.id === '30428943') {
+      if (game && util.isMine(req, game) || game && util.isAdmin(req)) {
         deleteGame(req.params.gameId, () => {
           res.redirect('/');
           console.info(

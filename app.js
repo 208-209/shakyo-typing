@@ -24,7 +24,7 @@ User.sync().then(() => {
     Game.hasMany(Favorite, { foreignKey: 'gameId' });
     Favorite.sync();
     Game.hasMany(Comment, { foreignKey: 'gameId' });
-    Comment.belongsTo(User, { foreignKey: 'postedBy' });
+    Comment.belongsTo(User, { foreignKey: 'createdBy' });
     Comment.sync();
     Like.sync();
   });
