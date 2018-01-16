@@ -60,7 +60,7 @@ if hasGames
                     div(class="keyboard")
                       include keyboard.jade
                   div(class="modal-footer")
-                    button(class="keyboardBtn btn btn-default pull-left") キーボード
+                    button(class="keyboardBtn btn btn-primary pull-left") キーボード
                     button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
                 //- playing
                 div(class="modalPlaying")
@@ -94,29 +94,31 @@ if hasGames
                       span(aria-hidden="true") &times;
                     h4(class="modal-title text-center") #{game.gameName}
                   div(class="modal-body")
-                    h1 タイピング結果
-                    table(class="table table-striped table-bordered table-hover")
-                      tr
-                        th スコア
-                        td(class="resultScore text-right")
-                      tr
-                        th レベル
-                        td(class="resultLevel text-right")
-                      tr
-                        th 入力時間
-                        td(class="resultTime text-right")
-                      tr
-                        th 入力文字数
-                        td(class="resultCorrect text-right")
-                      tr
-                        th ミス入力数
-                        td(class="resultMiss text-right")
-                      tr
-                        th WPM
-                        td(class="resultWpm text-right")
-                      tr
-                        th 正解率
-                        td(class="resultAccuracy text-right")
+                    h2(class="text-center") タイピング結果
+                    div(class="result-wrapper")
+                      div(class="gameResultArea")
+                        table(class="table table-striped table-bordered table-hover")
+                          tr
+                            th スコア
+                            td(class="resultScore text-right")
+                          tr
+                            th レベル
+                            td(class="resultLevel text-right")
+                          tr
+                            th 入力時間
+                            td(class="resultTime text-right")
+                          tr
+                            th 入力文字数
+                            td(class="resultCorrect text-right")
+                          tr
+                            th ミス入力数
+                            td(class="resultMiss text-right")
+                          tr
+                            th WPM
+                            td(class="resultWpm text-right")
+                          tr
+                            th 正解率
+                            td(class="resultAccuracy text-right")
 
                   div(class="modal-footer")
                     button(class="twitterBtn btn btn-default") ツイート

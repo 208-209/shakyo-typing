@@ -127,7 +127,7 @@ $('.playGame').each((i, e) => {
       let t = new Date(time);
       let s = t.getSeconds();
       let ms = t.getMilliseconds();
-      ms = ('0' + ms).slice(-2);
+      ms = ('0' + ms).slice(-3);
       let timerString = s + '.' + ms;
       startMessage.text(timerString)
     }
@@ -238,7 +238,7 @@ $('.playGame').each((i, e) => {
       let ms = t.getMilliseconds();
       m = ('0' + m).slice(-2);
       s = ('0' + s).slice(-2);
-      ms = ('0' + ms).slice(-2);
+      ms = ('0' + ms).slice(-3);
 
 
       $('.resultScore').text(score);

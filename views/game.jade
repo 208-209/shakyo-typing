@@ -13,25 +13,26 @@ block content
       a(href="/games/users/#{game.user.userId}" id="userLink") #{game.user.username}
       small(class="pull-right") #{game.formattedCreatedAt}
     h3 #{game.gameName}
+      if user
+        if game.privacy === 'secret'
+          small(id="privacySecret") 非公開
+        else if game.privacy === 'public'
+          small(id="privacyPublic") 公開
+
     - var tags = game.tags.split('\n');
     h4
       each tag in tags
         a(class="label label-default ellipsis" href="/games/tags/#{tag}") #{tag}
       
     if user
-      div
-        if game.privacy === 'secret'
-          h4: span(class="label label-primary pull-left") 非公開
-        else if game.privacy === 'public'
-          h4: span(class="label label-warning pull-left") 公開
-        - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
-        if isDeletable
-          form(method="post" action="/games/#{game.gameId}?delete=1")
-            input(type="hidden" name="_csrf" value!="#{csrfToken}")
-            button(class="btn btn-danger pull-right" type="submit") ゲームの削除
-        - var isMine = (user.id === game.createdBy)
-        if isMine
-          a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") 問題の作成とゲームの編集
+      - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
+      if isDeletable
+        form(method="post" action="/games/#{game.gameId}?delete=1")
+          input(type="hidden" name="_csrf" value!="#{csrfToken}")
+          button(class="btn btn-danger pull-right" type="submit") ゲームの削除
+      - var isMine = (user.id === game.createdBy)
+      if isMine
+        a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") 問題の作成とゲームの編集
 
   - var hasStages = stages.length > 0
   if hasStages
@@ -65,7 +66,7 @@ block content
                   form(method="post" action="/games/#{game.gameId}/comments?delete=1")
                     input(type="hidden" name="_csrf" value!="#{csrfToken}")
                     input(type="hidden" name="commentId" value="#{comment.commentId}")
-                    button(type="submit" class="btn btn-danger btn-sm pull-right") 削除
+                    button(type="submit" class="btn btn-danger btn-sm btn-sm pull-right") 削除
     //- コメントの投稿
     div(id="commentPost")
       if user

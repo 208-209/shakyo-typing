@@ -17,20 +17,18 @@ pre {
   text-overflow: ellipsis;
 }
 
-
 /* ========== ヘッダー ========== */
 .navbar-brand {
   font-size: 24px;
   padding: 0;
   line-height: 60px;
 }
-
 .userImage {
   height: 22px;
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
-/* パネル */
+/* ゲームパネル */
 #panel-wrapper {
   display: flex;
   flex-direction: row;
@@ -77,8 +75,6 @@ pre {
 .panelContent {
   font-size: 20px;
 }
-
-/* アイコン */
 .panel .fa {
   vertical-align: -15%;
   font-size: 20px;
@@ -87,7 +83,6 @@ pre {
 .isPointer {
   cursor: pointer;
 }
-
 .panel .fa-star {
   color: #F6A615;
 }
@@ -102,11 +97,29 @@ pre {
 }
 
 
+
+
 /* /games/new */
 
 /* /games/:gameId */
 #userLink {
   color: #0f7864;
+}
+#privacySecret {
+  color: white;
+  background-color: #EE5C9A;
+  border-radius: .25em;
+  padding: .2em .6em .3em;
+  margin-left: 1rem;
+  vertical-align: 20%;
+}
+#privacyPublic {
+  color: white;
+  background-color: #74A82A;
+  border-radius: .25em;
+  padding: .2em .6em .3em;
+  margin-left: 1rem;
+  vertical-align: 20%;
 }
 
 /* コメント */
@@ -173,30 +186,35 @@ pre {
 
 
 /* ========== モーダル ========== */
-.modal-body {
-  height: 600px;
-}
-.modal-body .prettyprint {
-  background-color: white;
-  border-style: hidden;
-}
-
-/* ディスプレイ */
-.isletter {
-  color: #ffffff;
-  font: bold;
-  background-color: #ffa500;
-}
-
 .display {
   height: 300px;
   overflow-y: scroll;
 }
+.isletter {
+  color: #ffffff;
+  font: bold;
+  background-color: #F6980E;
+}
+.modalPlaying {
+  display: none;
+}
+.modalResult {
+  display: none;
+}
+
+/* スタート */
 .startMessage {
   text-align: center;
   line-height: 300px;
   font-size: 32px;
 }
+.start{
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+}
+
+/* プレイ */
 .info {
   list-style:none;
   display: flex;
@@ -208,20 +226,29 @@ pre {
 .content {
   font-size: 26px;
 }
-.start{
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-}
+
+/* リザルト */
 .result{
   height: 200px;
   text-align: center;
 }
-.modalPlaying {
-  display: none;
+.modal-body {
+  height: 600px;
 }
-.modalResult {
-  display: none;
+.modal-body .prettyprint {
+  background-color: white;
+  border-style: hidden;
+}
+.result-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.gameResultArea {
+  width: 60%;
+  padding: 19px;
+  font-size: 18px;
 }
 .replayBtn {
   color: white;
@@ -235,21 +262,20 @@ pre {
   border-color: #0DA921;
   opacity: 1;
 }
-
 .missBtn {
   color: white;
-  background-color: #E85A90;
-  border-color: #E85A90;
+  background-color: #EE56AC;
+  border-color: #EE56AC;
   opacity: 0.9;
 }
 .missBtn:hover {
   color: white;
-  background-color: #E85A90;
-  border-color: #E85A90;
+  background-color: #EE56AC;
+  border-color: #EE56AC;
   opacity: 1;
 }
 
-/* キーボード */
+/* ========== キーボード ========== */
 .keyboard {
   height: 300px;
   overflow: hidden;
@@ -261,10 +287,20 @@ pre {
   line-height: 48px;
   text-align: center;
   background: #fff;
-  border: 2px solid #2c3e50;
+  border: 2px solid #95a5a6;
+  color: #95a5a6;
   border-radius: 5px;
   margin: 4px;
+  font-size: 16px;
 }
+
+.isKey {
+  color: #ffffff;
+  font: bold;
+  background-color: #F6980E;
+  border: 2px solid #F6980E;
+}
+
 
 .tab, .enter-top {
   width: 76px;
@@ -292,12 +328,5 @@ pre {
 .key_space {
   width: 220px;
 }
-
-.isKey {
-  color: #ffffff;
-  font: bold;
-  background-color: #ffa500;
-}
-
 /* ========== フッター ========== */
 
