@@ -28,11 +28,16 @@ function isMine(req, game) {
   return game && req.user.id === game.createdBy;
 }
 
+function parseTags(req) {
+    return req.body.tags.trim().split('\n').map((t) => t.trim()).join('\n').slice(0, 255);
+  }
+
 
 module.exports = {
   createGameMap: createGameMap,
   createFavoriteMap: createFavoriteMap,
   createLikeMap: createLikeMap,
   createLikeCountMap: createLikeCountMap,
-  isMine: isMine
+  isMine: isMine,
+  parseTags: parseTags
 };
