@@ -26,7 +26,8 @@ router.post('/:gameId/comments', authenticationEnsurer, csrfProtection, (req, re
 // コメントの削除
 router.post('/:gameId/comments/delete', authenticationEnsurer, csrfProtection, (req, res, next) => {
   Comment.findById(req.body.commentId).then((comment) => {
-    if (util.isMine(req, comment) || util.isAdmin(req)) { // 投稿者 または 管理人
+    // 投稿者 または 管理人
+    if (util.isMine(req, comment) || util.isAdmin(req)) {
       comment.destroy();
       console.info(
         `【コメントの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +

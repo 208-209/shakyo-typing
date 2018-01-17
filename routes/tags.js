@@ -26,7 +26,7 @@ router.get('/tags/:tag', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        privacy: 'public',
+        privacy: 1,
         tags: { $like: '%' + req.params.tag + '%' }
       },
       order: '"updatedAt" DESC'
@@ -69,7 +69,7 @@ router.get('/tags/:tag', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        privacy: 'public',
+        privacy: 1,
         tags: { $like: '%' + req.params.tag + '%' }
       },
       order: '"updatedAt" DESC'

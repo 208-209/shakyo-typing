@@ -16,7 +16,7 @@ router.post('/:gameId/stages', authenticationEnsurer, csrfProtection, (req, res,
   }).then((game) => {
     storedGame = game
     // ゲームの作成者のみ
-    if (util.isMine(req, game)) {
+    if (game && util.isMine(req, game)) {
       return Stage.create({
         stageTitle: req.body.stageTitle.slice(0, 255),
         stageContent: req.body.stageContent,
@@ -46,7 +46,7 @@ router.post('/:gameId/stages/delete', authenticationEnsurer, csrfProtection, (re
   }).then((game) => {
     storedGame = game
     // ゲームの作成者のみ
-    if (util.isMine(req, game)) {
+    if (game && util.isMine(req, game)) {
       return Stage.findOne({
         where: { stageId: req.body.stageId }
       });

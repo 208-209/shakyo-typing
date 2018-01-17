@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        privacy: 'public',
+        privacy: 1, // 公開ゲーム
         $or: [{ gameName: { $like: '%' + req.query.q + '%' } }, { tags: { $like: '%' + req.query.q + '%' } }]
       },
       order: '"updatedAt" DESC'
@@ -73,7 +73,7 @@ router.get('/', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        privacy: 'public',
+        privacy: 1, // 公開ゲーム
         $or: [{ gameName: { $like: '%' + req.query.q + '%' } }, { tags: { $like: '%' + req.query.q + '%' } }]
       },
       order: '"updatedAt" DESC'

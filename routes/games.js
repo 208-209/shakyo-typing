@@ -30,7 +30,7 @@ router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
     gameId: gameId,
     gameName: req.body.gameName.slice(0, 255),
     tags: tags,
-    privacy: req.body.privacy,
+    privacy: parseInt(req.body.privacy),
     createdBy: req.user.id
   }).then((game) => {
     res.redirect('/games/' + game.gameId + '/edit');
@@ -56,7 +56,7 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
     game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     storedGame = game;
     // プライバシー設定が公開なら誰でも または プライバシー設定が非公開なら作成者のみ
-    if (game && game.privacy === 'public' || game && game.privacy === 'secret' && util.isMine(req, game)) {
+    if (game && (game.privacy === 1 || game.privacy === 0 && util.isMine(req, game))) {
       return Stage.findAll({
         where: { gameId: game.gameId },
         order: '"stageId" DESC'
@@ -124,13 +124,14 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
     Game.findOne({
       where: { gameId: req.params.gameId }
     }).then((game) => {
-      if (game && util.isMine(req, game)) { // 作成者のみ
+      // 作成者のみ
+      if (game && util.isMine(req, game)) {
         const tags = util.parseTags(req);
         return game.update({
           gameId: game.gameId,
           gameName: req.body.gameName.slice(0, 255),
           tags: tags,
-          privacy: req.body.privacy,
+          privacy: parseInt(req.body.privacy),
           createdBy: req.user.id
         });
       } else {
@@ -150,7 +151,8 @@ router.post('/:gameId', authenticationEnsurer, csrfProtection, (req, res, next) 
     Game.findOne({
       where: { gameId: req.params.gameId }
     }).then((game) => {
-      if (game && util.isMine(req, game) || game && util.isAdmin(req)) { // 作成者 または 管理人
+      // 作成者 または 管理人
+      if (game && (util.isMine(req, game) || util.isAdmin(req))) {
         deleteGame(req.params.gameId, () => {
           res.redirect('/');
           console.info(

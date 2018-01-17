@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
         model: Comment,
         attributes: ['comment']
       }],
-      where: { privacy: 'public' }, // 公開ゲームのみを表示
+      where: { privacy: 1 }, // 公開ゲームのみを表示
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;
@@ -65,7 +65,7 @@ router.get('/', (req, res, next) => {
         model: Comment,
         attributes: ['comment']
       }],
-      where: { privacy: 'public' },
+      where: { privacy: 1 },
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games

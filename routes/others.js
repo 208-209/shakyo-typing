@@ -27,7 +27,7 @@ router.get('/users/:userId', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        privacy: 'public',
+        privacy: 1, // 公開ゲーム
         createdBy: req.params.userId // そのユーザーの公開ゲームのみ
       },
       order: '"updatedAt" DESC'
@@ -75,7 +75,7 @@ router.get('/users/:userId', (req, res, next) => {
         attributes: ['comment']
       }],
       where: {
-        privacy: 'public',
+        privacy: 1, // 公開ゲーム
         createdBy: req.params.userId
       },
       order: '"updatedAt" DESC'
