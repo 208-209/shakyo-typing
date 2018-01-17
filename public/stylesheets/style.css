@@ -89,6 +89,8 @@ pre {
 }
 
 
+/* 詳細 */
+/* 編集 */
 
 
 /* /games/new */
@@ -121,6 +123,10 @@ pre {
   margin-left: 1rem;
   vertical-align: 10%;
 }
+#stagePost {
+  margin-bottom: 0;
+}
+
 
 /* コメント */
 #comment-wrapper {
@@ -177,11 +183,6 @@ pre {
   background-color: #4d4d4d;
   opacity: 1;
 }
-/* 詳細 */
-/* 編集 */
-#stagePost {
-  margin-bottom: 0;
-}
 
 
 /* ========== モーダル ========== */
@@ -215,15 +216,18 @@ pre {
 
 /* プレイ */
 .info {
-  list-style:none;
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+  font-size: 19px;
 }
 .title {
-  font-size: 30px;
+  font-size: 28px;
+  color: #0f7864;
 }
 .content {
-  font-size: 26px;
+  font-size: 28px;
 }
 
 /* リザルト */

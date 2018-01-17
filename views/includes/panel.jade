@@ -52,8 +52,6 @@ if hasGames
                 //- start
                 div(class="modalStart")
                   div(class="modal-header")
-                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                      span(aria-hidden="true") &times;
                     h4(class="modal-title text-center") #{game.gameName}
                   div(class="modal-body")
                     div(class="display")
@@ -61,27 +59,20 @@ if hasGames
                     div(class="keyboard")
                       include keyboard.jade
                   div(class="modal-footer")
-                    button(class="keyboardBtn btn btn-primary pull-left") キーボード
+                    button(class="keyboardBtn btn btn-default pull-left") キーボード
                     button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
 
                 //- playing
                 div(class="modalPlaying")
-                  div(class="modal-header")
-                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                      span(aria-hidden="true") &times;
+                  div(class="modal-header info")
+                    span(class="correctInfo") 正解：
+                      span(class="correct")
+                    span(class="missInfo") ミス：
+                      span(class="miss")
                   div(class="modal-body")
                     div(class="display")
-                      ul(class="info")
-                        li(class="label label-success") 正解: 
-                          span(class="correct badge")
-                        li(class="label label-warning") ミス: 
-                          span(class="miss badge")
                       pre(class="title prettyprint")
                       pre(class="content prettyprint")
-                      //-
-                        code(class="beforeLetter")
-                        code(class="currentLetter")
-                        code(class="afterLetter")
 
                     div(class="keyboard")
                       include keyboard.jade
@@ -93,8 +84,6 @@ if hasGames
                 //- result
                 div(class="modalResult")
                   div(class="modal-header")
-                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                      span(aria-hidden="true") &times;
                     h4(class="modal-title text-center") #{game.gameName}
                   div(class="modal-body")
                     h2(class="text-center") タイピング結果
