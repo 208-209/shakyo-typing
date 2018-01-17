@@ -24,9 +24,9 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
-      where: { createdBy: req.user.id }, // 自分が作ったゲームのみを表示
+      where: { createdBy: req.user.id }, // 作成者が自分自身
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;

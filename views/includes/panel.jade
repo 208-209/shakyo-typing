@@ -48,6 +48,7 @@ if hasGames
           div(class="modal fade" id="#{game.gameId}")
             div(class="modal-dialog modal-lg")
               div(class="modal-content")
+
                 //- start
                 div(class="modalStart")
                   div(class="modal-header")
@@ -62,6 +63,7 @@ if hasGames
                   div(class="modal-footer")
                     button(class="keyboardBtn btn btn-primary pull-left") キーボード
                     button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+
                 //- playing
                 div(class="modalPlaying")
                   div(class="modal-header")
@@ -87,6 +89,7 @@ if hasGames
                   div(class="modal-footer")
                     button(class="keyboardBtn btn btn-default pull-left") キーボード
                     button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+
                 //- result
                 div(class="modalResult")
                   div(class="modal-header")
@@ -119,7 +122,6 @@ if hasGames
                           tr
                             th 正解率
                             td(class="resultAccuracy text-right")
-
                   div(class="modal-footer")
                     button(class="twitterBtn btn btn-default") ツイート
                     button(class="missBtn btn btn-default") ミスだけ

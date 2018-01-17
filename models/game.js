@@ -29,7 +29,7 @@ const Game = loader.database.define('games', {
     timestamps: true,
     indexes: [
       {
-        fields: ['gameName', 'tags', 'createdBy', 'privacy', 'updatedAt']
+        fields: ['gameName', 'tags', 'privacy', 'createdBy', 'updatedAt']
       }
     ]
   });

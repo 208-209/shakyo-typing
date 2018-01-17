@@ -23,11 +23,11 @@ router.get('/tags/:tag', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: {
         privacy: 1,
-        tags: { $like: '%' + req.params.tag + '%' }
+        tags: { $like: '%' + req.params.tag + '%' } // タグの文字を含む
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
@@ -66,11 +66,11 @@ router.get('/tags/:tag', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: {
         privacy: 1,
-        tags: { $like: '%' + req.params.tag + '%' }
+        tags: { $like: '%' + req.params.tag + '%' } // タグの文字を含む
       },
       order: '"updatedAt" DESC'
     }).then((games) => {

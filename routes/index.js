@@ -23,9 +23,9 @@ router.get('/', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
-      where: { privacy: 1 }, // 公開ゲームのみを表示
+      where: { privacy: 1 }, // 公開ゲーム
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;
@@ -63,9 +63,9 @@ router.get('/', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
-      where: { privacy: 1 },
+      where: { privacy: 1 }, // 公開ゲーム
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games

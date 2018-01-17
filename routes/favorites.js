@@ -27,11 +27,11 @@ router.get('/:userId/favorites', authenticationEnsurer , (req, res, next) => {
         attributes: ['favorite'],
         where: {
           userId: req.user.id,
-          favorite: 1 // お気に入り登録したゲームのみを表示
+          favorite: 1 // ブックマーク登録したゲーム
         }
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: { privacy: 1 }, // 公開ゲーム
       order: '"updatedAt" DESC'

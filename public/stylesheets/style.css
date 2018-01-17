@@ -11,11 +11,6 @@ pre {
 .label a{
   color: white;
 }
-.ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 
 /* ========== ヘッダー ========== */
 .navbar-brand {
@@ -42,7 +37,11 @@ pre {
 #panel-wrapper .panel-body {
   background-color: #ecf0f1;
 }
-
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .panel .gameName {
   color: #0f7864;
 }
@@ -60,7 +59,6 @@ pre {
   cursor: pointer;
   background: #0f7864;
 }
-
 .panel-body .prettyprint {
   background-color: transparent;
   border-style: hidden;
@@ -68,12 +66,6 @@ pre {
 
 .panel-body {
   background-color: white;
-}
-.panelTitle {
-  font-size: 20px;
-}
-.panelContent {
-  font-size: 20px;
 }
 .panel .fa {
   vertical-align: -15%;
@@ -105,6 +97,14 @@ pre {
 #userLink {
   color: #0f7864;
 }
+.panelStageTitle {
+  font-size: 18px;
+}
+.panelStageContent {
+  font-size: 18px;
+}
+
+/* /games/:edit */
 #privacySecret {
   color: white;
   background-color: #EE5C9A;

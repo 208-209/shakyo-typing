@@ -27,10 +27,10 @@ router.get('/', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: {
-        privacy: 1, // 公開ゲーム
+        privacy: 1, // ゲーム名とタグが検索文字を含む
         $or: [{ gameName: { $like: '%' + req.query.q + '%' } }, { tags: { $like: '%' + req.query.q + '%' } }]
       },
       order: '"updatedAt" DESC'
@@ -70,10 +70,10 @@ router.get('/', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: {
-        privacy: 1, // 公開ゲーム
+        privacy: 1, // ゲーム名とタグが検索文字を含む
         $or: [{ gameName: { $like: '%' + req.query.q + '%' } }, { tags: { $like: '%' + req.query.q + '%' } }]
       },
       order: '"updatedAt" DESC'

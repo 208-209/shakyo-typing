@@ -24,11 +24,11 @@ router.get('/users/:userId', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: {
-        privacy: 1, // 公開ゲーム
-        createdBy: req.params.userId // そのユーザーの公開ゲームのみ
+        privacy: 1,
+        createdBy: req.params.userId // そのユーザーが作成した公開ゲーム
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
@@ -72,11 +72,11 @@ router.get('/users/:userId', (req, res, next) => {
         attributes: ['stageTitle', 'stageContent']
       }, {
         model: Comment,
-        attributes: ['comment']
+        attributes: ['commentId']
       }],
       where: {
-        privacy: 1, // 公開ゲーム
-        createdBy: req.params.userId
+        privacy: 1,
+        createdBy: req.params.userId // そのユーザーが作成した公開ゲーム
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
