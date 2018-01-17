@@ -10416,27 +10416,23 @@ $('.keyboardBtn').click(() => {
 
 const $ = __webpack_require__(0);
 
-// タイピングゲームの挙動
 $('.playGame').each((i, e) => {
   const playGame = $(e)
   playGame.click(() => {
+
+    const startMessage = $('.startMessage');
     const title = $('.title');
     const content = $('.content');
-    const modalStart = $('.modalStart');
-    const modalPlaying = $('.modalPlaying');
-    const modalResult = $('.modalResult');
-    const startMessage = $('.startMessage');
     const correctInfo = $('.correct');
     const missInfo = $('.miss');
-    const timerInfo = $('.timer');
+
     const replayBtn = $('.replayBtn');
     const missBtn = $('.missBtn');
     const closeBtnbtn = $('.closeBtnbtn');
 
-    const dataStages = playGame.data('stages');
-    const missStages = new Map();
-    let stages = dataStages;
-    console.log(dataStages);
+    const modalStart = $('.modalStart');
+    const modalPlaying = $('.modalPlaying');
+    const modalResult = $('.modalResult');
 
     const validLetter = [
       '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '^', '\\',
@@ -10447,21 +10443,56 @@ $('.playGame').each((i, e) => {
       'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '+', '*', '}',
       'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\',
       'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '\r'];
-    let stageNumber; // stages code letter
+
+    const dataStages = playGame.data('stages');
+    const missStages = new Map();
+    let stages = dataStages;
+    console.log(dataStages);
+
+    let stageNumber;
+    let currentNumber;
+
     let currentTitle;
     let currentContent;
-    let currentNumber;
+
     let correct;
     let miss;
-    let timer;
     let isStarted;
 
-    const countDownTime = 3 * 1000;
+    const COUNTDOWNTIME = 3 * 1000;
     let countDownStartTime;
-    let countDownTimerId;
+
     let startTime;
     let currentTime;
     let timerId;
+
+
+    // キーの判定
+    $(window).keypress((e) => {
+      if (isStarted === false) {
+        return;
+      }
+      // 有効な文字以外はスペースでスキップする
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
+        currentNumber++;
+        nextStage();
+        isTarget();
+        // 正解の場合
+      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
+        currentNumber++;
+        correct++;
+        correctInfo.text(correct);
+        nextStage();
+        isTarget();
+        // ミスの場合
+      } else {
+        miss++;
+        missInfo.text(miss);
+        missStages.set(currentTitle, currentContent);
+      }
+      console.log(missStages);
+      console.log(String.fromCharCode(e.which) + ':' + e.which);
+    });
 
     // スペースキーでスタート
     $(window).keypress((e) => {
@@ -10469,33 +10500,6 @@ $('.playGame').each((i, e) => {
         countDownStartTime = Date.now();
         startCountDown();
       }
-    });
-
-    // キーの判定
-    $(window).keypress((e) => {
-      if (isStarted === false) {
-        return;
-      }
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
-        currentNumber++;
-        nextStage();
-        isTarget();
-      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
-        currentNumber++;
-        correct++;
-        correctInfo.text(correct);
-        nextStage();
-        isTarget();
-      } else {
-        miss++;
-        missInfo.text(miss);
-        missStages.set(currentTitle, currentContent);
-      }
-      console.log(missStages);
-      // console.log(stages);
-      // console.log(currentTitle);
-      // console.log(currentContent);
-      console.log(String.fromCharCode(e.which) + ':' + e.which);
     });
 
     // もう一回
@@ -10515,10 +10519,11 @@ $('.playGame').each((i, e) => {
       init();
     });
 
-    // スペースキーを押してからのカウントダウン
+    // スペースキーを押してカウントダウンスタート
     function startCountDown() {
-      countDownTimerId = setTimeout(() => {
-        let timeLeft = countDownTime - (Date.now() - countDownStartTime);
+      let countDownTimerId = setTimeout(() => {
+        let timeLeft = COUNTDOWNTIME - (Date.now() - countDownStartTime);
+        // カウントダウンの数字が 0 になったらゲームスタート
         if (timeLeft < 0) {
           clearTimeout(countDownTimerId);
           timeLeft = 0;
@@ -10534,10 +10539,7 @@ $('.playGame').each((i, e) => {
       }, 10);
     }
 
-    /**
-     * 
-     * @param {} time 
-     */
+    // カウントダウンの数字を表示
     function updateTimer(time) {
       let t = new Date(time);
       let s = t.getSeconds();
@@ -10547,7 +10549,7 @@ $('.playGame').each((i, e) => {
       startMessage.text(timerString)
     }
 
-    // ゲームのPlay時間を計算
+    // ゲームのプレイ時間を計算
     function countUp() {
       timerId = setTimeout(() => {
         currentTime = Date.now() - startTime;
@@ -10555,14 +10557,14 @@ $('.playGame').each((i, e) => {
       }, 10);
     }
 
-
+    // ディスプレイに
     function setStage() {
       modalStart.hide();
       modalPlaying.show();
       modalResult.hide();
-      currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0];
+      currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0]; // dataStages || missStages
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
-      currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r');
+      currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r'); // 文字コードの判定を「13」にする
       title.text(currentTitle);
       content.text(currentContent);
       correctInfo.text(correct);
@@ -10574,7 +10576,7 @@ $('.playGame').each((i, e) => {
     function isTarget() {
       // keyのターゲット
       $('.isKey').removeClass('isKey');
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1) {
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1) { // 有効な文字以外はスペース
         $('.key_space').addClass('isKey');
       }
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
@@ -10593,6 +10595,7 @@ $('.playGame').each((i, e) => {
       console.log(currentKeyCode);
     }
 
+    // XSS対策で「'」「"」「<」「>」を文字参照にする
     function escapeLetter(letter) {
       return letter.replace(/'/g, '&apos;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
@@ -10602,7 +10605,7 @@ $('.playGame').each((i, e) => {
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
         clearTimeout(timerId);
         result();
-      // 途中のステージ で 最後の文字が正解
+        // 途中のステージ で 最後の文字が正解
       } else if (currentNumber === currentContent.length) {
         stageNumber++;
         setStage();
@@ -10626,6 +10629,7 @@ $('.playGame').each((i, e) => {
       shuffle(stages);
     }
 
+    // stages の順番をランダムに並び替える
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
         let r = Math.floor(Math.random() * (i + 1));
@@ -10644,7 +10648,7 @@ $('.playGame').each((i, e) => {
       missStages.size ? missBtn.show() : missBtn.hide();
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const WPM = ((correct + miss) / (currentTime / 1000) * 60).toFixed(2);
-      const score = (WPM * Math.pow(accuracy, 3)).toFixed(2);
+      const score = Math.round((WPM * Math.pow(accuracy, 3)));
       const level = determine(score);
 
       let t = new Date(currentTime);
@@ -10654,7 +10658,6 @@ $('.playGame').each((i, e) => {
       m = ('0' + m).slice(-2);
       s = ('0' + s).slice(-2);
       ms = ('0' + ms).slice(-3);
-
 
       $('.resultScore').text(score);
       $('.resultLevel').text(level);
@@ -10678,8 +10681,10 @@ $('.playGame').each((i, e) => {
         return 'B';
       } else if (100 <= score && score < 150) {
         return 'C';
-      } else if (0 <= score && score < 100) {
+      } else if (50 <= score && score < 100) {
         return 'D';
+      } else if (0 <= score && score < 50) {
+        return 'E';
       }
     }
     init();
