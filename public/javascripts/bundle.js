@@ -10534,19 +10534,9 @@ $('.playGame').each((i, e) => {
           countUp();
           return;
         }
-        updateTimer(timeLeft);
+        startMessage.text(Math.ceil(timeLeft / 1000))
         startCountDown();
       }, 10);
-    }
-
-    // カウントダウンの数字を表示
-    function updateTimer(time) {
-      let t = new Date(time);
-      let s = t.getSeconds();
-      let ms = t.getMilliseconds();
-      ms = ('0' + ms).slice(-3);
-      let timerString = s + '.' + ms;
-      startMessage.text(timerString)
     }
 
     // ゲームのプレイ時間を計算
@@ -10557,7 +10547,6 @@ $('.playGame').each((i, e) => {
       }, 10);
     }
 
-    // ディスプレイに
     function setStage() {
       modalStart.hide();
       modalPlaying.show();
