@@ -88,14 +88,7 @@ pre {
   margin: 8px 0;
 }
 
-
 /* 詳細 */
-/* 編集 */
-
-
-/* /games/new */
-
-/* /games/:gameId */
 #userLink {
   color: #0f7864;
 }
@@ -106,7 +99,7 @@ pre {
   font-size: 18px;
 }
 
-/* /games/:edit */
+/* 編集 */
 #privacySecret {
   color: white;
   background-color: #EE5C9A;
@@ -127,7 +120,6 @@ pre {
   margin-bottom: 0;
 }
 
-
 /* コメント */
 #comment-wrapper {
   padding: 19px;
@@ -147,8 +139,6 @@ pre {
 #commentPost .well {
   margin-bottom: 0;
 }
-
-/* /games/:edit */
 
 /* ログイン */
 .googleBtn {
@@ -184,7 +174,6 @@ pre {
   opacity: 1;
 }
 
-
 /* ========== モーダル ========== */
 .display {
   height: 300px;
@@ -219,20 +208,12 @@ pre {
 }
 
 /* プレイ */
-.correctInfo, .missInfo {
-  width: 180px;
-  background-color: #ecf0f1;
-  border-radius: .25em;
-  padding: .2em .6em .3em;
-  margin-left: 1rem;
-  text-align: center;
-}
 .title {
   font-size: 28px;
   color: #0DA921;
 }
 .content {
-  font-size: 28px;
+  font-size: 30px;
 }
 
 /* リザルト */

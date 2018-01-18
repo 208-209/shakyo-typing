@@ -10,6 +10,7 @@ $('.playGame').each((i, e) => {
     const content = $('.content');
     const correctInfo = $('.correct');
     const missInfo = $('.miss');
+    const timerInfo = $('.timerInfo');
 
     const replayBtn = $('.replayBtn');
     const missBtn = $('.missBtn');
@@ -32,7 +33,6 @@ $('.playGame').each((i, e) => {
     const dataStages = playGame.data('stages');
     const missStages = new Map();
     let stages = dataStages;
-    console.log(dataStages);
 
     let stageNumber;
     let currentNumber;
@@ -46,11 +46,9 @@ $('.playGame').each((i, e) => {
 
     const COUNTDOWNTIME = 3 * 1000;
     let countDownStartTime;
-
     let startTime;
     let currentTime;
     let timerId;
-
 
     // キーの判定
     $(window).keypress((e) => {
@@ -75,8 +73,6 @@ $('.playGame').each((i, e) => {
         missInfo.text(miss);
         missStages.set(currentTitle, currentContent);
       }
-      console.log(missStages);
-      console.log(String.fromCharCode(e.which) + ':' + e.which);
     });
 
     // スペースキーでスタート
@@ -104,7 +100,7 @@ $('.playGame').each((i, e) => {
       init();
     });
 
-    // スペースキーを押してカウントダウンスタート
+    // スペースキーでカウントダウンスタート
     function startCountDown() {
       let countDownTimerId = setTimeout(() => {
         let timeLeft = COUNTDOWNTIME - (Date.now() - countDownStartTime);
@@ -124,12 +120,24 @@ $('.playGame').each((i, e) => {
       }, 10);
     }
 
-    // ゲームのプレイ時間を計算
     function countUp() {
       timerId = setTimeout(() => {
         currentTime = Date.now() - startTime;
         countUp();
+        updateTimerText();
       }, 10);
+    }
+
+    function updateTimerText() {
+      let t = new Date(currentTime);
+      let m = t.getMinutes();
+      let s = t.getSeconds();
+      let ms = t.getMilliseconds();
+      m = ('0' + m).slice(-2);
+      s = ('0' + s).slice(-2);
+      ms = ('00' + ms).slice(-3);
+      let timerString = parseInt(m) ? m + ' : ' + s + ' . ' + ms : s + ' . ' + ms;
+      timerInfo.text(timerString);
     }
 
     function setStage() {
@@ -148,25 +156,23 @@ $('.playGame').each((i, e) => {
     }
 
     function isTarget() {
-      // keyのターゲット
+      // キーボードのターゲット
       $('.isKey').removeClass('isKey');
       if (validLetter.indexOf(currentContent[currentNumber]) === -1) { // 有効な文字以外はスペース
         $('.key_space').addClass('isKey');
       }
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
       $('.key_' + currentKeyCode).addClass('isKey');
-      // 文字ののターゲット
-      const beforeTarget = currentContent.substring(0, currentNumber);
-      const currentTarget = currentContent[currentNumber];
-      const afterTarget = currentContent.substring(currentNumber + 1);
+      // 文字のターゲット
+      const beforeTarget = currentContent.substring(0, currentNumber); // ターゲットより前の文字
+      const currentTarget = currentContent[currentNumber]; // ターゲットの文字
+      const afterTarget = currentContent.substring(currentNumber + 1); // ターゲットより後の文字
       const escapeBeforeTarget = beforeTarget ? escapeLetter(beforeTarget) : '';
       const escapeCurrentTarget = currentTarget ? escapeLetter(currentTarget) : '';
       const escapeAfterTarget = afterTarget ? escapeLetter(afterTarget) : '';
 
       content.html('<span>' + escapeBeforeTarget + '</span><span class="currentTarget">' + escapeCurrentTarget + '</span><span>' + escapeAfterTarget + '</span>');
       $('.currentTarget').addClass('isKey');
-      console.log(currentContent[currentNumber]);
-      console.log(currentKeyCode);
     }
 
     // XSS対策で「'」「"」「<」「>」を文字参照にする
@@ -175,11 +181,11 @@ $('.playGame').each((i, e) => {
     }
 
     function nextStage() {
-      // 最後のステージ で 最後の文字が正解
+      // 最後のステージ で 最後の文字が正解 の場合は リザルト
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
         clearTimeout(timerId);
         result();
-        // 途中のステージ で 最後の文字が正解
+        // 途中のステージ で 最後の文字が正解 の場合は 次のステージ
       } else if (currentNumber === currentContent.length) {
         stageNumber++;
         setStage();
@@ -214,7 +220,6 @@ $('.playGame').each((i, e) => {
       return array
     }
 
-    // スコア、レベル、入力時間、入力文字、ミス入力、WPM、正解率、苦手キー
     function result() {
       modalStart.hide();
       modalPlaying.hide();
@@ -228,14 +233,11 @@ $('.playGame').each((i, e) => {
       let t = new Date(currentTime);
       let m = t.getMinutes();
       let s = t.getSeconds();
-      let ms = t.getMilliseconds();
-      m = ('0' + m).slice(-2);
-      s = ('0' + s).slice(-2);
-      ms = ('0' + ms).slice(-3);
+      let resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
 
       $('.resultScore').text(score);
       $('.resultLevel').text(level);
-      $('.resultTime').text(m + '分' + s + '秒' + ms);
+      $('.resultTime').text(resultTimerString);
       $('.resultCorrect').text(correct);
       $('.resultMiss').text(miss);
       $('.resultWpm').text(WPM);
