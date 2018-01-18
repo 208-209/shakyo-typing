@@ -10458,6 +10458,7 @@ $('.playGame').each((i, e) => {
 
     let correct;
     let miss;
+    let isCountDownStarted;
     let isStarted;
 
     const COUNTDOWNTIME = 3 * 1000;
@@ -10493,7 +10494,7 @@ $('.playGame').each((i, e) => {
 
     // スペースキーでスタート
     $(window).keypress((e) => {
-      if (e.which === 32 && isStarted === false) {
+      if (e.which === 32 && isCountDownStarted === false && isStarted === false) {
         countDownStartTime = Date.now();
         startCountDown();
       }
@@ -10518,6 +10519,7 @@ $('.playGame').each((i, e) => {
 
     // スペースキーでカウントダウンスタート
     function startCountDown() {
+      isCountDownStarted = true;
       let countDownTimerId = setTimeout(() => {
         let timeLeft = COUNTDOWNTIME - (Date.now() - countDownStartTime);
         // カウントダウンの数字が 0 になったらゲームスタート
@@ -10619,13 +10621,15 @@ $('.playGame').each((i, e) => {
       countDownStartTime = 0;
       startTime = 0;
       missStages.clear();
+      isCountDownStarted = false;
       isStarted = false;
-      $('.isKey').removeClass('isKey');
       startMessage.text('スペースキーで開始');
       shuffle(stages);
+      $('.isKey').removeClass('isKey');
+      $('.twitter-hashtag-button').remove();
+
     }
 
-    // stages の順番をランダムに並び替える
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
         let r = Math.floor(Math.random() * (i + 1));
@@ -10660,6 +10664,7 @@ $('.playGame').each((i, e) => {
       $('.resultWpm').text(WPM);
       $('.resultAccuracy').text(accuracy * 100 + '%');
 
+      $('.twitter-hashtag-button').remove();
       createTwitterBtn(result);
       twttr.widgets.load();
     }
