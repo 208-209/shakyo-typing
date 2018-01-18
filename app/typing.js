@@ -30,6 +30,7 @@ $('.playGame').each((i, e) => {
       'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\',
       'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '\r'];
 
+    const dataGame = playGame.data('game');
     const dataStages = playGame.data('stages');
     const missStages = new Map();
     let stages = dataStages;
@@ -229,6 +230,7 @@ $('.playGame').each((i, e) => {
       const WPM = ((correct + miss) / (currentTime / 1000) * 60).toFixed(2);
       const score = Math.round((WPM * Math.pow(accuracy, 3)));
       const level = determine(score);
+      const result = dataGame + 'の結果は、スコア「 ' + score + '」の「' + level + '」ランクでした。\nhttps://hogehoge.com';
 
       let t = new Date(currentTime);
       let m = t.getMinutes();
@@ -242,6 +244,9 @@ $('.playGame').each((i, e) => {
       $('.resultMiss').text(miss);
       $('.resultWpm').text(WPM);
       $('.resultAccuracy').text(accuracy * 100 + '%');
+
+      createTwitterBtn(result);
+      twttr.widgets.load();
     }
 
     function determine(score) {
@@ -263,6 +268,17 @@ $('.playGame').each((i, e) => {
         return 'E';
       }
     }
+
+    function createTwitterBtn (result) {
+      $('<a>').attr({
+        href : 'https://twitter.com/intent/tweet?button_hashtag=' + encodeURIComponent('写経タイピング') + '&ref_src=twsrc%5Etfw',
+        class: 'twitter-hashtag-button',
+        'data-text': result,
+        'data-lang': 'ja',
+        'data-show-count': 'false'
+      }).appendTo('.modal-footer');
+    }
+
     init();
   });
 });

@@ -42,7 +42,7 @@ if hasGames
         - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
         - var hasStages = gameMap.get(game.gameId).length > 0
         if hasStages
-          div(class="panel-footer playGame" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY GAME
+          div(class="panel-footer playGame" data-game="#{game.gameName}" data-stages="#{stages}" data-toggle="modal" href="##{game.gameId}") PLAY GAME
 
           //- モーダル
           div(class="modal fade" id="#{game.gameId}")
@@ -113,7 +113,6 @@ if hasGames
                             th 正解率
                             td(class="resultAccuracy text-right")
                   div(class="modal-footer")
-                    button(class="twitterBtn btn btn-default") ツイート
                     button(class="missBtn btn btn-default") ミスだけ
                     button(class="replayBtn btn btn-warning") もう一回
                     button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
