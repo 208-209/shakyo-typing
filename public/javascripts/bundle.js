@@ -10627,7 +10627,6 @@ $('.playGame').each((i, e) => {
       shuffle(stages);
       $('.isKey').removeClass('isKey');
       $('.twitter-hashtag-button').remove();
-
     }
 
     function shuffle(array) {

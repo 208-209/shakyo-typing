@@ -19,4 +19,11 @@ block content
         a(href="/users/#{user.id}/favorites")
           i(class="fa fa-star" aria-hidden="true")  Bookmark
   //- パネル
-  include includes/panel.jade
+  - var hasGames = games.length > 0
+  if hasGames
+    div(id="panel-wrapper")
+      each game in games
+        //- 公開ゲーム または 自分が作成したものであれば非公開でも表示
+        - var myFavorite = game.privacy === 1 || (game.privacy === 0 && user.id === game.createdBy)
+        if myFavorite
+          include includes/panel.jade

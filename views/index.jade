@@ -23,7 +23,9 @@ block content
       li(class="active")
         a(href="/")
           i(class="fa fa-home" aria-hidden="true")  HOME
-
   //- パネル
-  include includes/panel.jade
-
+  - var hasGames = games.length > 0
+  if hasGames
+    div(id="panel-wrapper")
+      each game in games
+        include includes/panel.jade

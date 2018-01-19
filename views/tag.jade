@@ -30,4 +30,8 @@ block content
         a(href="")
           i(class="fa fa-tag" aria-hidden="true")  Tag
   //- パネル
-  include includes/panel.jade
+  - var hasGames = games.length > 0
+  if hasGames
+    div(id="panel-wrapper")
+      each game in games
+        include includes/panel.jade

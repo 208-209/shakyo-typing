@@ -19,4 +19,8 @@ block content
         a(href="/users/#{user.id}/favorites")
           i(class="fa fa-star" aria-hidden="true")  Bookmark
   //- パネル
-  include includes/panel.jade
+  - var hasGames = games.length > 0
+  if hasGames
+    div(id="panel-wrapper")
+      each game in games
+        include includes/panel.jade

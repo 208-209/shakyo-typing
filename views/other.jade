@@ -30,4 +30,8 @@ block content
         a(href="")
           i(class="fa fa-user" aria-hidden="true")  #{other.username}
   //- パネル
-  include includes/panel.jade
+  - var hasGames = games.length > 0
+  if hasGames
+    div(id="panel-wrapper")
+      each game in games
+        include includes/panel.jade

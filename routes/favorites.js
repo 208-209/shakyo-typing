@@ -33,7 +33,6 @@ router.get('/:userId/favorites', authenticationEnsurer , (req, res, next) => {
         model: Comment,
         attributes: ['commentId']
       }],
-      where: { privacy: 1 }, // 公開ゲーム
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;
