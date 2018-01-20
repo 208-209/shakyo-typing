@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var session = require('express-session');
 var passport = require('passport');
-var config = require('./config');
 
 // モデルの読み込み
 var User = require('./models/user');
@@ -31,16 +30,16 @@ User.sync().then(() => {
 });
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var GOOGLE_CLIENT_ID = config.google.clientId;
-var GOOGLE_CLIENT_SECRET = config.google.clientSecret;
+var GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID_LOCAL;
+var GOOGLE_CLIENT_SECRET = GOOGLE_CLIENT_SECRET_LOCAL;
 
 var TwitterStrategy = require('passport-twitter').Strategy;
-var TWITTER_CONSUMER_KEY = config.twitter.consumerKey;
-var TWITTER_CONSUMER_SECRET = config.twitter.consumerSecret;
+var TWITTER_CONSUMER_KEY = TWITTER_CONSUMER_KEY_LOCAL;
+var TWITTER_CONSUMER_SECRET = TWITTER_CONSUMER_SECRET_LOCAL;
 
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = config.github.clientId;
-var GITHUB_CLIENT_SECRET = config.github.clientSecret;
+var GITHUB_CLIENT_ID = GITHUB_CLIENT_ID_LOCAL;
+var GITHUB_CLIENT_SECRET = GITHUB_CLIENT_SECRET_LOCAL;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
