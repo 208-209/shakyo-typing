@@ -30,16 +30,16 @@ User.sync().then(() => {
 });
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID_LOCAL;
-var GOOGLE_CLIENT_SECRET = GOOGLE_CLIENT_SECRET_LOCAL;
+var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID_LOCAL;
+var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET_LOCAL;
 
 var TwitterStrategy = require('passport-twitter').Strategy;
-var TWITTER_CONSUMER_KEY = TWITTER_CONSUMER_KEY_LOCAL;
-var TWITTER_CONSUMER_SECRET = TWITTER_CONSUMER_SECRET_LOCAL;
+var TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY_LOCAL;
+var TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET_LOCAL;
 
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = GITHUB_CLIENT_ID_LOCAL;
-var GITHUB_CLIENT_SECRET = GITHUB_CLIENT_SECRET_LOCAL;
+var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID_LOCAL;
+var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET_LOCAL;
 
 passport.serializeUser(function (user, done) {
   done(null, user);

@@ -1,0 +1,7 @@
+{
+  "name": "code-typing",
+  "description": "写経タイピング",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
