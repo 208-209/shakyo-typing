@@ -18,6 +18,9 @@ pre {
   padding: 0;
   line-height: 60px;
 }
+#brandImage {
+  width: 195px;
+}
 .userImage {
   height: 22px;
   margin-right: 8px;
