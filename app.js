@@ -30,16 +30,16 @@ User.sync().then(() => {
 });
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var GOOGLE_CLIENT_ID = '690913787697-9khe6p5ult4kmv654fjfq5c8jlqljk7r.apps.googleusercontent.com';
-var GOOGLE_CLIENT_SECRET = 'dXYyaWhi_K2jq6ArnH6G5Klg';
+var GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 var TwitterStrategy = require('passport-twitter').Strategy;
-var TWITTER_CONSUMER_KEY = 'qN7qFoojDPRG5DAdjK7sfl08c';
-var TWITTER_CONSUMER_SECRET = '6FiVFNVstmF41OR6KauCh0VOl9TCML5VQOgbJ3TivcksxjhpiQ';
+var TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY;
+var TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
 
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = 'a0645aa375a5afd00951';
-var GITHUB_CLIENT_SECRET = '63f1156e414a718d62736d9c36a910caa21f2030';
+var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
