@@ -277,6 +277,18 @@ $('.playGame').each((i, e) => {
       }
     }
 
+    // 結果ページにステージ一覧を表示
+    function createOrderStages(orderStages) {
+      const stages = Array.from(orderStages);
+      stages.forEach((stage) => {
+        const stageTitle = escapeLetter(stage[0]);
+        const stageContent = escapeLetter(stage[1]);
+        const content = $('<pre>').addClass('panelContent prettyprint').append(stageContent)
+        $('<div>').addClass('panel-heading order').append(stageTitle).appendTo('.stageList');
+        $('<div>').addClass('panel-body order').append(content).appendTo('.stageList');
+      });
+    }
+
     // 結果ページにツイッターボタンを表示
     function createTwitterBtn(result) {
       $('<a>').attr({
@@ -286,18 +298,6 @@ $('.playGame').each((i, e) => {
         'data-lang': 'ja',
         'data-show-count': 'false'
       }).appendTo('.modal-footer');
-    }
-
-    // 結果ページにステージ一覧を表示
-    function createOrderStages(orderStages) {
-      const stages = Array.from(orderStages);
-      const stageTitle = escapeLetter(stage[0]);
-      const stageContent = escapeLetter(stage[1]);
-      stages.forEach((stage) => {
-        const content = $('<pre>').addClass('panelContent prettyprint').append(stageContent)
-        $('<div>').addClass('panel-heading order').append(stageTitle).appendTo('.stageList');
-        $('<div>').addClass('panel-body order').append(content).appendTo('.stageList');
-      });
     }
 
     init();
