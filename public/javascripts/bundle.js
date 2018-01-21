@@ -10648,7 +10648,7 @@ $('.playGame').each((i, e) => {
       const WPM = ((correct + miss) / (currentTime / 1000) * 60).toFixed(2);
       const score = Math.round((WPM * Math.pow(accuracy, 3)));
       const level = determine(score);
-      const result = dataGame + 'の結果は、スコア「 ' + score + '」の「' + level + '」ランクでした。\nhttps://hogehoge.com';
+      const result = dataGame + ' の結果は、スコア「 ' + score + '」の「' + level + '」ランクでした。\nhttps://www.shakyo-typing.com/';
 
       let t = new Date(currentTime);
       let m = t.getMinutes();
@@ -10663,7 +10663,6 @@ $('.playGame').each((i, e) => {
       $('.resultWpm').text(WPM);
       $('.resultAccuracy').text(accuracy * 100 + '%');
 
-      $('.twitter-hashtag-button').remove();
       createTwitterBtn(result);
       twttr.widgets.load();
     }
