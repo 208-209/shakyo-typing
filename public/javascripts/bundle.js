@@ -10651,22 +10651,23 @@ $('.playGame').each((i, e) => {
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const WPM = ((correct + miss) / (currentTime / 1000) * 60).toFixed(2);
       const score = Math.round((WPM * Math.pow(accuracy, 3)));
-      const level = determine(score);
-      const result = dataGame + ' の結果は、スコア「 ' + score + '」の「' + level + '」ランクでした。\nhttps://www.shakyo-typing.com/';
 
       const t = new Date(currentTime);
       const m = t.getMinutes();
       const s = t.getSeconds();
       const resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
+      const result = dataGame + ' の結果は、スコア「 ' + score + '」の「' + determine(score).level + '」ランクでした。\nhttps://www.shakyo-typing.com';
 
       $('.resultScore').text(score);
-      $('.resultLevel').text(level);
+      $('.resultLevel').text(determine(score).level);
+      $('.resultAnimal').text(determine(score).animal);
       $('.resultTime').text(resultTimerString);
       $('.resultCorrect').text(correct);
       $('.resultMiss').text(miss);
       $('.resultWpm').text(WPM);
       $('.resultAccuracy').text(accuracy * 100 + '%');
 
+      
       createOrderStages(orderStages);
       createTwitterBtn(result);
       twttr.widgets.load();
@@ -10674,21 +10675,21 @@ $('.playGame').each((i, e) => {
 
     function determine(score) {
       if (400 <= score) {
-        return 'SSS';
+        return {'level': 'SSS', 'animal': 'チーター'};
       } else if (300 <= score && score < 400) {
-        return 'SS';
+        return {'level': 'SS', 'animal': 'トムソンガゼル'};
       } else if (250 <= score && score < 300) {
-        return 'S';
+        return {'level': 'S', 'animal': 'オオカミ'};
       } else if (200 <= score && score < 250) {
-        return 'A';
+        return {'level': 'A', 'animal': 'ライオン'};
       } else if (150 <= score && score < 200) {
-        return 'B';
+        return {'level': 'B', 'animal': 'キリン'};
       } else if (100 <= score && score < 150) {
-        return 'C';
+        return {'level': 'C', 'animal': 'イノシシ'};
       } else if (50 <= score && score < 100) {
-        return 'D';
+        return {'level': 'D', 'animal': 'ゾウ'};
       } else if (0 <= score && score < 50) {
-        return 'E';
+        return {'level': 'E', 'animal': 'コアラ'};
       }
     }
 
