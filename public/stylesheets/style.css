@@ -35,6 +35,7 @@ pre {
   height: 22px;
   margin-right: 8px;
 }
+
 /* ========== メインエリア ========== */
 #panel-wrapper {
   display: flex;
@@ -91,7 +92,6 @@ pre {
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
   color: gray;
 }
-
 
 /* 詳細 */
 #userLink {

@@ -84,6 +84,7 @@ div(class="panel panel-default gamePanel")
               h4(class="modal-title text-center") #{game.gameName} の結果
             div(class="modal-body")
               div(class="panel panel-primary well col-xs-7 stageList")
+              //-
                 each stage in game.stages
                   div(class="panel-heading") #{stage.stageTitle}
                   div(class="panel-body")

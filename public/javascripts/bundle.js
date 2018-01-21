@@ -10448,6 +10448,7 @@ $('.playGame').each((i, e) => {
     const dataGame = playGame.data('game');
     const dataStages = playGame.data('stages');
     const missStages = new Map();
+    const orderStages = new Map();
     let stages = dataStages;
 
     let stageNumber;
@@ -10484,6 +10485,7 @@ $('.playGame').each((i, e) => {
         correctInfo.text(correct);
         nextStage();
         isTarget();
+        orderStages.set(currentTitle, currentContent);
         // ミスの場合
       } else {
         miss++;
@@ -10621,11 +10623,13 @@ $('.playGame').each((i, e) => {
       countDownStartTime = 0;
       startTime = 0;
       missStages.clear();
+      orderStages.clear();
       isCountDownStarted = false;
       isStarted = false;
       startMessage.text('スペースキーで開始');
       shuffle(stages);
       $('.isKey').removeClass('isKey');
+      $('.order').remove();
       $('.twitter-hashtag-button').remove();
     }
 
@@ -10650,10 +10654,10 @@ $('.playGame').each((i, e) => {
       const level = determine(score);
       const result = dataGame + ' の結果は、スコア「 ' + score + '」の「' + level + '」ランクでした。\nhttps://www.shakyo-typing.com/';
 
-      let t = new Date(currentTime);
-      let m = t.getMinutes();
-      let s = t.getSeconds();
-      let resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
+      const t = new Date(currentTime);
+      const m = t.getMinutes();
+      const s = t.getSeconds();
+      const resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
 
       $('.resultScore').text(score);
       $('.resultLevel').text(level);
@@ -10663,6 +10667,7 @@ $('.playGame').each((i, e) => {
       $('.resultWpm').text(WPM);
       $('.resultAccuracy').text(accuracy * 100 + '%');
 
+      createOrderStages(orderStages);
       createTwitterBtn(result);
       twttr.widgets.load();
     }
@@ -10687,14 +10692,25 @@ $('.playGame').each((i, e) => {
       }
     }
 
-    function createTwitterBtn (result) {
+    // 結果ページにツイッターボタンを表示
+    function createTwitterBtn(result) {
       $('<a>').attr({
-        href : 'https://twitter.com/intent/tweet?button_hashtag=' + encodeURIComponent('写経タイピング') + '&ref_src=twsrc%5Etfw',
+        href: 'https://twitter.com/intent/tweet?button_hashtag=' + encodeURIComponent('写経タイピング') + '&ref_src=twsrc%5Etfw',
         class: 'twitter-hashtag-button',
         'data-text': result,
         'data-lang': 'ja',
         'data-show-count': 'false'
       }).appendTo('.modal-footer');
+    }
+
+    // 結果ページにステージ一覧を表示
+    function createOrderStages(orderStages) {
+      const stages = Array.from(orderStages);
+      stages.forEach((stage) => {
+        const content = $('<pre>').addClass('panelContent prettyprint').append(stage[1])
+        $('<div>').addClass('panel-heading order').append(stage[0]).appendTo('.stageList');
+        $('<div>').addClass('panel-body order').append(content).appendTo('.stageList');
+      });
     }
 
     init();
