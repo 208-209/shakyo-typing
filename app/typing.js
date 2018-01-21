@@ -235,10 +235,10 @@ $('.playGame').each((i, e) => {
       const level = determine(score);
       const result = dataGame + ' の結果は、スコア「 ' + score + '」の「' + level + '」ランクでした。\nhttps://www.shakyo-typing.com/';
 
-      let t = new Date(currentTime);
-      let m = t.getMinutes();
-      let s = t.getSeconds();
-      let resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
+      const t = new Date(currentTime);
+      const m = t.getMinutes();
+      const s = t.getSeconds();
+      const resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
 
       $('.resultScore').text(score);
       $('.resultLevel').text(level);
