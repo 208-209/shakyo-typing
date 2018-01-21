@@ -16,7 +16,10 @@ router.post('/:userId/games/:gemeId/like', authenticationEnsurer, (req, res, nex
     likeState: like
   }).then(() => {
     return Like.findAll({
-      where: { likeState: 1 }
+      where: {
+        gameId: gameId,
+        likeState: 1
+      }
     });
   }).then((likes) => {
     const likeCount = likes.length;
