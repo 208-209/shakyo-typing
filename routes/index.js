@@ -11,6 +11,9 @@ const Like = require('../models/like');
 const Comment = require('../models/comment');
 
 router.get('/', (req, res, next) => {
+  if (process.env.DATABASE_URL && req.headers['x-forwarded-proto'] === 'http') {
+    res.redirect('https://www.shakyo-typing.com');
+  }
   const gameMap = new Map();
   const favoriteMap = new Map();
   const likeMap = new Map();
