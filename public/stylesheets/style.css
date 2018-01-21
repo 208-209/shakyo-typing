@@ -4,12 +4,22 @@ body {
 }
 pre {
   white-space: pre-wrap;
+  border-style: none;
+}
+.prettyprint {
+  background-color: transparent;
+}
+.panel .panel-body .prettyprint {
+  border-style: none;
 }
 .label {
   margin-right: 4px;
 }
 .label a{
   color: white;
+}
+.panel-body {
+  background-color: white;
 }
 
 /* ========== ヘッダー ========== */
@@ -26,19 +36,20 @@ pre {
   margin-right: 8px;
 }
 /* ========== メインエリア ========== */
-/* ゲームパネル */
 #panel-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
 }
-#panel-wrapper .panel {
+.gamePanel .panel-body {
+  background-color: #ecf0f1;
+}
+
+/* ゲームパネル */
+.gamePanel {
   width: 31.333%;
   margin: 1%;
-}
-#panel-wrapper .panel-body {
-  background-color: #ecf0f1;
 }
 .ellipsis {
   overflow: hidden;
@@ -48,10 +59,11 @@ pre {
 .panel .gameName {
   color: #0f7864;
 }
-.panel ul {
+.icons {
   list-style:none;
   display: flex;
   justify-content: space-around;
+  margin: 8px 0;
 }
 .playGame {
   color: white;
@@ -62,20 +74,13 @@ pre {
   cursor: pointer;
   background: #0f7864;
 }
-.panel-body .prettyprint {
-  background-color: transparent;
-  border-style: hidden;
-}
-.panel-body {
-  background-color: white;
+.isPointer {
+  cursor: pointer;
 }
 .panel .fa {
   vertical-align: -15%;
   font-size: 20px;
   margin-right: 6px;
-}
-.isPointer {
-  cursor: pointer;
 }
 .panel .fa-star {
   color: #F6A615;
@@ -86,9 +91,7 @@ pre {
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
   color: gray;
 }
-.icons {
-  margin: 8px 0;
-}
+
 
 /* 詳細 */
 #userLink {
@@ -100,8 +103,6 @@ pre {
 .panelStageContent {
   font-size: 18px;
 }
-
-/* 編集 */
 #privacySecret {
   color: white;
   background-color: #EE5C9A;
@@ -118,19 +119,11 @@ pre {
   margin-left: 1rem;
   vertical-align: 10%;
 }
-#stagePost {
-  margin-bottom: 0;
-}
-
-/* コメント */
 #comment-wrapper {
   padding: 19px;
   border-radius: 4px;
   border: 1px solid #2c3e50;
   background-color: #2c3e50;
-}
-#comment {
-  white-space: pre-wrap;
 }
 #commentList {
   padding: 19px;
@@ -142,7 +135,16 @@ pre {
   margin-bottom: 0;
 }
 
+/* 編集 */
+#stagePost {
+  margin-bottom: 0;
+}
+
 /* ログイン */
+.loginMessage {
+  color: #7b8a8b;
+  font-weight: bold;
+}
 .googleBtn {
   color: white;
   background-color: #c6594b;
@@ -177,10 +179,6 @@ pre {
 }
 
 /* ========== モーダル ========== */
-.display {
-  height: 300px;
-  overflow-y: scroll;
-}
 .modal-header {
   height: 58px;
   padding: 0;
@@ -188,7 +186,16 @@ pre {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  font-size: 20px;
+  font-size: 18px;
+  color: #7b8a8b;
+  font-weight: bold;
+}
+.modal-body {
+  height: 600px;
+}
+.display {
+  height: 300px;
+  overflow-y: scroll;
 }
 .modalPlaying {
   display: none;
@@ -196,22 +203,22 @@ pre {
 .modalResult {
   display: none;
 }
+.modal-body .prettyprint {
+  border-style: none;
+}
 
 /* スタート */
 .startMessage {
   text-align: center;
   line-height: 300px;
-  font-size: 40px;
-}
-.start{
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
+  font-size: 36px;
+  color: #7b8a8b;
+  font-weight: bold;
 }
 
 /* プレイ */
 .title {
-  font-size: 28px;
+  font-size: 30px;
   color: #0DA921;
 }
 .content {
@@ -219,28 +226,15 @@ pre {
 }
 
 /* リザルト */
-.result{
-  height: 200px;
-  text-align: center;
+.stageList {
+  height: 570px;
+  overflow-y: scroll;
 }
-.modal-body {
-  height: 600px;
-}
-.modal-body .prettyprint {
+.stageList .panel-body{
   background-color: white;
-  border-style: hidden;
 }
-.result-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.gameResultArea {
-  width: 60%;
-  padding: 19px;
-  font-size: 18px;
-}
+
+/* ボタン */
 .replayBtn {
   color: white;
   background-color: #0DA921;
