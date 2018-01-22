@@ -12,19 +12,19 @@ var passport = require('passport');
 var User = require('./models/user');
 var Game = require('./models/game');
 var Stage = require('./models/stage');
-var Favorite = require('./models/favorite');
 var Comment = require('./models/comment');
+var Favorite = require('./models/favorite');
 var Like = require('./models/like');
 User.sync().then(() => {
   Game.belongsTo(User, { foreignKey: 'createdBy' });
   Game.sync().then(() => {
     Game.hasMany(Stage, { foreignKey: 'gameId' });
     Stage.sync();
-    Game.hasMany(Favorite, { foreignKey: 'gameId' });
-    Favorite.sync();
     Game.hasMany(Comment, { foreignKey: 'gameId' });
     Comment.belongsTo(User, { foreignKey: 'createdBy' });
     Comment.sync();
+    Game.hasMany(Favorite, { foreignKey: 'gameId' });
+    Favorite.sync();
     Like.sync();
   });
 });
@@ -106,12 +106,12 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var games = require('./routes/games');
 var stages = require('./routes/stages');
+var comments = require('./routes/comments');
 var favorites = require('./routes/favorites');
 var likes = require('./routes/likes');
 var tags = require('./routes/tags');
 var search = require('./routes/search');
 var others = require('./routes/others');
-var comments = require('./routes/comments');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 
