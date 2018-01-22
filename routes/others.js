@@ -11,6 +11,7 @@ const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
 
+// ユーザーのゲーム一覧
 router.get('/users/:userId', (req, res, next) => {
   const gameMap = new Map();
   const favoriteMap = new Map();

@@ -10453,20 +10453,19 @@ $('.playGame').each((i, e) => {
 
     let stageNumber;
     let currentNumber;
-
     let currentTitle;
     let currentContent;
-
     let correct;
     let miss;
-    let isCountDownStarted;
-    let isStarted;
 
     const COUNTDOWNTIME = 3 * 1000;
     let countDownStartTime;
+    let isCountDownStarted;
+
     let startTime;
     let currentTime;
     let timerId;
+    let isStarted;
 
     // キーの判定
     $(window).keypress((e) => {
@@ -10494,7 +10493,6 @@ $('.playGame').each((i, e) => {
       }
     });
 
-    // スペースキーでスタート
     $(window).keypress((e) => {
       if (e.which === 32 && isCountDownStarted === false && isStarted === false) {
         countDownStartTime = Date.now();
@@ -10502,19 +10500,16 @@ $('.playGame').each((i, e) => {
       }
     });
 
-    // もう一回
     replayBtn.click(() => {
       stages = dataStages;
       init();
     });
 
-    // ミスだけ
     missBtn.click(() => {
       stages = Array.from(missStages);
       init();
     });
 
-    // 閉じる
     closeBtnbtn.click(() => {
       init();
     });
@@ -10527,8 +10522,6 @@ $('.playGame').each((i, e) => {
         // カウントダウンの数字が 0 になったらゲームスタート
         if (timeLeft < 0) {
           clearTimeout(countDownTimerId);
-          timeLeft = 0;
-          countDownStartTime = 0;
           startTime = Date.now();
           isStarted = true;
           setStage();
@@ -10578,7 +10571,7 @@ $('.playGame').each((i, e) => {
     function isTarget() {
       // キーボードのターゲット
       $('.isKey').removeClass('isKey');
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1) { // 有効な文字以外はスペース
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1) { // 有効な文字以外はスペースキーが点灯
         $('.key_space').addClass('isKey');
       }
       const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
@@ -10601,11 +10594,11 @@ $('.playGame').each((i, e) => {
     }
 
     function nextStage() {
-      // 最後のステージ で 最後の文字が正解 の場合は リザルト
+      // 最後のステージ で 最後の文字が正解 の場合は リザルト画面へ
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
         clearTimeout(timerId);
         result();
-        // 途中のステージ で 最後の文字が正解 の場合は 次のステージ
+        // 途中のステージ で 最後の文字が正解 の場合は 次のステージへ
       } else if (currentNumber === currentContent.length) {
         stageNumber++;
         setStage();
@@ -10647,7 +10640,7 @@ $('.playGame').each((i, e) => {
       modalStart.hide();
       modalPlaying.hide();
       modalResult.show();
-      missStages.size ? missBtn.show() : missBtn.hide();
+      missStages.size ? missBtn.show() : missBtn.hide(); // ミスが無かったらボタンを非表示
       const accuracy = (correct + miss) === 0 ? '0.00' : (correct / (correct + miss)).toFixed(2);
       const WPM = ((correct + miss) / (currentTime / 1000) * 60).toFixed(2);
       const score = Math.round((WPM * Math.pow(accuracy, 3)));
@@ -10694,7 +10687,7 @@ $('.playGame').each((i, e) => {
       }
     }
 
-    // 結果ページにステージ一覧を表示
+    // 結果にステージ一覧を表示
     function createOrderStages(orderStages) {
       const stages = Array.from(orderStages);
       stages.forEach((stage) => {
@@ -10706,7 +10699,7 @@ $('.playGame').each((i, e) => {
       });
     }
 
-    // 結果ページにツイッターボタンを表示
+    // 結果にツイッターボタンを表示
     function createTwitterBtn(result) {
       $('<a>').attr({
         href: 'https://twitter.com/intent/tweet?button_hashtag=' + encodeURIComponent('写経タイピング') + '&ref_src=twsrc%5Etfw',

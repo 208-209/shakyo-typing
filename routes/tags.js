@@ -10,6 +10,7 @@ const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
 
+// タグゲーム一覧
 router.get('/tags/:tag', (req, res, next) => {
   const gameMap = new Map();
   const favoriteMap = new Map();

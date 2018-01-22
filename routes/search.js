@@ -10,6 +10,7 @@ const Favorite = require('../models/favorite');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
 
+// 検索ゲーム一覧
 router.get('/', (req, res, next) => {
   if (!(req.query.q)) {
     res.redirect('/');
