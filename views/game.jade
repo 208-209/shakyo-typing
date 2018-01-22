@@ -15,10 +15,9 @@ block content
       small(class="pull-right") #{game.formattedCreatedAt}
     h3 #{game.gameName}
       if user
-        if game.privacy === 0
-          small(id="privacySecret") 非公開
-        else if game.privacy === 1
-          small(id="privacyPublic") 公開
+        - var gamePrivacyId = ['privacySecret', 'privacyPublic'];
+        - var gamePrivacyText = ['非公開', '公開'];
+          small(id="#{gamePrivacyId[game.privacy]}") #{gamePrivacyText[game.privacy]}
     - var tags = game.tags.split('\n');
     h4
       each tag in tags
