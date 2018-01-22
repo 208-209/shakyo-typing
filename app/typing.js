@@ -252,6 +252,8 @@ $('.playGame').each((i, e) => {
       $('.resultWpm').text(WPM);
       $('.resultAccuracy').text(accuracy * 100 + '%');
 
+      $('.order').remove();
+      $('.twitter-hashtag-button').remove();
       createOrderStages(orderStages);
       createTwitterBtn(result);
       twttr.widgets.load();

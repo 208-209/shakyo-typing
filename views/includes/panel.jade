@@ -16,17 +16,13 @@ div(class="panel panel-default gamePanel")
       if user
         li
           - var favorite = favoriteMap.get(game.gameId) || 0
-          if favorite === 1
-            i(class="fa fa-star favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
-          else
-            i(class="fa fa-star-o favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+          - var favoriteButtonStyles = ['fa-star-o', 'fa-star'];
+            i(class="fa #{favoriteButtonStyles[favorite]} favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
         li
           - var like = likeMap.get(game.gameId) || 0
           - var likeCount = likeCountMap.get(game.gameId) || 0
-          if like === 1
-            i(class="fa fa-heart like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
-          else
-            i(class="fa fa-heart-o like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
+          - var likeButtonStyles = ['fa-heart-o', 'fa-heart'];
+          i(class="fa #{likeButtonStyles[likeCount]} like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
           span(class="badge likeCount") #{likeCount}
       else
         li

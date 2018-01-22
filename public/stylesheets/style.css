@@ -259,6 +259,9 @@ pre {
   border-color: #EE56AC;
   opacity: 1;
 }
+.closeBtnbtn {
+  margin-left: 5px;
+}
 .twitter-hashtag-button {
   float: left;
 }
