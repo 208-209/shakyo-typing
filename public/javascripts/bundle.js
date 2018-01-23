@@ -10497,6 +10497,7 @@ $('.playGame').each((i, e) => {
       if (e.which === 32 && isCountDownStarted === false && isStarted === false) {
         countDownStartTime = Date.now();
         startCountDown();
+        $('.isKey').removeClass('isKey');
       }
     });
 

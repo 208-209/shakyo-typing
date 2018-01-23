@@ -22,7 +22,7 @@ div(class="panel panel-default gamePanel")
           - var like = likeMap.get(game.gameId) || 0
           - var likeCount = likeCountMap.get(game.gameId) || 0
           - var likeButtonStyles = ['fa-heart-o', 'fa-heart'];
-          i(class="fa #{likeButtonStyles[likeCount]} like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
+          i(class="fa #{likeButtonStyles[like]} like-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-like="#{like}")
           span(class="badge likeCount") #{likeCount}
       else
         li
@@ -48,7 +48,7 @@ div(class="panel panel-default gamePanel")
             div(class="modal-body")
               div(class="display")
                 div(class="startMessage")
-              div(class="keyboard clearfix")
+              div(class="keyboard")
                 include keyboard.jade
             div(class="modal-footer")
               button(class="keyboardBtn btn btn-default pull-left") キーボード
@@ -67,7 +67,7 @@ div(class="panel panel-default gamePanel")
                 p(class="title")
                 pre(class="content prettyprint")
 
-              div(class="keyboard clearfix")
+              div(class="keyboard")
                 include keyboard.jade
 
             div(class="modal-footer")
