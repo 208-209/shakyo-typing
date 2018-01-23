@@ -28,7 +28,7 @@ block content
           div(class="col-sm-1")
             button(class="btn btn-default" type="submit") 変更
       div(class="form-group")
-        label(class="col-sm-2 control-label" for="editPrivacy") プライバシー設定
+        label(class="col-sm-2 control-label" for="editPrivacy") プライバシー
         div(class="col-sm-9")
           select(id="editPrivacy" class="form-control" name="privacy" data-privacy="#{game.privacy}")
             option(value="0") 非公開
@@ -50,6 +50,7 @@ block content
           label(class="col-sm-2 control-label" for="stageContent") タイピングの文章
           div(class="col-sm-10")
             textarea(id="stageContent" class="form-control" name="stageContent" rows="3" placeholder="console.log('Hello, World!');" required)
+            p(class="help-block") ※半角英数字記号を入力してください
         div(class="form-group")
           div(class="col-sm-offset-2 col-sm-10")
             button(class="btn btn-info" type="submit") 追加
@@ -58,7 +59,7 @@ block content
     if hasStages
       div(class="panel panel-primary well")
         each stage in stages
-          div(class="panel-heading")
+          div(class="panel-heading clearfix")
             span(class="panel-title panelStageTitle") #{stage.stageTitle}
             span(class="pull-right") #{stage.formattedUpdatedAt}
           div(class="panel-body clearfix")

@@ -52,7 +52,7 @@ $('.playGame').each((i, e) => {
     let timerId;
     let isStarted;
 
-    // キーの判定
+    // タイピングの文字判定
     $(window).keypress((e) => {
       if (isStarted === false) {
         return;
@@ -62,7 +62,7 @@ $('.playGame').each((i, e) => {
         currentNumber++;
         nextStage();
         isTarget();
-        // 正解の場合
+      // 正解の場合
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
@@ -70,7 +70,7 @@ $('.playGame').each((i, e) => {
         nextStage();
         isTarget();
         orderStages.set(currentTitle, currentContent);
-        // ミスの場合
+      // ミスの場合
       } else {
         miss++;
         missInfo.text(miss);
@@ -144,7 +144,7 @@ $('.playGame').each((i, e) => {
       modalResult.hide();
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0]; // dataStages || missStages
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
-      currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r'); // 文字コードの判定を「13」にする
+      currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r'); // 改行文字コードの判定を「13」にする
       title.text(currentTitle);
       content.text(currentContent);
       correctInfo.text(correct);
@@ -154,8 +154,8 @@ $('.playGame').each((i, e) => {
     }
 
     function isTarget() {
-      // キーボードのターゲット
       $('.isKey').removeClass('isKey');
+      // キーボードのターゲット
       if (validLetter.indexOf(currentContent[currentNumber]) === -1) { // 有効な文字以外はスペースキーが点灯
         $('.key_space').addClass('isKey');
       }
@@ -179,11 +179,11 @@ $('.playGame').each((i, e) => {
     }
 
     function nextStage() {
-      // 最後のステージ で 最後の文字が正解 の場合は リザルト画面へ
+      // 最後のステージで 最後の文字が正解の場合は リザルト画面へ
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
         clearTimeout(timerId);
         result();
-        // 途中のステージ で 最後の文字が正解 の場合は 次のステージへ
+      // 途中のステージで 最後の文字が正解の場合は 次のステージへ
       } else if (currentNumber === currentContent.length) {
         stageNumber++;
         setStage();
@@ -233,13 +233,13 @@ $('.playGame').each((i, e) => {
       const t = new Date(currentTime);
       const m = t.getMinutes();
       const s = t.getSeconds();
-      const resultTimerString = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
-      const result = dataGame + ' の結果は、スコア「 ' + score + '」の「' + determine(score).level + '」ランクでした。\nhttps://www.shakyo-typing.com';
+      const resultTimer = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
+      const tweet = dataGame + ' の結果は、スコア「 ' + score + '」の「' + determine(score).level + '」ランクでした。\nhttps://www.shakyo-typing.com';
 
       $('.resultScore').text(score);
       $('.resultLevel').text(determine(score).level);
       $('.resultAnimal').text(determine(score).animal);
-      $('.resultTime').text(resultTimerString);
+      $('.resultTime').text(resultTimer);
       $('.resultCorrect').text(correct);
       $('.resultMiss').text(miss);
       $('.resultWpm').text(WPM);
@@ -248,7 +248,7 @@ $('.playGame').each((i, e) => {
       $('.order').remove();
       $('.twitter-hashtag-button').remove();
       createOrderStages(orderStages);
-      createTwitterBtn(result);
+      createTwitterBtn(tweet);
       twttr.widgets.load();
     }
 

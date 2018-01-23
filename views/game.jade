@@ -46,7 +46,6 @@ block content
             span(class="pull-right") #{stage.formattedUpdatedAt}
           div(class="panel-body")
             pre(class="panel-text prettyprint panelStageContent") #{stage.stageContent}
-          div(class="row")
   hr
   //- コメント
   div(id="comment-wrapper")
@@ -68,7 +67,7 @@ block content
                   form(method="post" action="/games/#{game.gameId}/comments/delete")
                     input(type="hidden" name="_csrf" value!="#{csrfToken}")
                     input(type="hidden" name="commentId" value="#{comment.commentId}")
-                    button(type="submit" class="btn btn-danger btn-sm btn-sm pull-right") 削除
+                    button(type="submit" class="btn btn-danger btn-sm pull-right") 削除
     //- コメントの投稿フォーム
     div(id="commentPost")
       if user
