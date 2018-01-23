@@ -10619,9 +10619,10 @@ $('.playGame').each((i, e) => {
       orderStages.clear();
       isCountDownStarted = false;
       isStarted = false;
-      startMessage.text('スペースキーで開始');
+      startMessage.text('スペースキーで開始します');
       shuffle(stages);
       $('.isKey').removeClass('isKey');
+      $('.key_space').addClass('isKey');
       $('.order').remove();
       $('.twitter-hashtag-button').remove();
     }

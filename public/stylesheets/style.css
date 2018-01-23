@@ -230,8 +230,11 @@ pre {
   height: 570px;
   overflow-y: scroll;
 }
-.stageList .panel-body{
+.stageList .panel-body {
   background-color: white;
+}
+.stageList .panelContent {
+  font-size: 16px;
 }
 
 /* ボタン */
