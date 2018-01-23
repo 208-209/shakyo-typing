@@ -17,7 +17,7 @@ $('.keyboardBtn').click(() => {
   $('.keyboardBtn').toggleClass('active');
   if ($('.keyboardBtn').hasClass('active')) {
     $('.keyboard').show()
-    $('.display').css('height', '300px');
+    $('.display').css('height', '280px');
   } else {
     $('.keyboard').hide();
     $('.display').css('height', '570px');

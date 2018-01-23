@@ -194,7 +194,7 @@ pre {
   height: 600px;
 }
 .display {
-  height: 300px;
+  height: 280px;
   overflow-y: scroll;
 }
 .modalPlaying {
@@ -210,7 +210,7 @@ pre {
 /* スタート */
 .startMessage {
   text-align: center;
-  line-height: 300px;
+  line-height: 280px;
   font-size: 36px;
   color: #7b8a8b;
   font-weight: bold;
