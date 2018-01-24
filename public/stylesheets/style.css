@@ -136,6 +136,9 @@ pre {
 }
 
 /* 編集 */
+#stageContent {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
 #stagePost {
   margin-bottom: 0;
 }
