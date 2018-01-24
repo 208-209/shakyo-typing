@@ -17,7 +17,7 @@ div(class="panel panel-default gamePanel")
         li
           - var favorite = favoriteMap.get(game.gameId) || 0
           - var favoriteButtonStyles = ['fa-star-o', 'fa-star'];
-            i(class="fa #{favoriteButtonStyles[favorite]} favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
+          i(class="fa #{favoriteButtonStyles[favorite]} favorite-toggle-button isPointer" aria-hidden="true" data-game-id="#{game.gameId}" data-user-id="#{user.id}" data-favorite="#{favorite}")
         li
           - var like = likeMap.get(game.gameId) || 0
           - var likeCount = likeCountMap.get(game.gameId) || 0
