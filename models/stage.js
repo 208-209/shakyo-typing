@@ -30,7 +30,7 @@ const Stage = loader.database.define('stages', {
     timestamps: true,
     indexes: [
       {
-        fields: ['gameId', 'updatedAt']
+        fields: ['gameId']
       }
     ]
   });
