@@ -4,7 +4,6 @@ const app = require('../app');
 const passportStub = require('passport-stub');
 
 describe('/login', () => {
-
   it('ログインのためのリンクが含まれる', (done) => {
     request(app)
       .get('/login')

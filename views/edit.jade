@@ -3,11 +3,11 @@ extends layout
 block content
   //- パンくずリスト
   ol(class="breadcrumb")
-      li(class="breadcrumb-item")
-        a(href="/") Home
-      li(class="breadcrumb-item active")
-        a(href="/games/#{game.gameId}") #{game.gameName}
-      li(class="breadcrumb-item active") Edit
+    li(class="breadcrumb-item")
+      a(href="/") Home
+    li(class="breadcrumb-item active")
+      a(href="/games/#{game.gameId}") #{game.gameName}
+    li(class="breadcrumb-item active") Edit
 
   //- ゲームの編集
   div(class="well clearfix")
@@ -50,11 +50,11 @@ block content
           label(class="col-sm-2 control-label" for="stageContent") タイピングの文章
           div(class="col-sm-10")
             textarea(id="stageContent" class="form-control" name="stageContent" rows="4"
-            placeholder="for (let i = 0; i < 100; i++) {\n  console.log('Hello World!!');\n}\n※半角英数字記号を入力してください" required)
+            placeholder="for (let i = 0; i < 100; i++) {\n  console.log('Hello World!!');\n}" required)
+            p(class="help-block") ※半角の英数字記号を入力してください
         div(class="form-group")
           div(class="col-sm-offset-2 col-sm-10")
-            button(class="btn btn-info" type="submit") 追加
-            p(class="help-block") ※複数追加することができます
+            button(class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom" title="複数追加することができます") 追加
     - var hasStages = stages.length > 0
     if hasStages
       div(class="panel panel-primary well")
