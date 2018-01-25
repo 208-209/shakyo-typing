@@ -7,7 +7,7 @@ const bootstrap = require('bootstrap');
 // Bootstrapツールチップ
 $('[data-toggle="tooltip"]').tooltip();
 
-// 編集メニューでのプライバシーの自動選択
+// 編集メニューでのプライバシーの選択
 const privacy = $('#editPrivacy').data('privacy');
 $('#editPrivacy').val(privacy);
 

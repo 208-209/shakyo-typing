@@ -10390,7 +10390,7 @@ const bootstrap = __webpack_require__(4);
 // Bootstrapツールチップ
 $('[data-toggle="tooltip"]').tooltip();
 
-// 編集メニューでのプライバシーの自動選択
+// 編集メニューでのプライバシーの選択
 const privacy = $('#editPrivacy').data('privacy');
 $('#editPrivacy').val(privacy);
 
@@ -10443,7 +10443,7 @@ $('.playGame').each((i, e) => {
       'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':', ']',
       'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '+', '*', '}',
       'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\',
-      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '\r'];
+      'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '_', '\n'];
 
     const dataGame = playGame.data('game');
     const dataStages = playGame.data('stages');
@@ -10472,8 +10472,13 @@ $('.playGame').each((i, e) => {
       if (isStarted === false) {
         return;
       }
-      // 有効な文字以外はスペースでスキップする
+      // 有効な文字以外はスペースキー(32)
       if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
+        currentNumber++;
+        nextStage();
+        isTarget();
+      // 改行コード(\n)の場合はエンターキー(13)
+      } else if (currentContent[currentNumber] === '\n' && e.which === 13) {
         currentNumber++;
         nextStage();
         isTarget();
@@ -10491,6 +10496,7 @@ $('.playGame').each((i, e) => {
         missInfo.text(miss);
         missStages.set(currentTitle, currentContent);
       }
+      console.log(currentContent[currentNumber] + ':' + e.which);
     });
 
     $(window).keypress((e) => {
@@ -10560,7 +10566,7 @@ $('.playGame').each((i, e) => {
       modalResult.hide();
       currentTitle = stages[stageNumber]['stageTitle'] || stages[stageNumber][0]; // dataStages || missStages
       currentContent = stages[stageNumber]['stageContent'] || stages[stageNumber][1];
-      currentContent = currentContent.replace(/\r\n/g, '\r').replace(/\n/g, '\r'); // 改行文字コードの判定を「13」にする
+      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); // 改行文字コードを'\n'に統一
       title.text(currentTitle);
       content.text(currentContent);
       correctInfo.text(correct);
@@ -10572,11 +10578,14 @@ $('.playGame').each((i, e) => {
     function isTarget() {
       $('.isKey').removeClass('isKey');
       // キーボードのターゲット
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1) { // 有効な文字以外はスペースキーが点灯
-        $('.key_space').addClass('isKey');
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1) {
+        $('.key_space').addClass('isKey'); // 有効な文字以外はスペースキー
+      } else if (currentContent[currentNumber] === '\n') {
+        $('.key_enter').addClass('isKey'); // '\n'のときはエンターキー
+      } else {
+        const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
+        $('.key_' + currentKeyCode).addClass('isKey');
       }
-      const currentKeyCode = currentContent[currentNumber] ? currentContent[currentNumber].charCodeAt() : '';
-      $('.key_' + currentKeyCode).addClass('isKey');
       // 文字のターゲット
       const beforeTarget = currentContent.substring(0, currentNumber); // ターゲットより前の文字
       const currentTarget = currentContent[currentNumber]; // ターゲットの文字
@@ -10599,7 +10608,7 @@ $('.playGame').each((i, e) => {
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
         clearTimeout(timerId);
         result();
-      // 途中のステージで 最後の文字が正解の場合は 次のステージへ
+        // 途中のステージで 最後の文字が正解の場合は 次のステージへ
       } else if (currentNumber === currentContent.length) {
         stageNumber++;
         setStage();
@@ -10671,21 +10680,21 @@ $('.playGame').each((i, e) => {
 
     function determine(score) {
       if (400 <= score) {
-        return {'level': 'SSS', 'animal': 'チーター'};
+        return { 'level': 'SSS', 'animal': 'チーター' };
       } else if (300 <= score && score < 400) {
-        return {'level': 'SS', 'animal': 'トムソンガゼル'};
+        return { 'level': 'SS', 'animal': 'トムソンガゼル' };
       } else if (250 <= score && score < 300) {
-        return {'level': 'S', 'animal': 'オオカミ'};
+        return { 'level': 'S', 'animal': 'オオカミ' };
       } else if (200 <= score && score < 250) {
-        return {'level': 'A', 'animal': 'ライオン'};
+        return { 'level': 'A', 'animal': 'ライオン' };
       } else if (150 <= score && score < 200) {
-        return {'level': 'B', 'animal': 'キリン'};
+        return { 'level': 'B', 'animal': 'キリン' };
       } else if (100 <= score && score < 150) {
-        return {'level': 'C', 'animal': 'イノシシ'};
+        return { 'level': 'C', 'animal': 'イノシシ' };
       } else if (50 <= score && score < 100) {
-        return {'level': 'D', 'animal': 'ゾウ'};
+        return { 'level': 'D', 'animal': 'ゾウ' };
       } else if (0 <= score && score < 50) {
-        return {'level': 'E', 'animal': 'コアラ'};
+        return { 'level': 'E', 'animal': 'コアラ' };
       }
     }
 
