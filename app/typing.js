@@ -62,12 +62,12 @@ $('.playGame').each((i, e) => {
         currentNumber++;
         nextStage();
         isTarget();
-      // 改行コード(\n)の場合はエンターキー(13)
+        // 改行コード(\n)の場合はエンターキー(13)
       } else if (currentContent[currentNumber] === '\n' && e.which === 13) {
         currentNumber++;
         nextStage();
         isTarget();
-      // 正解の場合
+        // 正解の場合
       } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
         currentNumber++;
         correct++;
@@ -75,13 +75,12 @@ $('.playGame').each((i, e) => {
         nextStage();
         isTarget();
         orderStages.set(currentTitle, currentContent);
-      // ミスの場合
+        // ミスの場合
       } else {
         miss++;
         missInfo.text(miss);
         missStages.set(currentTitle, currentContent);
       }
-      console.log(currentContent[currentNumber] + ':' + e.which);
     });
 
     $(window).keypress((e) => {
