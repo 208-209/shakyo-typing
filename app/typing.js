@@ -99,6 +99,7 @@ $('.playGame').each((i, e) => {
     });
 
     closeBtnbtn.click(() => {
+      stages = dataStages;
       init();
     });
 
@@ -106,8 +107,7 @@ $('.playGame').each((i, e) => {
       isCountDownStarted = true;
       let countDownTimerId = setTimeout(() => {
         let timeLeft = COUNTDOWNTIME - (Date.now() - countDownStartTime);
-        // カウントダウンの数字が 0 になったらゲームスタート
-        if (timeLeft < 0) {
+        if (timeLeft < 0) { // カウントダウンの数字が 0 になったらゲームスタート
           clearTimeout(countDownTimerId);
           startTime = Date.now();
           isStarted = true;
