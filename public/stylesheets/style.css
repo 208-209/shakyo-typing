@@ -125,6 +125,9 @@ pre {
   border: 1px solid #2c3e50;
   background-color: #2c3e50;
 }
+#comment {
+  white-space: pre-wrap;
+}
 #commentList {
   padding: 19px;
 }
