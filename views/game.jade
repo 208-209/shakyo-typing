@@ -25,7 +25,7 @@ block content
     //- ゲームの編集・削除ボタン
     if user
       //- 作成者 または 管理人
-      - var isDeletable = (user.id === game.createdBy || user.id === '30428943')
+      - var isDeletable = (user.id === game.createdBy || user.id === process.env.ADMIN_ID)
       if isDeletable
         form(method="post" action="/games/#{game.gameId}?delete=1")
           input(type="hidden" name="_csrf" value!="#{csrfToken}")
@@ -62,7 +62,7 @@ block content
             div(class="panel-body clearfix")
               p(id="comment") #{comment.comment}
               if user
-                - var isDeletable = (user.id === comment.createdBy || user.id === '30428943')
+                - var isDeletable = (user.id === comment.createdBy || user.id === process.env.ADMIN_ID)
                 if isDeletable
                   form(method="post" action="/games/#{game.gameId}/comments/delete")
                     input(type="hidden" name="_csrf" value!="#{csrfToken}")

@@ -30,7 +30,7 @@ function isMine(req, data) {
 }
 
 function isAdmin(req) {
-  return req.user.id === '30428943';
+  return req.user.id === process.env.ADMIN_ID;
 }
 
 function parseTags(req) {

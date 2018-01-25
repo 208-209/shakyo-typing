@@ -10472,33 +10472,29 @@ $('.playGame').each((i, e) => {
       if (isStarted === false) {
         return;
       }
-      // 有効な文字以外はスペースキー(32)
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) { // 有効な文字以外はスペースキー(32)
         currentNumber++;
         nextStage();
         isTarget();
-      // 改行コード(\n)の場合はエンターキー(13)
-      } else if (currentContent[currentNumber] === '\n' && e.which === 13) {
+      } else if (currentContent[currentNumber] === '\n' && e.which === 13) { // 改行コード(\n)の場合はエンターキー(13)
         currentNumber++;
         nextStage();
         isTarget();
-      // 正解の場合
-      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) {
+      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) { // 正解の場合
         currentNumber++;
         correct++;
         correctInfo.text(correct);
         nextStage();
         isTarget();
         orderStages.set(currentTitle, currentContent);
-      // ミスの場合
-      } else {
+      } else { // ミスの場合
         miss++;
         missInfo.text(miss);
         missStages.set(currentTitle, currentContent);
       }
-      console.log(currentContent[currentNumber] + ':' + e.which);
     });
 
+    // スペースキーでカウントダウンスタート
     $(window).keypress((e) => {
       if (e.which === 32 && isCountDownStarted === false && isStarted === false) {
         countDownStartTime = Date.now();
@@ -10521,7 +10517,6 @@ $('.playGame').each((i, e) => {
       init();
     });
 
-    // スペースキーでカウントダウンスタート
     function startCountDown() {
       isCountDownStarted = true;
       let countDownTimerId = setTimeout(() => {
@@ -10604,13 +10599,11 @@ $('.playGame').each((i, e) => {
     }
 
     function nextStage() {
-      // 最後のステージで 最後の文字が正解の場合は リザルト画面へ
       if (stageNumber === stages.length - 1 && currentNumber === currentContent.length) {
-        clearTimeout(timerId);
+        clearTimeout(timerId); // 最後のステージで 最後の文字が正解の場合は リザルト画面へ
         result();
-        // 途中のステージで 最後の文字が正解の場合は 次のステージへ
       } else if (currentNumber === currentContent.length) {
-        stageNumber++;
+        stageNumber++; // 途中のステージで 最後の文字が正解の場合は 次のステージへ
         setStage();
       }
     }
