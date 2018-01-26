@@ -13,7 +13,6 @@ const Like = require('../models/like');
 
 // ログインユーザーのゲーム一覧
 router.get('/:userId', authenticationEnsurer, (req, res, next) => {
-  const gameMap = new Map();
   const favoriteMap = new Map();
   const likeMap = new Map();
   const likeCountMap = new Map();
@@ -21,9 +20,6 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
   if (req.user) {
     Game.findAll({
       include: [{
-        model: Stage,
-        attributes: ['stageTitle', 'stageContent']
-      }, {
         model: Comment,
         attributes: ['commentId']
       }],
@@ -31,7 +27,6 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;
-      util.createGameMap(games, gameMap);
       return Favorite.findAll({
         where: { userId: req.user.id }
       });
@@ -52,7 +47,6 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
       res.render('user', {
         user: req.user,
         games: storedGames,
-        gameMap: gameMap,
         favoriteMap: favoriteMap,
         likeMap: likeMap,
         likeCountMap: likeCountMap
