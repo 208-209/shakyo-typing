@@ -253,7 +253,7 @@ playGame.click(() => {
     $('.resultCorrect').text(correct);
     $('.resultMiss').text(miss);
     $('.resultWpm').text(WPM);
-    $('.resultAccuracy').text((accuracy * 100).toFixed(2) + '%');
+    $('.resultAccuracy').text((accuracy * 100).toFixed(0) + '%');
 
     $('.order').remove();
     $('.twitter-hashtag-button').remove();
