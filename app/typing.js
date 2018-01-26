@@ -3,6 +3,7 @@ const $ = require('jquery');
 const playGame = $('#playGame');
 
 playGame.click(() => {
+  const modalTitle = $('.modalTitle');
   const startMessage = $('.startMessage');
   const title = $('.title');
   const content = $('.content');
@@ -217,6 +218,7 @@ playGame.click(() => {
     isStarted = false;
     isMissGame = false;
     shuffle(stages);
+    modalTitle.text(dataGame);
     startMessage.text('スペースキーで開始します');
 
     $('.isKey').removeClass('isKey');
@@ -250,6 +252,7 @@ playGame.click(() => {
     const resultTimer = parseInt(m) ? m + '分' + s + '秒' : s + '秒';
     const tweet = dataGame + ' の結果は、スコア「 ' + score + '」の「' + determine(score).level + '」ランクでした。\nhttps://www.shakyo-typing.com';
 
+    modalTitle.text(dataGame + ' の結果');
     $('.resultScore').text(score);
     $('.resultLevel').text(determine(score).level);
     $('.resultAnimal').text(determine(score).animal);
