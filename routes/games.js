@@ -44,15 +44,20 @@ router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
 
 // ゲームの詳細
 router.get('/:gameId', csrfProtection, (req, res, next) => {
+  const gameMap = new Map();
   let storedGame = null;
   let storedStages = null;
   Game.findOne({
     include: [{
       model: User,
       attributes: ['userId', 'username', 'image']
-    }],
+    },{
+      model: Stage,
+      attributes: ['stageTitle', 'stageContent']
+  }],
     where: { gameId: req.params.gameId }
   }).then((game) => {
+    gameMap.set(game.gameId, game.stages);
     game.formattedCreatedAt = moment(game.updatedAt).tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm');
     storedGame = game;
     // プライバシー設定が公開なら誰でも または プライバシー設定が非公開なら作成者のみ
@@ -82,10 +87,12 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
     res.render('game', {
       user: req.user,
       game: storedGame,
+      gameMap: gameMap,
       stages: storedStages,
       comments: comments,
       csrfToken: req.csrfToken()
     });
+    console.log(storedStages);
   });
 });
 

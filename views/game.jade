@@ -8,32 +8,38 @@ block content
     li(class="breadcrumb-item active") #{game.gameName}
 
   //- ゲームの詳細
-  div(class="well clearfix")
-    h4
-      img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
-      a(href="/games/users/#{game.user.userId}" id="userLink") #{game.user.username}
-      small(class="pull-right") #{game.formattedCreatedAt}
-    h3 #{game.gameName}
+  div(class="panel panel-default")
+    div(class="panel-body clearfix")
+      h4
+        img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
+        a(href="/games/users/#{game.user.userId}" id="userLink") #{game.user.username}
+        small(class="pull-right") #{game.formattedCreatedAt}
+      h3 #{game.gameName}
+        if user
+          - var gamePrivacyId = ['privacySecret', 'privacyPublic'];
+          - var gamePrivacyText = ['非公開', '公開'];
+            small(id="#{gamePrivacyId[game.privacy]}") #{gamePrivacyText[game.privacy]}
+      - var tags = game.tags.split('\n');
+      h4
+        each tag in tags
+          a(class="label label-default" href="/games/tags/#{tag}") #{tag}
+      //- ゲームの編集・削除ボタン
       if user
-        - var gamePrivacyId = ['privacySecret', 'privacyPublic'];
-        - var gamePrivacyText = ['非公開', '公開'];
-          small(id="#{gamePrivacyId[game.privacy]}") #{gamePrivacyText[game.privacy]}
-    - var tags = game.tags.split('\n');
-    h4
-      each tag in tags
-        a(class="label label-default" href="/games/tags/#{tag}") #{tag}
-    //- ゲームの編集・削除ボタン
-    if user
-      //- 作成者 または 管理人
-      - var isDeletable = (user.id === game.createdBy || user.id === process.env.ADMIN_ID)
-      if isDeletable
-        form(method="post" action="/games/#{game.gameId}?delete=1")
-          input(type="hidden" name="_csrf" value!="#{csrfToken}")
-          button(class="btn btn-danger pull-right" type="submit") ゲームの削除
-      //- 作成者
-      - var isMine = (user.id === game.createdBy)
-      if isMine
-        a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
+        //- 作成者 または 管理人
+        - var isDeletable = (user.id === game.createdBy || user.id === process.env.ADMIN_ID)
+        if isDeletable
+          form(method="post" action="/games/#{game.gameId}?delete=1")
+            input(type="hidden" name="_csrf" value!="#{csrfToken}")
+            button(class="btn btn-danger pull-right" type="submit") ゲームの削除
+        //- 作成者
+        - var isMine = (user.id === game.createdBy)
+        if isMine
+          a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
+
+    - var stagesDate = JSON.stringify(Array.from(gameMap.get(game.gameId)))
+    - var hasStages = stagesDate.length > 0
+    if hasStages
+      div(id="playGame" class="panel-footer" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stagesDate}" data-toggle="modal" data-target="#typing") PLAY GAME
 
   //- ステージ一覧の表示
   - var hasStages = stages.length > 0
@@ -85,3 +91,5 @@ block content
         div(class="well")
           p コメントするにはログインする必要があります
           a(href="/login" type="button" class="btn btn-success btn-block") ログイン
+  //- モーダル
+  include includes/modal.jade
