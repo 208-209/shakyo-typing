@@ -46,6 +46,7 @@ pre {
 .gamePanel .panel-body {
   background-color: #ecf0f1;
   border: 2px solid #18bc9c;
+  box-shadow: 0 1px 3px rgba(106,137,152,0.2);
   border-radius: 5px
 }
 
@@ -254,30 +255,6 @@ pre {
 }
 
 /* ボタン */
-.replayBtn {
-  color: white;
-  background-color: #0DA921;
-  border-color: #0DA921;
-  opacity: 0.9;
-}
-.replayBtn:hover {
-  color: white;
-  background-color: #0DA921;
-  border-color: #0DA921;
-  opacity: 1;
-}
-.missBtn {
-  color: white;
-  background-color: #EE56AC;
-  border-color: #EE56AC;
-  opacity: 0.9;
-}
-.missBtn:hover {
-  color: white;
-  background-color: #EE56AC;
-  border-color: #EE56AC;
-  opacity: 1;
-}
 .closeBtnbtn {
   margin-left: 5px;
 }

@@ -34,7 +34,7 @@ block content
         //- 作成者
         - var isMine = (user.id === game.createdBy)
         if isMine
-          a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
+          a(href="/games/#{game.gameId}/edit" class="btn btn-warning pull-right") ゲームの編集
     - var stagesDate = JSON.stringify(Array.from(gameMap.get(game.gameId)))
     - var hasStages = gameMap.get(game.gameId).length > 0
     if hasStages
