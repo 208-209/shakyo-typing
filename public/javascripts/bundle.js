@@ -10514,6 +10514,7 @@ playGame.click(() => {
   });
 
   closeBtnbtn.click(() => {
+    stages = dataStages;
     init();
   });
 
@@ -10563,11 +10564,12 @@ playGame.click(() => {
     if (isMissGame) {
       currentTitle = stages[stageNumber][0];
       currentContent = stages[stageNumber][1];
+      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); // 改行文字コードを'\n'に統一
     } else {
       currentTitle = stages[stageNumber]['stageTitle']
       currentContent = stages[stageNumber]['stageContent']
+      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
     }
-    currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); // 改行文字コードを'\n'に統一
     title.text(currentTitle);
     content.text(currentContent);
     correctInfo.text(correct);
