@@ -10561,16 +10561,9 @@ playGame.click(() => {
     modalStart.hide();
     modalPlaying.show();
     modalResult.hide();
-    
-    if (isMissGame) {
-      currentTitle = stages[stageNumber][0];
-      currentContent = stages[stageNumber][1];
-      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); // 改行文字コードを'\n'に統一
-    } else {
-      currentTitle = stages[stageNumber]['stageTitle']
-      currentContent = stages[stageNumber]['stageContent']
-      currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-    }
+    currentTitle = isMissGame ? stages[stageNumber][0] : stages[stageNumber]['stageTitle'];
+    currentContent = isMissGame ? stages[stageNumber][1] : stages[stageNumber]['stageContent'];
+    currentContent = currentContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); // 改行文字コードを'\n'に統一
     title.text(currentTitle);
     content.text(currentContent);
     correctInfo.text(correct);
