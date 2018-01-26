@@ -10503,8 +10503,8 @@ playGame.click(() => {
   });
 
   replayBtn.click(() => {
-    init();
     stages = dataStages;
+    init();
   });
 
   missBtn.click(() => {

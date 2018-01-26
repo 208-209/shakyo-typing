@@ -45,7 +45,7 @@ pre {
 }
 .gamePanel .panel-body {
   background-color: #ecf0f1;
-  border: 2px solid #ecf0f1;
+  border: 2px solid #18bc9c;
   border-radius: 5px
 }
 
@@ -83,7 +83,10 @@ pre {
   color: #E82A37;
 }
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
-  color: #95a5a6;
+  color: #2c3e50;
+}
+.badge {
+  background-color: #2c3e50;
 }
 
 /* 詳細 */
@@ -102,6 +105,7 @@ pre {
 
 #userLink {
   color: #0f7864;
+  font-weight: bold;
 }
 .panelStageTitle {
   font-size: 18px;

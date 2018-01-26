@@ -36,7 +36,7 @@ block content
         if isMine
           a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
     - var stagesDate = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-    - var hasStages = stagesDate.length > 0
+    - var hasStages = gameMap.get(game.gameId).length > 0
     if hasStages
       div(id="playGame" class="panel-footer" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stagesDate}" data-toggle="modal" data-target="#typing") ゲームをプレイする
 
