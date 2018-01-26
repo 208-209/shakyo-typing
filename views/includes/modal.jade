@@ -1,0 +1,74 @@
+//- includes/modal.jade
+div(class="modal fade" id="typing")
+  div(class="modal-dialog modal-lg")
+    div(class="modal-content")
+
+      //- start
+      div(class="modalStart")
+        div(class="modal-header")
+          h4(class="modal-title text-center")
+        div(class="modal-body")
+          div(class="display")
+            div(class="startMessage")
+          div(class="keyboard")
+            include keyboard.jade
+        div(class="modal-footer")
+          button(class="keyboardBtn btn btn-default pull-left") キーボード
+          button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+
+      //- playing
+      div(class="modalPlaying")
+        div(class="modal-header")
+          span(class="correctInfo") 入力文字数：
+            span(class="correct")
+          span(class="timerInfo")
+          span(class="missInfo") ミス入力数：
+            span(class="miss")
+        div(class="modal-body")
+          div(class="display")
+            p(class="title")
+            pre(class="content prettyprint")
+          div(class="keyboard")
+            include keyboard.jade
+        div(class="modal-footer")
+          button(class="keyboardBtn btn btn-default pull-left") キーボード
+          button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+
+      //- result
+      div(class="modalResult")
+        div(class="modal-header")
+          h4(class="modal-title text-center")
+        div(class="modal-body")
+          div(class="panel panel-primary well col-xs-7 stageList")
+
+          div(class="gameResultArea col-xs-5")
+            table(class="table table-striped table-bordered table-hover")
+              tr
+                th スコア
+                td(class="resultScore text-right")
+              tr
+                th ランク
+                td(class="resultLevel text-right")
+              tr
+                th アニマル
+                td(class="resultAnimal text-right")
+              tr
+                th 入力時間
+                td(class="resultTime text-right")
+              tr
+                th 入力文字数
+                td(class="resultCorrect text-right")
+              tr
+                th ミス入力数
+                td(class="resultMiss text-right")
+              tr
+                th WPM
+                td(class="resultWpm text-right")
+              tr
+                th 正解率
+                td(class="resultAccuracy text-right")
+        div(class="modal-footer")
+          button(class="missBtn btn btn-default") ミスだけ
+          button(class="replayBtn btn btn-warning") リトライ
+          script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
+          button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる

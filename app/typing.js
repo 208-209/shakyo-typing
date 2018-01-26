@@ -57,26 +57,29 @@ $('.playGame').each((i, e) => {
       if (isStarted === false) {
         return;
       }
-      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) { // 有効な文字以外はスペースキー(32)
+      if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) {
         currentNumber++;
         nextStage();
         isTarget();
-      } else if (currentContent[currentNumber] === '\n' && e.which === 13) { // 改行コード(\n)の場合はエンターキー(13)
-        currentNumber++;
-        nextStage();
-        isTarget();
-      } else if (String.fromCharCode(e.which) === currentContent[currentNumber]) { // 正解の場合
-        currentNumber++;
-        correct++;
-        correctInfo.text(correct);
-        nextStage();
-        isTarget();
-        orderStages.set(currentTitle, currentContent);
-      } else { // ミスの場合
-        miss++;
-        missInfo.text(miss);
-        missStages.set(currentTitle, currentContent);
+      } else {
+        if (currentContent[currentNumber] === '\n' && e.which === 13) {
+          currentNumber++;
+          nextStage();
+          isTarget();
+        } else if (currentContent[currentNumber] === String.fromCharCode(e.which)) {
+          currentNumber++;
+          correct++;
+          correctInfo.text(correct);
+          nextStage();
+          isTarget();
+          orderStages.set(currentTitle, currentContent);
+        } else if (currentContent[currentNumber] !== String.fromCharCode(e.which)) {
+          miss++;
+          missInfo.text(miss);
+          missStages.set(currentTitle, currentContent);
+        }
       }
+      console.log(currentContent + ':' +miss);
     });
 
     // スペースキーでカウントダウンスタート
@@ -99,7 +102,6 @@ $('.playGame').each((i, e) => {
     });
 
     closeBtnbtn.click(() => {
-      stages = dataStages;
       init();
     });
 
@@ -107,7 +109,8 @@ $('.playGame').each((i, e) => {
       isCountDownStarted = true;
       let countDownTimerId = setTimeout(() => {
         let timeLeft = COUNTDOWNTIME - (Date.now() - countDownStartTime);
-        if (timeLeft < 0) { // カウントダウンの数字が 0 になったらゲームスタート
+        // カウントダウンの数字が 0 になったらゲームスタート
+        if (timeLeft < 0) {
           clearTimeout(countDownTimerId);
           startTime = Date.now();
           isStarted = true;
@@ -214,6 +217,7 @@ $('.playGame').each((i, e) => {
       $('.order').remove();
       $('.twitter-hashtag-button').remove();
     }
+    
 
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -298,7 +302,6 @@ $('.playGame').each((i, e) => {
         'data-show-count': 'false'
       }).appendTo('.modal-footer');
     }
-
     init();
   });
 });
