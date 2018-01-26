@@ -45,6 +45,8 @@ pre {
 }
 .gamePanel .panel-body {
   background-color: #ecf0f1;
+  border: 2px solid #ecf0f1;
+  border-radius: 5px
 }
 
 /* ゲームパネル */
@@ -81,10 +83,13 @@ pre {
   color: #E82A37;
 }
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
-  color: gray;
+  color: #95a5a6;
 }
 
 /* 詳細 */
+#gameInfo {
+  border: 2px solid #ecf0f1;
+}
 #playGame {
   color: white;
   background: #18bc9c;

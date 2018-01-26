@@ -92,7 +92,6 @@ router.get('/:gameId', csrfProtection, (req, res, next) => {
       comments: comments,
       csrfToken: req.csrfToken()
     });
-    console.log(storedStages);
   });
 });
 

@@ -31,7 +31,3 @@ div(class="panel panel-default gamePanel")
           - var likeCount = likeCountMap.get(game.gameId) || 0
           i(class="fa fa-heart-o" aria-hidden="true")
           span(class="badge likeCount") #{likeCount}
-  - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
-  - var hasStages = gameMap.get(game.gameId).length > 0
-  if hasStages
-    div(class="panel-footer playGame" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stages}" data-toggle="modal" data-target="#typing") PLAY GAME

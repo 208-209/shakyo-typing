@@ -3,7 +3,6 @@ const $ = require('jquery');
 const playGame = $('#playGame');
 
 playGame.click(() => {
-  
   const startMessage = $('.startMessage');
   const title = $('.title');
   const content = $('.content');
@@ -34,7 +33,6 @@ playGame.click(() => {
   const missStages = new Map();
   const orderStages = new Map();
   let stages = dataStages;
-  console.log(playGame.data('stages'));
 
   let stageNumber;
   let currentNumber;
@@ -55,7 +53,7 @@ playGame.click(() => {
 
   // タイピングの文字判定
   $(window).keypress((e) => {
-    if (isStarted === false || !stages) {
+    if (isStarted === false) {
       return;
     }
     if (validLetter.indexOf(currentContent[currentNumber]) === -1 && e.which === 32) { // 有効な文字以外はスペースキー(32)
@@ -77,13 +75,12 @@ playGame.click(() => {
       miss++;
       missInfo.text(miss);
       missStages.set(currentTitle, currentContent);
-      console.log(missStages);
     }
   });
 
   // スペースキーでカウントダウンスタート
   $(window).keypress((e) => {
-    if (e.which === 32 && isCountDownStarted === false && isStarted === false && stages) {
+    if (e.which === 32 && isCountDownStarted === false && isStarted === false) {
       countDownStartTime = Date.now();
       startCountDown();
       $('.isKey').removeClass('isKey');
@@ -96,7 +93,6 @@ playGame.click(() => {
   });
 
   missBtn.click(() => {
-    console.log(missStages);
     stages = Array.from(missStages);
     init();
     isMissGame = true;
@@ -104,7 +100,6 @@ playGame.click(() => {
 
   closeBtnbtn.click(() => {
     init();
-    stages = null;
   });
 
   function startCountDown() {
@@ -149,9 +144,8 @@ playGame.click(() => {
     modalStart.hide();
     modalPlaying.show();
     modalResult.hide();
-    shuffle(stages);
+    
     if (isMissGame) {
-      console.log(stages);
       currentTitle = stages[stageNumber][0];
       currentContent = stages[stageNumber][1];
     } else {
@@ -220,6 +214,7 @@ playGame.click(() => {
     isCountDownStarted = false;
     isStarted = false;
     isMissGame = false;
+    shuffle(stages);
     startMessage.text('スペースキーで開始します');
 
     $('.isKey').removeClass('isKey');

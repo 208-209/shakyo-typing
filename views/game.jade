@@ -8,7 +8,7 @@ block content
     li(class="breadcrumb-item active") #{game.gameName}
 
   //- ゲームの詳細
-  div(class="panel panel-default")
+  div(id="gameInfo" class="panel panel-default")
     div(class="panel-body clearfix")
       h4
         img(src="#{game.user.image}" alt="userImage" class="img-circle pull-left userImage")
@@ -35,11 +35,10 @@ block content
         - var isMine = (user.id === game.createdBy)
         if isMine
           a(href="/games/#{game.gameId}/edit" class="btn btn-info pull-right") ゲームの編集
-
     - var stagesDate = JSON.stringify(Array.from(gameMap.get(game.gameId)))
     - var hasStages = stagesDate.length > 0
     if hasStages
-      div(id="playGame" class="panel-footer" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stagesDate}" data-toggle="modal" data-target="#typing") PLAY GAME
+      div(id="playGame" class="panel-footer" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stagesDate}" data-toggle="modal" data-target="#typing") ゲームをプレイする
 
   //- ステージ一覧の表示
   - var hasStages = stages.length > 0
