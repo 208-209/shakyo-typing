@@ -108,7 +108,6 @@ playGame.click(() => {
     isCountDownStarted = true;
     let countDownTimerId = setTimeout(() => {
       let timeLeft = COUNTDOWNTIME - (Date.now() - countDownStartTime);
-      // カウントダウンの数字が 0 になったらゲームスタート
       if (timeLeft < 0) {
         clearTimeout(countDownTimerId);
         startTime = Date.now();
@@ -169,9 +168,9 @@ playGame.click(() => {
       $('.key_' + currentKeyCode).addClass('isKey');
     }
     // 文字のターゲット
-    const beforeTarget = currentContent.substring(0, currentNumber); // ターゲットより前の文字
-    const currentTarget = currentContent[currentNumber]; // ターゲットの文字
-    const afterTarget = currentContent.substring(currentNumber + 1); // ターゲットより後の文字
+    const beforeTarget = currentContent.substring(0, currentNumber);
+    const currentTarget = currentContent[currentNumber];
+    const afterTarget = currentContent.substring(currentNumber + 1);
     const escapeBeforeTarget = beforeTarget ? escapeLetter(beforeTarget) : '';
     const escapeCurrentTarget = currentTarget ? escapeLetter(currentTarget) : '';
     const escapeAfterTarget = afterTarget ? escapeLetter(afterTarget) : '';
