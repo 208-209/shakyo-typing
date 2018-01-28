@@ -38,7 +38,7 @@ block content
     - var stagesDate = JSON.stringify(Array.from(gameMap.get(game.gameId)))
     - var hasStages = gameMap.get(game.gameId).length > 0
     if hasStages
-      div(id="playGame" class="panel-footer" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stagesDate}" data-toggle="modal" data-target="#typing") ゲームをプレイする
+      div(class="playGame panel-footer" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stagesDate}" data-toggle="modal" data-target="#typing") ゲームをプレイする
 
   //- ステージ一覧の表示
   - var hasStages = stages.length > 0

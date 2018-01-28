@@ -45,7 +45,6 @@ pre {
 }
 .gamePanel .panel-body {
   background-color: #ecf0f1;
-  border: 2px solid #18bc9c;
   box-shadow: 0 1px 3px rgba(106,137,152,0.2);
   border-radius: 5px
 }
@@ -62,6 +61,15 @@ pre {
 }
 .panel .gameName {
   color: #0f7864;
+}
+.playGame {
+  color: white;
+  background: #18bc9c;
+  text-align: center;
+}
+.playGame:hover {
+  cursor: pointer;
+  background: #0f7864;
 }
 .icons {
   list-style:none;
@@ -94,16 +102,6 @@ pre {
 #gameInfo {
   border: 2px solid #ecf0f1;
 }
-#playGame {
-  color: white;
-  background: #18bc9c;
-  text-align: center;
-}
-#playGame:hover {
-  cursor: pointer;
-  background: #0f7864;
-}
-
 #userLink {
   color: #0f7864;
   font-weight: bold;
