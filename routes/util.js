@@ -44,6 +44,7 @@ function momentTimezone(data) {
 }
 
 module.exports = {
+  createGameMap: createGameMap,
   createFavoriteMap: createFavoriteMap,
   createLikeMap: createLikeMap,
   createLikeCountMap: createLikeCountMap,
