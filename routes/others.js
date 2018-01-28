@@ -13,6 +13,7 @@ const Like = require('../models/like');
 
 // ユーザーのゲーム一覧
 router.get('/users/:userId', (req, res, next) => {
+  const gameMap = new Map();
   const favoriteMap = new Map();
   const likeMap = new Map();
   const likeCountMap = new Map();
@@ -20,6 +21,9 @@ router.get('/users/:userId', (req, res, next) => {
   if (req.user) {
     Game.findAll({
       include: [{
+        model: Stage,
+        attributes: ['stageTitle', 'stageContent']
+      }, {
         model: Comment,
         attributes: ['commentId']
       }],
@@ -30,6 +34,7 @@ router.get('/users/:userId', (req, res, next) => {
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;
+      util.createGameMap(games, gameMap);
       return Favorite.findAll({
         where: { userId: req.user.id }
       });
@@ -54,6 +59,7 @@ router.get('/users/:userId', (req, res, next) => {
       res.render('other', {
         user: req.user,
         games: storedGames,
+        gameMap: gameMap,
         favoriteMap: favoriteMap,
         likeMap: likeMap,
         likeCountMap: likeCountMap,
@@ -63,6 +69,9 @@ router.get('/users/:userId', (req, res, next) => {
   } else {
     Game.findAll({
       include: [{
+        model: Stage,
+        attributes: ['stageTitle', 'stageContent']
+      }, {
         model: Comment,
         attributes: ['commentId']
       }],
@@ -73,6 +82,7 @@ router.get('/users/:userId', (req, res, next) => {
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games
+      util.createGameMap(games, gameMap);
       return Like.findAll({
         attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
         group: ['gameId'],
@@ -87,6 +97,7 @@ router.get('/users/:userId', (req, res, next) => {
       res.render('other', {
         user: req.user,
         games: storedGames,
+        gameMap: gameMap,
         likeCountMap: likeCountMap,
         other: other
       });

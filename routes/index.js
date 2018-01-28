@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
   if (process.env.DATABASE_URL && req.headers['x-forwarded-proto'] === 'http') {
     res.redirect('https://www.shakyo-typing.com');
   }
+  const gameMap = new Map();
   const favoriteMap = new Map();
   const likeMap = new Map();
   const likeCountMap = new Map();
@@ -22,6 +23,9 @@ router.get('/', (req, res, next) => {
   if (req.user) {
     Game.findAll({
       include: [{
+        model: Stage,
+        attributes: ['stageTitle', 'stageContent']
+      }, {
         model: Comment,
         attributes: ['commentId']
       }],
@@ -29,6 +33,7 @@ router.get('/', (req, res, next) => {
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games;
+      util.createGameMap(games, gameMap);
       return Favorite.findAll({
         where: { userId: req.user.id }
       });
@@ -49,6 +54,7 @@ router.get('/', (req, res, next) => {
       res.render('index', {
         user: req.user,
         games: storedGames,
+        gameMap: gameMap,
         favoriteMap: favoriteMap,
         likeMap: likeMap,
         likeCountMap: likeCountMap
@@ -57,6 +63,9 @@ router.get('/', (req, res, next) => {
   } else {
     Game.findAll({
       include: [{
+        model: Stage,
+        attributes: ['stageTitle', 'stageContent']
+      }, {
         model: Comment,
         attributes: ['commentId']
       }],
@@ -64,6 +73,7 @@ router.get('/', (req, res, next) => {
       order: '"updatedAt" DESC'
     }).then((games) => {
       storedGames = games
+      util.createGameMap(games, gameMap);
       return Like.findAll({
         attributes: ['gameId', [sequelize.fn('COUNT', sequelize.col('userId')), 'count']],
         group: ['gameId'],
@@ -74,6 +84,7 @@ router.get('/', (req, res, next) => {
       res.render('index', {
         user: req.user,
         games: storedGames,
+        gameMap: gameMap,
         likeCountMap: likeCountMap
       });
     });

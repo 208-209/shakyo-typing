@@ -1,6 +1,12 @@
 'use strict';
 const moment = require('moment-timezone');
 
+function createGameMap(games, gameMap) {
+  games.forEach((g) => {
+    gameMap.set(g.gameId, g.stages);
+  });
+}
+
 function createFavoriteMap(favorites, favoriteMap) {
   favorites.forEach((f) => {
     favoriteMap.set(f.gameId, f.favorite);
