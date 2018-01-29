@@ -1,5 +1,5 @@
 //- includes/modal.jade
-div(class="modal fade" id="typing")
+div(class="modal fade" id="#{game.gameId}")
   div(class="modal-dialog modal-lg")
     div(class="modal-content")
 
@@ -10,11 +10,25 @@ div(class="modal fade" id="typing")
         div(class="modal-body")
           div(class="display")
             div(class="startMessage")
+              button(class="startBtn btn btn-info btn-lg") スタート
           div(class="keyboard")
             include keyboard.jade
         div(class="modal-footer")
           button(class="keyboardBtn btn btn-default pull-left") キーボード
-          button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+          button(class="closeBtn btn btn-danger" data-dismiss="modal") 閉じる
+
+      //- countDown
+      div(class="modalCountDown")
+        div(class="modal-header")
+          h4(class="modal-title text-center modalTitle")
+        div(class="modal-body")
+          div(class="display")
+            div(class="startMessage")
+          div(class="keyboard")
+            include keyboard.jade
+        div(class="modal-footer")
+          button(class="keyboardBtn btn btn-default pull-left") キーボード
+          button(class="closeBtn btn btn-danger" data-dismiss="modal") 閉じる
 
       //- playing
       div(class="modalPlaying")
@@ -32,7 +46,7 @@ div(class="modal fade" id="typing")
             include keyboard.jade
         div(class="modal-footer")
           button(class="keyboardBtn btn btn-default pull-left") キーボード
-          button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+          button(class="closeBtn btn btn-danger" data-dismiss="modal") 閉じる
 
       //- result
       div(class="modalResult")
@@ -71,4 +85,4 @@ div(class="modal fade" id="typing")
           button(class="missBtn btn btn-warning") ミスだけ
           button(class="replayBtn btn btn-success") リプレイ
           script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
-          button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
+          button(class="closeBtn btn btn-danger" data-dismiss="modal") 閉じる

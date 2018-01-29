@@ -212,6 +212,9 @@ pre {
   height: 280px;
   overflow-y: scroll;
 }
+.modalCountDown {
+  display: none;
+}
 .modalPlaying {
   display: none;
 }

@@ -34,4 +34,4 @@ div(class="panel panel-default gamePanel")
   - var stages = JSON.stringify(Array.from(gameMap.get(game.gameId)))
    - var hasStages = gameMap.get(game.gameId).length > 0
    if hasStages
-     div(class="panel-footer playGame" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stages}" data-toggle="modal" data-target="#typing") PLAY GAME
+     div(class="panel-footer playGame" data-gameId="#{game.gameId}" data-game="#{game.gameName}" data-stages="#{stages}" data-toggle="modal" data-target="##{game.gameId}") PLAY GAME
