@@ -17,25 +17,22 @@ block content
         label(class="col-sm-2 control-label" for="gameName") ゲームタイトル
         div(class="col-sm-8")
           input(id="gameName" class="form-control" type="text" name="gameName" value="#{game.gameName}")
-        div(class="form-group")
-          div(class="col-sm-2")
-            button(class="btn btn-default" type="submit") 変更
+        div(class="form-group col-sm-2")
+          button(class="btn btn-default" type="submit") 変更
       div(class="form-group")
         label(class="col-sm-2 control-label" for="tags") タグ
         div(class="col-sm-8")
           textarea(id="tags" class="form-control" name="tags" rows="3") #{game.tags}
-        div(class="form-group")
-          div(class="col-sm-2")
-            button(class="btn btn-default" type="submit") 変更
+        div(class="form-group col-sm-2")
+          button(class="btn btn-default" type="submit") 変更
       div(class="form-group")
         label(class="col-sm-2 control-label" for="editPrivacy") プライバシー
         div(class="col-sm-8")
           select(id="editPrivacy" class="form-control" name="privacy" data-privacy="#{game.privacy}")
             option(value="0") 非公開
             option(value="1") 公開
-        div(class="form-group")
-          div(class="col-sm-2")
-            button(class="btn btn-default" type="submit") 変更
+        div(class="form-group col-sm-2")
+          button(class="btn btn-default" type="submit") 変更
 
   //- ステージの追加と削除
   div(class="well")
@@ -68,3 +65,15 @@ block content
               input(type="hidden" name="_csrf" value!="#{csrfToken}")
               input(type="hidden" name="stageId" value="#{stage.stageId}")
               button(class="btn btn-danger pull-right btn-sm" type="submit") 削除
+            button(class="btn btn-warning pull-right btn-sm" data-toggle="modal" data-target="##{stage.stageId}") 編集
+            //- モーダル・ダイアログ
+            div(class="modal fade" id="#{stage.stageId}")
+              div(class="modal-dialog")
+                div(class="modal-content")
+                  div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                      span(aria-hidden="true")&times;
+                  div(class="modal-body")
+
+                  div(class="modal-footer")
+                    button(class="closeBtnbtn btn btn-danger" data-dismiss="modal") 閉じる
