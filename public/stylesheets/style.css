@@ -21,6 +21,10 @@ pre {
 .panel-body {
   background-color: white;
 }
+.btn {
+  margin-left: 5px;
+}
+
 
 /* ========== ヘッダー ========== */
 .navbar-brand {
@@ -196,7 +200,7 @@ pre {
 }
 
 /* ========== モーダル ========== */
-.modal-header {
+.modalHeader {
   height: 58px;
   padding: 0;
   display: flex;
@@ -207,7 +211,7 @@ pre {
   color: #7b8a8b;
   font-weight: bold;
 }
-.modal-body {
+.modalBody {
   height: 600px;
 }
 .display {
@@ -220,7 +224,7 @@ pre {
 .modalResult {
   display: none;
 }
-.modal-body .prettyprint {
+.modalBody .prettyprint {
   border-style: none;
 }
 
@@ -255,9 +259,6 @@ pre {
 }
 
 /* ボタン */
-.closeBtnbtn {
-  margin-left: 5px;
-}
 .twitter-hashtag-button {
   float: left;
 }
