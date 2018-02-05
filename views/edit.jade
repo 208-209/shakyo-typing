@@ -75,13 +75,15 @@ block content
                       span(aria-hidden="true")&times;
                     h4(class="modal-title text-center") #{stage.stageTitle} の編集
                   div(class="modal-body clearfix")
-                    div(class="form-group")
-                      label(for="#{stage.stageTitle}") タイトル
-                      input(type="text" class="form-control" id="#{stage.stageTitle}" name="stageTitle" value="#{stage.stageTitle}")
-                    div(class="form-group")
-                      label(for="#{stage.stageContent}") タイピングの文章
-                      textarea(type="text" class="form-control" id="#{stage.stageContent}" name="stageContent" rows="4") #{stage.stageContent}
-                    
-                    div(class="form-group")
-                      button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="繰り返し追加することができます") 変更
-                    button(class="closeBtnbtn btn btn-danger pull-right" data-dismiss="modal") キャンセル
+                    form(method="post" action="/games/#{game.gameId}/stages/edit")
+                      input(type="hidden" name="_csrf" value!="#{csrfToken}")
+                      div(class="form-group")
+                        label(for="#{stage.stageTitle}") タイトル
+                        input(type="text" class="form-control" id="#{stage.stageTitle}" name="stageTitle" value="#{stage.stageTitle}")
+                      div(class="form-group")
+                        label(for="#{stage.stageContent}") タイピングの文章
+                        textarea(type="text" class="form-control" id="#{stage.stageContent}" name="stageContent" rows="4") #{stage.stageContent}
+                      
+                      div(class="form-group")
+                        button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="繰り返し追加することができます") 変更
+                      button(class="closeBtnbtn btn btn-danger pull-right" data-dismiss="modal") キャンセル
