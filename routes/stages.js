@@ -38,6 +38,40 @@ router.post('/:gameId/stages', authenticationEnsurer, csrfProtection, (req, res,
   });
 });
 
+// ステージの編集
+router.post('/:gameId/stages/edit', authenticationEnsurer, csrfProtection, (req, res, next) => {
+  let storedGame = null;
+  Game.findOne({
+    where: { gameId: req.params.gameId }
+  }).then((game) => {
+    storedGame = game
+    // ゲームの作成者のみ
+    if (game && util.isMine(req, game)) {
+
+
+      return Stage.create({
+        stageTitle: req.body.stageTitle.slice(0, 255),
+        stageContent: req.body.stageContent,
+        gameId: game.gameId,
+        createdBy: req.user.id
+      });
+
+      
+    } else {
+      const err = new Error('編集する権限がありません');
+      err.status = 404;
+      next(err);
+    }
+  }).then(() => {
+    res.redirect('/games/' + storedGame.gameId + '/edit');
+    console.info(
+      `【ステージの編集】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+      `remoteAddress: ${req.connection.remoteAddress}, ` +
+      `userAgent: ${req.headers['user-agent']} `
+    );
+  });
+});
+
 // ステージの削除
 router.post('/:gameId/stages/delete', authenticationEnsurer, csrfProtection, (req, res, next) => {
   let storedGame = null;

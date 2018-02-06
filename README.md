@@ -113,7 +113,8 @@ https://www.shakyo-typing.com/
 | /games/:gameId?edit=1 | POST | ゲームの編集 | フォーム |
 | /games/:gameId?delete=1 | POST | ゲームの削除 | フォーム |
 | /games/:gameId/stages | POST | ステージの追加 | フォーム |
-| /games/:gameId/stages/delete | POST | ステージの削除 | フォーム |
+| /games/:gameId/stages/:stageId?edit=1| POST | ステージの編集 | フォーム |
+| /games/:gameId/stages/:stageId?delete=1| POST | ステージの削除 | フォーム |
 | /games/:gameId/comments | POST | コメントの投稿 | フォーム |
 | /games/:gameId/comments/delete | POST | コメントの削除 | フォーム |
 | /users/:userId/games/:gameId/favorites | POST | ゲームを「ブックマーク」に追加 | AJAX |
