@@ -61,9 +61,8 @@ block content
             span(class="pull-right") #{stage.formattedUpdatedAt}
           div(class="panel-body clearfix")
             pre(class="panelContent prettyprint panelStageContent") #{stage.stageContent}
-            form(method="post" action="/games/#{game.gameId}/stages/delete")
+            form(method="post" action="/games/#{game.gameId}/stages/#{stage.stageId}?delete=1")
               input(type="hidden" name="_csrf" value!="#{csrfToken}")
-              input(type="hidden" name="stageId" value="#{stage.stageId}")
               button(class="btn btn-danger pull-right btn-sm" type="submit") 削除
             button(class="btn btn-warning pull-right btn-sm" data-toggle="modal" data-target="##{stage.stageId}") 編集
             //- モーダル・ダイアログ
@@ -75,7 +74,7 @@ block content
                       span(aria-hidden="true")&times;
                     h4(class="modal-title text-center") #{stage.stageTitle} の編集
                   div(class="modal-body clearfix")
-                    form(method="post" action="/games/#{game.gameId}/stages/edit")
+                    form(method="post" action="/games/#{game.gameId}/stages/#{stage.stageId}?edit=1")
                       input(type="hidden" name="_csrf" value!="#{csrfToken}")
                       div(class="form-group")
                         label(for="#{stage.stageTitle}") タイトル
@@ -83,7 +82,6 @@ block content
                       div(class="form-group")
                         label(for="#{stage.stageContent}") タイピングの文章
                         textarea(type="text" class="form-control" id="#{stage.stageContent}" name="stageContent" rows="4") #{stage.stageContent}
-                      
                       div(class="form-group")
-                        button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="繰り返し追加することができます") 変更
-                      button(class="closeBtnbtn btn btn-danger pull-right" data-dismiss="modal") キャンセル
+                        button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="変更") 変更
+                      button(class="closeBtnbtn btn btn-primary pull-right" data-dismiss="modal") キャンセル

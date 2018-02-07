@@ -38,66 +38,65 @@ router.post('/:gameId/stages', authenticationEnsurer, csrfProtection, (req, res,
   });
 });
 
-// ステージの編集
-router.post('/:gameId/stages/edit', authenticationEnsurer, csrfProtection, (req, res, next) => {
+// ステージの編集・削除
+router.post('/:gameId/stages/:stageId', authenticationEnsurer, csrfProtection, (req, res, next) => {
   let storedGame = null;
-  Game.findOne({
-    where: { gameId: req.params.gameId }
-  }).then((game) => {
-    storedGame = game
-    // ゲームの作成者のみ
-    if (game && util.isMine(req, game)) {
-
-
-      return Stage.create({
+  if (parseInt(req.query.edit) === 1) {
+    Game.findOne({
+      where: { gameId: req.params.gameId }
+    }).then((game) => {
+      storedGame = game
+      // ゲームの作成者のみ
+      if (game && util.isMine(req, game)) {
+        return Stage.findOne({
+          where: { stageId: req.params.stageId }
+        });
+      } else {
+        const err = new Error('編集する権限がありません');
+        err.status = 404;
+        next(err);
+      }
+    }).then((stage) => {
+      return stage.update({
+        stageId: req.params.stageId,
         stageTitle: req.body.stageTitle.slice(0, 255),
         stageContent: req.body.stageContent,
-        gameId: game.gameId,
-        createdBy: req.user.id
+        createdBy: req.user.id,
+        gameId: req.params.gameId
       });
-
-      
-    } else {
-      const err = new Error('編集する権限がありません');
-      err.status = 404;
-      next(err);
-    }
-  }).then(() => {
-    res.redirect('/games/' + storedGame.gameId + '/edit');
-    console.info(
-      `【ステージの編集】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
-      `remoteAddress: ${req.connection.remoteAddress}, ` +
-      `userAgent: ${req.headers['user-agent']} `
-    );
-  });
-});
-
-// ステージの削除
-router.post('/:gameId/stages/delete', authenticationEnsurer, csrfProtection, (req, res, next) => {
-  let storedGame = null;
-  Game.findOne({
-    where: { gameId: req.params.gameId }
-  }).then((game) => {
-    storedGame = game
-    // ゲームの作成者のみ
-    if (game && util.isMine(req, game)) {
-      return Stage.findOne({
-        where: { stageId: req.body.stageId }
-      });
-    } else {
-      const err = new Error('削除する権限がありません');
-      err.status = 404;
-      next(err);
-    }
-  }).then((stage) => {
-    stage.destroy();
-    console.info(
-      `【ステージの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
-      `remoteAddress: ${req.connection.remoteAddress}, ` +
-      `userAgent: ${req.headers['user-agent']} `
-    );
-    res.redirect('/games/' + storedGame.gameId + '/edit');
-  });
+    }).then(() => {
+      res.redirect('/games/' + storedGame.gameId + '/edit');
+      console.info(
+        `【ステージの編集】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+        `remoteAddress: ${req.connection.remoteAddress}, ` +
+        `userAgent: ${req.headers['user-agent']} `
+      );
+    });
+  } else if (parseInt(req.query.delete) === 1) {
+    Game.findOne({
+      where: { gameId: req.params.gameId }
+    }).then((game) => {
+      storedGame = game
+      // ゲームの作成者のみ
+      if (game && util.isMine(req, game)) {
+        return Stage.findOne({
+          where: { stageId: req.params.stageId }
+        });
+      } else {
+        const err = new Error('削除する権限がありません');
+        err.status = 404;
+        next(err);
+      }
+    }).then((stage) => {
+      stage.destroy();
+      console.info(
+        `【ステージの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
+        `remoteAddress: ${req.connection.remoteAddress}, ` +
+        `userAgent: ${req.headers['user-agent']} `
+      );
+      res.redirect('/games/' + storedGame.gameId + '/edit');
+    });
+  }
 });
 
 module.exports = router;
