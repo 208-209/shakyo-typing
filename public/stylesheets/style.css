@@ -84,13 +84,13 @@ pre {
 .panel .fa-star {
   color: #F6A615;
 }
-.panel .fa-star-o:hover {
+.panel .fa-star-o.isPointer:hover {
   color: #F6A615;
 }
 .panel .fa-heart {
   color: #E82A37;
 }
-.panel .fa-heart-o:hover{
+.panel .fa-heart-o.isPointer:hover{
   color: #E82A37;
 }
 .panel .fa-commenting-o, .panel .fa-star-o, .panel .fa-heart-o {
