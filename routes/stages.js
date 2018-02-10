@@ -88,13 +88,14 @@ router.post('/:gameId/stages/:stageId', authenticationEnsurer, csrfProtection, (
         next(err);
       }
     }).then((stage) => {
-      stage.destroy();
+      return stage.destroy();
+    }).then(() => {
+      res.redirect('/games/' + storedGame.gameId + '/edit');
       console.info(
         `【ステージの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
         `remoteAddress: ${req.connection.remoteAddress}, ` +
         `userAgent: ${req.headers['user-agent']} `
       );
-      res.redirect('/games/' + storedGame.gameId + '/edit');
     });
   }
 });
