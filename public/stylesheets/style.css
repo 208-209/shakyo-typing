@@ -6,6 +6,9 @@ pre {
   white-space: pre-wrap;
   border-style: none;
 }
+.monoFont {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
 .prettyprint {
   background-color: transparent;
 }
@@ -160,9 +163,6 @@ pre {
 }
 
 /* 編集 */
-#stageContent {
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-}
 #stagePost {
   margin-bottom: 0;
 }

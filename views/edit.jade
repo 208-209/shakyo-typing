@@ -46,7 +46,7 @@ block content
         div(class="form-group")
           label(class="col-sm-2 control-label" for="stageContent") タイピングの文章
           div(class="col-sm-10")
-            textarea(id="stageContent" class="form-control" name="stageContent" rows="4" placeholder="for (let i = 0; i < 100; i++) {\n  console.log('Hello World!!');\n}" required)
+            textarea(id="stageContent" class="form-control monoFont" name="stageContent" rows="4" placeholder="for (let i = 0; i < 100; i++) {\n  console.log('Hello World!!');\n}" required)
             p(class="help-block") ※半角の英数字記号を入力してください
         div(class="form-group")
           div(class="col-sm-offset-2 col-sm-10")
@@ -79,7 +79,7 @@ block content
                       div(class="form-group")
                         input(type="text" class="form-control" name="stageTitle" value="#{stage.stageTitle}")
                       div(class="form-group")
-                        textarea(type="text" class="form-control" name="stageContent" rows="4") #{stage.stageContent}
+                        textarea(type="text" class="form-control monoFont" name="stageContent" rows="4") #{stage.stageContent}
                       div(class="form-group")
                         button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="変更") 変更
                       button(class="closeBtnbtn btn btn-primary pull-right" data-dismiss="modal") キャンセル
