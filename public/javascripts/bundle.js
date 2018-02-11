@@ -10407,6 +10407,8 @@ $('.keyboardBtn').click(() => {
   }
 });
 
+prettyPrint();
+
 
 /***/ }),
 /* 3 */

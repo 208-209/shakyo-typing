@@ -17,7 +17,7 @@ router.get('/:userId', authenticationEnsurer, (req, res, next) => {
   const likeMap = new Map();
   const likeCountMap = new Map();
   let storedGames = null;
-  if (req.user) {
+  if (req.user) { // req.params.userId === req.user.id
     Game.findAll({
       include: [{
         model: Comment,

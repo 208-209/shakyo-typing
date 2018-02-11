@@ -77,9 +77,11 @@ block content
                     form(method="post" action="/games/#{game.gameId}/stages/#{stage.stageId}?edit=1")
                       input(type="hidden" name="_csrf" value!="#{csrfToken}")
                       div(class="form-group")
-                        input(type="text" class="form-control" name="stageTitle" value="#{stage.stageTitle}")
+                        label(for="#{stage.stageTitle}") タイトル
+                        input(type="text" class="form-control" id="#{stage.stageTitle}" name="stageTitle" value="#{stage.stageTitle}")
                       div(class="form-group")
-                        textarea(type="text" class="form-control monoFont" name="stageContent" rows="4") #{stage.stageContent}
+                        label(for="#{stage.stageContent}") タイピングの文章
+                        textarea(type="text" class="form-control monoFont" id="#{stage.stageContent}" name="stageContent" rows="4") #{stage.stageContent}
                       div(class="form-group")
                         button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="変更") 変更
                       button(class="closeBtnbtn btn btn-primary pull-right" data-dismiss="modal") キャンセル
