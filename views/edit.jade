@@ -34,7 +34,7 @@ block content
         div(class="form-group col-sm-2")
           button(class="btn btn-default" type="submit") 変更
 
-  //- ステージの追加と削除
+  //- ステージの作成
   div(class="well")
     div(id="stagePost" class="well")
       form(method="post" action="/games/#{game.gameId}/stages" class="form-horizontal")
@@ -46,12 +46,12 @@ block content
         div(class="form-group")
           label(class="col-sm-2 control-label" for="stageContent") タイピングの文章
           div(class="col-sm-10")
-            textarea(id="stageContent" class="form-control" name="stageContent" rows="4"
-            placeholder="for (let i = 0; i < 100; i++) {\n  console.log('Hello World!!');\n}" required)
+            textarea(id="stageContent" class="form-control" name="stageContent" rows="4" placeholder="for (let i = 0; i < 100; i++) {\n  console.log('Hello World!!');\n}" required)
             p(class="help-block") ※半角の英数字記号を入力してください
         div(class="form-group")
           div(class="col-sm-offset-2 col-sm-10")
             button(class="btn btn-info" type="submit" data-toggle="tooltip" data-placement="bottom" title="繰り返し作成することができます") 作成
+    //- ステージの一覧
     - var hasStages = stages.length > 0
     if hasStages
       div(class="panel panel-primary well")
@@ -77,11 +77,9 @@ block content
                     form(method="post" action="/games/#{game.gameId}/stages/#{stage.stageId}?edit=1")
                       input(type="hidden" name="_csrf" value!="#{csrfToken}")
                       div(class="form-group")
-                        label(for="#{stage.stageTitle}") タイトル
-                        input(type="text" class="form-control" id="#{stage.stageTitle}" name="stageTitle" value="#{stage.stageTitle}")
+                        input(type="text" class="form-control" name="stageTitle" value="#{stage.stageTitle}")
                       div(class="form-group")
-                        label(for="#{stage.stageContent}") タイピングの文章
-                        textarea(type="text" class="form-control" id="#{stage.stageContent}" name="stageContent" rows="4") #{stage.stageContent}
+                        textarea(type="text" class="form-control" name="stageContent" rows="4") #{stage.stageContent}
                       div(class="form-group")
                         button(class="btn btn-default pull-right" type="submit" data-toggle="tooltip" data-placement="bottom" title="変更") 変更
                       button(class="closeBtnbtn btn btn-primary pull-right" data-dismiss="modal") キャンセル
