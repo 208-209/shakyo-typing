@@ -61,6 +61,7 @@ block content
             span(class="pull-right") #{stage.formattedUpdatedAt}
           div(class="panel-body clearfix")
             pre(class="panelContent prettyprint panelStageContent") #{stage.stageContent}
+            //- ステージの削除
             form(method="post" action="/games/#{game.gameId}/stages/#{stage.stageId}?delete=1")
               input(type="hidden" name="_csrf" value!="#{csrfToken}")
               button(class="btn btn-danger pull-right btn-sm" type="submit") 削除
