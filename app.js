@@ -112,6 +112,8 @@ var likes = require('./routes/likes');
 var tags = require('./routes/tags');
 var search = require('./routes/search');
 var others = require('./routes/others');
+var help = require('./routes/help');
+var contact = require('./routes/contact');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 
@@ -144,6 +146,8 @@ app.use('/games', others);
 app.use('/users', users);
 app.use('/users', favorites);
 app.use('/users', likes);
+app.use('/help', help);
+app.use('/contact', contact);
 app.use('/login', login);
 app.use('/logout', logout);
 
