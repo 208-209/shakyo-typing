@@ -23,7 +23,7 @@ const Favorite = loader.database.define('favorites', {
     timestamps: false,
     indexes: [
       {
-        fields: ['favorite'] // gameId(FK)
+        fields: ['gameId', 'favorite']
       }
     ]
   });
