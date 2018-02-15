@@ -26,7 +26,7 @@ const Comment = loader.database.define('comments', {
     timestamps: true,
     indexes: [
       {
-        fields: ['gameId'] // createdBy(FK)
+        fields: ['createdBy', 'gameId']
       }
     ]
   });
