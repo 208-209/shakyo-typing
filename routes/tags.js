@@ -24,7 +24,7 @@ router.get('/tags/:tag', (req, res, next) => {
       }],
       where: {
         privacy: 1,
-        tags: { $like: '%' + req.params.tag + '%' } // タグの文字を含む
+        tags: { $like: req.params.tag } // タグの文字を含む
       },
       order: '"updatedAt" DESC'
     }).then((games) => {
