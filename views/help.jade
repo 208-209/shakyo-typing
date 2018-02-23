@@ -6,3 +6,20 @@ block content
     li(class="breadcrumb-item active")
       a(href="/") Home
     li(class="breadcrumb-item active") help
+
+  div(class="panel-group" id="helpAccordion")
+    div(class="panel panel-info")
+      div(class="panel-heading")
+        h3(class="panel-title")
+          a(data-toggle="collapse" data-parent="#helpAccordion" href="#helpAccordionCollapse1") タイトルＡ
+      div(id="helpAccordionCollapse1" class="panel-collapse collapse")
+        div(class="panel-body")
+          p タイトルＡのコンテンツ
+
+    div(class="panel panel-info")
+      div(class="panel-heading")
+        h3(class="panel-title")
+          a(data-toggle="collapse" data-parent="#helpAccordion" href="#helpAccordionCollapse2") タイトルB
+      div(id="helpAccordionCollapse2" class="panel-collapse collapse")
+        div(class="panel-body")
+          p タイトルBのコンテンツ
