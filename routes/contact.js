@@ -10,8 +10,15 @@ const Favorite = require('../models/favorite');
 const Like = require('../models/like');
 const Comment = require('../models/comment');
 
-router.get('/', (req, res, next) => {
-  res.render('contact', { user: req.user });
+router.get('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
+  res.render('contact', {
+    user: req.user,
+    csrfToken: req.csrfToken()
+  });
+});
+
+router.post('/', authenticationEnsurer, csrfProtection, (req, res, next) => {
+
 });
 
 module.exports = router;
