@@ -29,12 +29,12 @@ router.post('/:gameId/comments/delete', authenticationEnsurer, csrfProtection, (
     // 投稿者 または 管理人
     if (util.isMine(req, comment) || util.isAdmin(req)) {
       comment.destroy().then(() => {
+        res.redirect('/games/' + req.params.gameId);
         console.info(
           `【コメントの削除】user: ${req.user.username}, ${req.user.provider}, ${req.user.id} ` +
           `remoteAddress: ${req.connection.remoteAddress}, ` +
           `userAgent: ${req.headers['user-agent']} `
         );
-        res.redirect('/games/' + req.params.gameId);
       });
     } else {
       const err = new Error('削除する権限がありません');
