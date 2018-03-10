@@ -6,3 +6,30 @@ block content
     li(class="breadcrumb-item active")
       a(href="/") Home
     li(class="breadcrumb-item active") contact
+
+  div(class="well")
+    h3(class="text-center loginMessage") お問い合わせ
+    div(class="contact-form")
+      form(method="post" action="/contact" class="form-horizontal")
+        input(type="hidden" name="_csrf" value!="#{csrfToken}")
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="contact-name") ユーザー名
+          div(class="col-sm-10")
+            input(class="form-control" type="text" name="email" placeholder="Email" id="contact-name")
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="contact-email") メールアドレス (必須)
+
+          div(class="col-sm-10")
+            input(class="form-control" type="text" name="email" placeholder="Email" id="contact-email")
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="contact-subject") お問い合わせ内容
+          div(class="col-sm-10")
+            input(class="form-control" type="text" name="subject" placeholder="Subject" id="contact-subject")
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="contact-Message") 説明
+          div(class="col-sm-10")
+            textarea(class="form-control" name="message" cols="30" rows="10" placeholder="Message" id="contact-Message")
+        div(class="form-group")
+          label(class="col-sm-2 control-label" for="contact-btn")
+          div(class="col-sm-10")
+            button(class="btn" type="submit" id="contact-btn") 送信
