@@ -8,7 +8,8 @@ block content
     li(class="breadcrumb-item active") contact
 
   div(class="well")
-    h3(class="text-center loginMessage") お問い合わせ
+    h3(class="text-center well-title") お問い合わせ
+    div(class="raw")
     div(class="contact-form")
       form(method="post" action="/contact" class="form-horizontal")
         input(type="hidden" name="_csrf" value!="#{csrfToken}")
