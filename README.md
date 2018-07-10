@@ -1,6 +1,6 @@
 # 写経タイピング
 タイピングゲームの作成と公開ができるアプリケーション
-https://www.shakyo-typing.com/
+https://shakyo-typing.herokuapp.com/
 ## 使い方
 ### ゲームのプレイ
 1. パネルのゲームタイトルをクリック
