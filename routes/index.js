@@ -12,9 +12,6 @@ const Comment = require('../models/comment');
 
 // 公開ゲーム一覧
 router.get('/', (req, res, next) => {
-  if (process.env.DATABASE_URL && req.headers['x-forwarded-proto'] === 'http') {
-    res.redirect('https://www.shakyo-typing.com');
-  }
   const favoriteMap = new Map();
   const likeMap = new Map();
   const likeCountMap = new Map();
